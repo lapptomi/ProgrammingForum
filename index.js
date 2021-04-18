@@ -1,5 +1,5 @@
 const http = require('http');
-const app = require('./server/app');
+const app = require('./server/src/app');
 
 const server = http.createServer(app);
 
