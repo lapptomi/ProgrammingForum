@@ -3,21 +3,25 @@ import {
   Route,
   BrowserRouter as Router,
 } from 'react-router-dom';
+import LoginForm from './components/LoginForm';
 import NavBar from './components/NavBar';
+import RegisterForm from './components/RegisterForm';
 
 const App = () => (
   <Router>
-    <div className="App">
+    <div className="App" style={{
+      minWidth: '768px',
+    }}>
       <NavBar />
       <Switch>
         <Route path="/posts/create">
           <h1>Create Post page</h1>
         </Route>
         <Route path="/login">
-          <h1>Login page</h1>
+          <LoginForm />
         </Route>
         <Route path="/register">
-          <h1>Register page</h1>
+          <RegisterForm />
         </Route>
         <Route path="/">
           <h1>Home page</h1>
