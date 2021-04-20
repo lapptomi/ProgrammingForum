@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "heroku-postbuild": "npm run build:ui",
     "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development nodemon index.js",
-    "eslint": "eslint ."
+    "eslint": "eslint .",
+    "build:ui": "cd react-ui && npm install && npm run build --prod && cp -r build ../"
   },
   "repository": {
     "type": "git",
