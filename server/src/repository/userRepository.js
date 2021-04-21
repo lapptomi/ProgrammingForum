@@ -19,7 +19,17 @@ const create = async (user) => {
   };
 };
 
+const findByUsername = async (username) => {
+  const query = ('SELECT * FROM Users WHERE (username = $1)');
+  const result = await pool.query(query, [username]);
+  if (result.rowCount === 0) {
+    throw new Error(`No user found with username: ${username}`);
+  }
+  return result.rows[0]; // result.rows[0] is the user found from the db
+};
+
 module.exports = {
   getAll,
   create,
+  findByUsername,
 };

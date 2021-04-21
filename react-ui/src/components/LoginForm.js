@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import { useState } from 'react';
 import {
   Form,
@@ -6,14 +7,19 @@ import {
   Header,
   Message,
 } from 'semantic-ui-react';
+import loginService from '../services/loginservice';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = () => {
-    // eslint-disable-next-line no-alert
-    window.alert(`Userame: ${username}, Password: ${password}`);
+    loginService.login({ username, password })
+      .then((user) => {
+        window.localStorage.setItem('loggedUser', JSON.stringify(user));
+        window.location.replace('/');
+      })
+      .catch((error) => window.alert(error));
   };
 
   return (
