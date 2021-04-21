@@ -53,7 +53,7 @@ const LoginForm = () => {
               fluid
               size='large'
               type='submit'
-              disabled={!username || !password}
+              disabled={!(username && password)}
             >
               Sign in
             </Button>

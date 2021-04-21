@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 const _ = require('lodash');
 
 const parseEmail = (email) => {
@@ -22,10 +23,6 @@ const parsePassword = (password) => {
 };
 
 const parseNewUser = (user) => {
-  if (process.env.NODE_ENV !== 'production') {
-    // eslint-disable-next-line no-console
-    console.log('User = ', user);
-  }
   return {
     email: parseEmail(user.email),
     username: parseUsername(user.username),
@@ -33,6 +30,28 @@ const parseNewUser = (user) => {
   };
 };
 
+const parseTitle = (title) => {
+  if (!_.isString(title) || title.length > 30 || !(title)) {
+    throw new Error(`Invalid or missing title: ${title}`);
+  }
+  return title;
+};
+
+const parseContent = (content) => {
+  if (!_.isString(content) || content.length > 200 || !(content)) {
+    throw new Error(`Invalid or missing content: ${content}`);
+  }
+  return content;
+};
+
+const parseNewPost = (newPost) => {
+  return {
+    title: parseTitle(newPost.title),
+    content: parseContent(newPost.content),
+  };
+};
+
 module.exports = {
   parseNewUser,
+  parseNewPost,
 };

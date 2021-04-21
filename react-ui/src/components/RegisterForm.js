@@ -56,7 +56,7 @@ const RegisterForm = () => {
               icon='user'
               iconPosition='left'
               placeholder='Username'
-              onChange={(({ target }) => setUsername(target.value))}
+              onChange={((event) => setUsername(event.target.value))}
             />
             <Form.Input
               id='password'
@@ -65,7 +65,7 @@ const RegisterForm = () => {
               iconPosition='left'
               placeholder='Password'
               type='password'
-              onChange={(({ target }) => setPassword(target.value))}
+              onChange={((event) => setPassword(event.target.value))}
             />
             <Form.Input
               id='confirmPassword'
@@ -74,7 +74,7 @@ const RegisterForm = () => {
               iconPosition='left'
               placeholder='Confirm Password'
               type='password'
-              onChange={(({ target }) => setConfirmPassword(target.value))}
+              onChange={((event) => setConfirmPassword(event.target.value))}
             />
             <Button
               color='blue'

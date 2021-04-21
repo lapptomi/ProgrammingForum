@@ -3,17 +3,16 @@ import { useState } from 'react';
 import {
   Form, Segment,
 } from 'semantic-ui-react';
+import postService from '../services/postService';
 
 const CreatePostForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
   const handleSubmit = () => {
-    if (title && content) {
-      window.alert(`Title: ${title} Content: ${content}`);
-    } else {
-      window.alert('Title and content cannot be empty');
-    }
+    postService.create({ title, content })
+      .then(() => window.alert('Post created!'))
+      .catch((error) => window.alert(`Error creating post: ${error.message}`));
   };
 
   return (

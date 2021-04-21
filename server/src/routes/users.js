@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
   try {
     const newUser = parseNewUser(req.body);
     const addedUser = await userRepository.create(newUser);
-    res.json(addedUser);
+    res.status(201).json(addedUser);
   } catch (error) {
     res.status(400).send({ error: `Could not add user: ${error.message}` });
   }

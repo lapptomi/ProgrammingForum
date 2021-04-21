@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const userRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
+const postRouter = require('./routes/posts');
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(express.static('build'));
 
 app.use('/api/users', userRouter);
 app.use('/api/login', loginRouter);
+app.use('/api/posts', postRouter);
 
 /*
   React-router-dom didn't work with express.static
