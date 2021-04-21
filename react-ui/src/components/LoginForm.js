@@ -35,20 +35,18 @@ const LoginForm = () => {
           </Header>
           <Form size='large' onSubmit={handleSubmit}>
             <Form.Input
-              id='account'
               fluid icon='user'
               iconPosition='left'
               placeholder='Username'
-              onChange={((event) => setUsername(event.target.value))}
+              onChange={(({ target }) => setUsername(target.value))}
             />
             <Form.Input
-              id='password'
               fluid
               icon='lock'
               iconPosition='left'
               placeholder='Password'
               type='password'
-              onChange={((event) => setPassword(event.target.value))}
+              onChange={(({ target }) => setPassword(target.value))}
             />
             <Button
               color='blue'

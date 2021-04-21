@@ -5,6 +5,7 @@ import {
   Route,
   BrowserRouter as Router,
 } from 'react-router-dom';
+import CreatePostForm from './components/CreatePostForm';
 import LoginForm from './components/LoginForm';
 import NavBar from './components/NavBar';
 import RegisterForm from './components/RegisterForm';
@@ -13,7 +14,7 @@ const LoggedInRoutes = () => {
   return (
     <Switch>
       <Route path="/posts/create">
-        <h1>Create Post page</h1>
+        <CreatePostForm />
       </Route>
       <Route path="/profile">
         <h1>Profile page</h1>
@@ -61,7 +62,7 @@ const App = () => {
       }}>
         <NavBar />
         {user === null
-          // Different routes depending if user is logged in or not
+          // Use different routes if user is logged in
           ? <LoggedOutRoutes />
           : <LoggedInRoutes />
         }
