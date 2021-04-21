@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import axios from 'axios';
 
 const baseUrl = '/api/posts';
