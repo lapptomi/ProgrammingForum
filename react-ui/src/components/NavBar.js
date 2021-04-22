@@ -4,7 +4,7 @@ import {
   Container,
   Button,
 } from 'semantic-ui-react';
-import loginService from '../services/loginservice';
+import loginService from '../services/loginService';
 
 const LoggedOutNavBar = () => {
   const path = window.location.pathname;
@@ -23,14 +23,6 @@ const LoggedOutNavBar = () => {
           active={path === '/'}
         >
           <Icon name={'home'} /> Home
-        </Menu.Item>
-
-        <Menu.Item
-          as='a'
-          href='/login'
-          active={path === '/posts/create'}
-        >
-          <Icon name={'edit outline'} /> Create New Post
         </Menu.Item>
 
         <Menu.Item position='right'>

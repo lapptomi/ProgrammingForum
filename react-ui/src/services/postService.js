@@ -1,10 +1,16 @@
 import axios from 'axios';
+import loginService from './loginService';
 
 const baseUrl = '/api/posts';
 
-// Add auth / token later
+const config = {
+  headers: {
+    Authorization: `bearer ${loginService.getToken()}`,
+  },
+};
+
 const create = async (newPost) => {
-  const { data } = await axios.post(baseUrl, newPost);
+  const { data } = await axios.post(baseUrl, newPost, config);
   return data;
 };
 

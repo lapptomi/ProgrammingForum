@@ -4,7 +4,7 @@ const { parseNewUser } = require('../utils');
 
 const router = express.Router();
 
-router.get('/', async (_req, res) => {
+router.get('/', async (req, res) => {
   try {
     const users = await userRepository.getAll();
     res.status(200).json(users);

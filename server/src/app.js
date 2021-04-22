@@ -10,6 +10,15 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static('build'));
 
+const tokenExtractor = (req, _res, next) => {
+  const authorization = req.get('authorization');
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    req.token = authorization.substring(7);
+  }
+  next();
+};
+
+app.use(tokenExtractor);
 app.use('/api/users', userRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/posts', postRouter);

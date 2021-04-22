@@ -1,4 +1,5 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const postRepository = require('../repository/postRepository');
 const { parseNewPost } = require('../utils');
 
@@ -15,6 +16,11 @@ router.get('/', async (_req, res) => {
 
 router.post('/', async (req, res) => {
   try {
+    const decodedToken = jwt.verify(req.token, process.env.SECRET);
+    if (!req.token || !decodedToken.username) {
+      throw new Error('Token missing or invalid');
+    }
+
     const newPost = parseNewPost(req.body);
     const addedPost = await postRepository.create(newPost);
     res.status(201).json(addedPost);

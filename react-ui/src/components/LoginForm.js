@@ -7,7 +7,7 @@ import {
   Header,
   Message,
 } from 'semantic-ui-react';
-import loginService from '../services/loginservice';
+import loginService from '../services/loginService';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');

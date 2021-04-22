@@ -10,6 +10,14 @@ const logout = () => {
   }
 };
 
+const getToken = () => {
+  const loggedUser = window.localStorage.getItem('loggedUser');
+  if (!loggedUser) {
+    return null;
+  }
+  return JSON.parse(loggedUser).token;
+};
+
 const login = async ({ username, password }) => {
   const { data } = await axios.post(baseUrl, { username, password });
   return data;
@@ -18,4 +26,5 @@ const login = async ({ username, password }) => {
 export default {
   login,
   logout,
+  getToken,
 };
