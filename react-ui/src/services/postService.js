@@ -9,6 +9,11 @@ const config = {
   },
 };
 
+const getAll = async () => {
+  const { data } = await axios.get(baseUrl);
+  return data;
+};
+
 const create = async (newPost) => {
   const { data } = await axios.post(baseUrl, newPost, config);
   return data;
@@ -16,4 +21,5 @@ const create = async (newPost) => {
 
 export default {
   create,
+  getAll,
 };

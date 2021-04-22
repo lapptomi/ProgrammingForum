@@ -8,42 +8,8 @@ import {
 import CreatePostForm from './components/CreatePostForm';
 import LoginForm from './components/LoginForm';
 import NavBar from './components/NavBar';
+import PostsList from './components/PostsList';
 import RegisterForm from './components/RegisterForm';
-
-const LoggedInRoutes = () => {
-  return (
-    <Switch>
-      <Route path="/posts/create">
-        <CreatePostForm />
-      </Route>
-      <Route path="/profile">
-        <h1>Profile page</h1>
-      </Route>
-      <Route path="/">
-        <h1>Logged In Home page</h1>
-      </Route>
-    </Switch>
-  );
-};
-
-const LoggedOutRoutes = () => {
-  return (
-    <Switch>
-      <Route path="/posts/create">
-        <h1>Create Post page</h1>
-      </Route>
-      <Route path="/login">
-        <LoginForm />
-      </Route>
-      <Route path="/register">
-        <RegisterForm />
-      </Route>
-      <Route path="/">
-        <h1>Logged Out Home page</h1>
-      </Route>
-    </Switch>
-  );
-};
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -55,17 +21,46 @@ const App = () => {
     }
   }, []);
 
+  if (!user) {
+    <Router>
+      <div className="App" style={{
+        minWidth: '768px',
+      }}>
+        <NavBar />
+        <Switch>
+          <Route path="/login">
+            <LoginForm />
+          </Route>
+          <Route path="/register">
+            <RegisterForm />
+          </Route>
+          <Route path="/">
+            <h1>Logged Out Home page</h1>
+            <PostsList />
+          </Route>
+        </Switch>
+      </div>
+    </Router>;
+  }
+
   return (
     <Router>
       <div className="App" style={{
         minWidth: '768px',
       }}>
         <NavBar />
-        {user === null
-          // Use different routes if user is logged in
-          ? <LoggedOutRoutes />
-          : <LoggedInRoutes />
-        }
+        <Switch>
+          <Route path="/posts/create">
+            <CreatePostForm />
+          </Route>
+          <Route path="/profile">
+            <h1>Profile page</h1>
+          </Route>
+          <Route path="/">
+            <h1>Logged In Home page</h1>
+            <PostsList />
+          </Route>
+        </Switch>
       </div>
     </Router>
   );
