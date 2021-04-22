@@ -22,25 +22,27 @@ const App = () => {
   }, []);
 
   if (!user) {
-    <Router>
-      <div className="App" style={{
-        minWidth: '768px',
-      }}>
-        <NavBar />
-        <Switch>
-          <Route path="/login">
-            <LoginForm />
-          </Route>
-          <Route path="/register">
-            <RegisterForm />
-          </Route>
-          <Route path="/">
-            <h1>Logged Out Home page</h1>
-            <PostsList />
-          </Route>
-        </Switch>
-      </div>
-    </Router>;
+    return (
+      <Router>
+        <div className="App" style={{
+          minWidth: '768px',
+        }}>
+          <NavBar />
+          <Switch>
+            <Route path="/login">
+              <LoginForm />
+            </Route>
+            <Route path="/register">
+              <RegisterForm />
+            </Route>
+            <Route path="/">
+              <h1>Logged Out Home page</h1>
+              <PostsList />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    );
   }
 
   return (
