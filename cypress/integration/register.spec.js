@@ -1,7 +1,7 @@
 describe('Creating new user', () => {
 
   beforeEach(() => {
-    cy.request('GET', 'http://localhost:3001/api/testing/reset');
+    cy.request('GET', 'http://localhost:3001/api/testing/resetdb');
     cy.visit('http://localhost:3000');
     cy.contains('Sign Up').click();
   });

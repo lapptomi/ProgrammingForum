@@ -1,6 +1,6 @@
 describe('Sign in', () => {
   beforeEach(() => {
-    cy.request('GET', 'http://localhost:3001/api/testing/reset');
+    cy.request('GET', 'http://localhost:3001/api/testing/resetdb');
 
     // creating user for testing
     const testUser = {
