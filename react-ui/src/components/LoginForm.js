@@ -19,7 +19,7 @@ const LoginForm = () => {
         window.localStorage.setItem('loggedUser', JSON.stringify(user));
         window.location.replace('/');
       })
-      .catch((error) => window.alert(error));
+      .catch(() => window.alert('Error logging in'));
   };
 
   return (
@@ -35,20 +35,23 @@ const LoginForm = () => {
           </Header>
           <Form size='large' onSubmit={handleSubmit}>
             <Form.Input
+              id='username'
               fluid icon='user'
               iconPosition='left'
               placeholder='Username'
-              onChange={(({ target }) => setUsername(target.value))}
+              onChange={((event) => setUsername(event.target.value))}
             />
             <Form.Input
+              id='password'
               fluid
               icon='lock'
               iconPosition='left'
               placeholder='Password'
               type='password'
-              onChange={(({ target }) => setPassword(target.value))}
+              onChange={((event) => setPassword(event.target.value))}
             />
             <Button
+              id='loginButton'
               color='blue'
               fluid
               size='large'

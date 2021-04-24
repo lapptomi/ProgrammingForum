@@ -51,7 +51,7 @@ const RegisterForm = () => {
               onChange={((event) => setEmail(event.target.value))}
             />
             <Form.Input
-              id='account'
+              id='username'
               fluid
               icon='user'
               iconPosition='left'
@@ -77,6 +77,7 @@ const RegisterForm = () => {
               onChange={((event) => setConfirmPassword(event.target.value))}
             />
             <Button
+              id='registerButton'
               color='blue'
               fluid
               size='large'

@@ -3,12 +3,22 @@ const cors = require('cors');
 const userRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
 const postRouter = require('./routes/posts');
+const { initializeDB } = require('./config/dbconfig');
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 app.use(express.static('build'));
+
+app.get('/api/testing/reset', async (_req, res) => {
+  try {
+    await initializeDB();
+    res.status(200).end();
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
 
 const tokenExtractor = (req, _res, next) => {
   const authorization = req.get('authorization');

@@ -8,7 +8,10 @@
     "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development nodemon index.js",
     "eslint": "eslint .",
-    "build:ui": "cd react-ui && npm install && npm run build --prod && cp -r build ../"
+    "build:ui": "cd react-ui && npm install && npm run build --prod && cp -r build ../",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "start:full": "concurrently \"NODE_ENV=test node index.js\" \"cd react-ui && npm start\""
   },
   "repository": {
     "type": "git",
@@ -22,7 +25,9 @@
   "homepage": "https://github.com/lapptomi/tsoha-2021#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "concurrently": "^6.0.2",
     "cors": "^2.8.5",
+    "cypress": "^7.1.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",

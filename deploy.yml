@@ -1,0 +1,30 @@
+name: Test And Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  basic_pipeline:
+    runs-on: ubuntu-18.04
+    
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+      - name: npm install
+        run: npm install && cd react-ui && npm install
+      - name: lint
+        run: npm run eslint
+      - name: e2e tests
+        uses: cypress-io/github-action@v2
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SECRET: 'supersecretkey'
+        with:
+          browser: chrome
+          headless: true
+          start: npm run start:full
+          wait-on: http://localhost:3000
