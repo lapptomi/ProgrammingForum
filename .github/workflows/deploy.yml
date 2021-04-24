@@ -34,6 +34,6 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "tsoha-2021-tl"
           heroku_email: ${{ secrets.EMAIL }}
-          healthcheck: "https://surveycreatorpro.herokuapp.com/api/testing/health"
+          healthcheck: "https://tsoha-2021-tl.herokuapp.com/api/testing/health"
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
