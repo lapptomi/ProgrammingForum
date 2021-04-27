@@ -8,6 +8,7 @@ import {
   Message,
 } from 'semantic-ui-react';
 import axios from 'axios';
+import loginService from '../services/loginService';
 
 const RegisterForm = () => {
   const [email, setEmail] = useState('');
@@ -25,13 +26,15 @@ const RegisterForm = () => {
 
   const handleSubmit = () => {
     const newUser = { email, username, password };
+
     axios.post('/api/users', newUser)
       .then(() => {
-        window.alert('User created! Please sign in.');
-        setEmail('');
-        setUsername('');
-        setPassword('');
-        setConfirmPassword('');
+        loginService.login({ username, password })
+          .then((user) => {
+            window.localStorage.setItem('loggedUser', JSON.stringify(user));
+            window.location.replace('/');
+          })
+          .catch(() => window.alert('Error logging in'));
       })
       .catch(() => window.alert('Error creating user'));
   };

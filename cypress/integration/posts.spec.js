@@ -39,8 +39,14 @@ describe('Creating new post', () => {
     cy.get('#createPostButton').click();
 
     cy.contains('Home').click();
+    cy.contains('Posts').click();
+    cy.contains(testPost.title);
+    cy.contains(testPost.description).click();
+    cy.wait(2000);
+
     cy.contains(testPost.title);
     cy.contains(testPost.description);
+
   });
 
   it('is not allowed when title is left empty', () => {
