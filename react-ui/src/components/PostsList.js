@@ -19,7 +19,7 @@ const PostsList = () => {
       <List divided>
         {posts.map((post, i) => (
           <List.Item key={i}>
-            <Post title={post.title} content={post.content} />
+            <Post title={post.title} description={post.description} />
           </List.Item>
         ))}
       </List>

@@ -26,7 +26,13 @@ const RegisterForm = () => {
   const handleSubmit = () => {
     const newUser = { email, username, password };
     axios.post('/api/users', newUser)
-      .then(() => window.alert('User created!'))
+      .then(() => {
+        window.alert('User created! Please sign in.');
+        setEmail('');
+        setUsername('');
+        setPassword('');
+        setConfirmPassword('');
+      })
       .catch(() => window.alert('Error creating user'));
   };
 

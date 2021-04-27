@@ -37,17 +37,17 @@ const parseTitle = (title) => {
   return title;
 };
 
-const parseContent = (content) => {
-  if (!_.isString(content) || content.length > 200 || !content) {
-    throw new Error(`Invalid or missing content: ${content}`);
+const parseDescription = (description) => {
+  if (!_.isString(description) || description.length > 200 || !description) {
+    throw new Error(`Invalid or missing description: ${description}`);
   }
-  return content;
+  return description;
 };
 
 const parseNewPost = (newPost) => {
   return {
     title: parseTitle(newPost.title),
-    content: parseContent(newPost.content),
+    description: parseDescription(newPost.description),
   };
 };
 

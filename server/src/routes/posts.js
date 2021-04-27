@@ -1,6 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const postRepository = require('../repository/postRepository');
+const userRepository = require('../repository/userRepository');
 const { parseNewPost } = require('../utils');
 
 const router = express.Router();
@@ -21,8 +22,10 @@ router.post('/', async (req, res) => {
       throw new Error('Token missing or invalid');
     }
 
+    const originalPoster = await userRepository.findByUsername(decodedToken.username);
+
     const newPost = parseNewPost(req.body);
-    const addedPost = await postRepository.create(newPost);
+    const addedPost = await postRepository.create(originalPoster.id, newPost);
     res.status(201).json(addedPost);
   } catch (error) {
     res.status(400).send({ error: `Could not add new post: ${error.message}` });

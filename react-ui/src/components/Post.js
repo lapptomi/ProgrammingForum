@@ -1,10 +1,10 @@
 import { List } from 'semantic-ui-react';
 
-const Post = ({ title, content }) => (
+const Post = ({ title, description }) => (
   <List.Item>
     <List.Content>
       <h3>Title: {title}</h3>
-      <b>Content: {content}</b>
+      <b>Description: {description}</b>
     </List.Content>
   </List.Item>
 );

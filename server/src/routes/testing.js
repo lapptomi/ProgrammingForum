@@ -3,7 +3,7 @@ const { initializeDB } = require('../config/dbconfig');
 
 const router = express.Router();
 
-router.get('/resetdb', async (_req, res) => {
+router.post('/resetdb', async (_req, res) => {
   try {
     await initializeDB();
     res.status(200).end();

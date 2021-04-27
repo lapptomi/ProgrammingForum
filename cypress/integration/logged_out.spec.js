@@ -1,6 +1,6 @@
 describe('When user is logged out', () => {
   beforeEach(() => {
-    cy.request('GET', 'http://localhost:3001/api/testing/resetdb');
+    cy.request('POST', 'http://localhost:3001/api/testing/resetdb');
     cy.visit('http://localhost:3000');
   });
 
