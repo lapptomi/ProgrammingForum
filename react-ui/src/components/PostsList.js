@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 
 const PostsList = ({ posts }) => {
   return (
-    <Grid celled padded>
+    <Grid celled padded style={{ padding: '20px 50px 0px 50px' }}>
+      <Header as='h1' content='Posts: ' />
       {posts.map((post, i) => (
         <Grid.Row key={i} style={{ padding: '10px' }}>
           <Grid.Column width={16}>

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import {
   Switch,
   Route,
+  Redirect,
 } from 'react-router-dom';
 import CreatePostForm from './components/CreatePostForm';
 import LoginForm from './components/LoginForm';
@@ -13,7 +14,6 @@ import Post from './components/Post';
 import postService from './services/postService';
 
 const App = () => {
-  const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -22,37 +22,7 @@ const App = () => {
       .catch((e) => console.log(e));
   }, []);
 
-  useEffect(() => {
-    const loggedUser = window.localStorage.getItem('loggedUser');
-    if (loggedUser) {
-      setUser(loggedUser);
-    }
-  }, []);
-
-  if (!user) {
-    return (
-      <div className="App" style={{
-        minWidth: '768px',
-      }}>
-        <NavBar />
-        <Switch>
-          <Route path="/login">
-            <LoginForm />
-          </Route>
-          <Route path="/register">
-            <RegisterForm />
-          </Route>
-          <Route path='/posts/:id'>
-            <Post posts={posts} />
-          </Route>
-          <Route path={['/', '/posts']}>
-            <h1>Posts</h1>
-            <PostsList posts={posts} />
-          </Route>
-        </Switch>
-      </div>
-    );
-  }
+  const loggedUser = window.localStorage.getItem('loggedUser');
 
   return (
     <div className="App" style={{
@@ -61,16 +31,26 @@ const App = () => {
       <NavBar />
       <Switch>
         <Route path="/posts/create">
-          <CreatePostForm />
+          { loggedUser !== null ? <CreatePostForm /> : <Redirect to="/login" />}
         </Route>
-        <Route path='/profile'>
-          <h1>Profile page</h1>
-        </Route>
+
         <Route path='/posts/:id'>
           <Post posts={posts} />
         </Route>
+
+        <Route exact path="/login">
+          { loggedUser !== null ? <Redirect to="/" /> : <LoginForm /> }
+        </Route>
+
+        <Route path="/register">
+          { loggedUser !== null ? <Redirect to="/" /> : <RegisterForm /> }
+        </Route>
+
+        <Route path='/profile'>
+          <h1>Profile page</h1>
+        </Route>
+
         <Route path={['/', '/posts']}>
-          <h1>Posts</h1>
           <PostsList posts={posts} />
         </Route>
       </Switch>

@@ -38,12 +38,12 @@ describe('Creating new post', () => {
     cy.get('#createPostButton').should('be.enabled');
     cy.get('#createPostButton').click();
 
-    cy.contains('Home').click();
-    cy.contains('Posts').click();
-    cy.contains(testPost.title);
-    cy.contains(testPost.description).click();
-    cy.wait(2000);
+    cy.wait(2000)
+    cy.on('window:alert', (alertText) => {
+      expect(alertText).to.equal('Post created!');
+    });
 
+    cy.wait(1000)
     cy.contains(testPost.title);
     cy.contains(testPost.description);
 

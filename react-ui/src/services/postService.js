@@ -15,8 +15,8 @@ const getAll = async () => {
 };
 
 const create = async (newPost) => {
-  const { data } = await axios.post(baseUrl, newPost, config);
-  return data;
+  const response = await axios.post(baseUrl, newPost, config);
+  return response;
 };
 
 export default {

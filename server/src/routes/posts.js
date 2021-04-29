@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
     const addedPost = await postRepository.create(originalPoster.id, newPost);
     res.status(201).json(addedPost);
   } catch (error) {
-    res.status(400).send({ error: `Could not add new post: ${error.message}` });
+    res.status(401).send(error.message);
   }
 });
 
