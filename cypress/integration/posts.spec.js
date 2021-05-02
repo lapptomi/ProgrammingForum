@@ -3,17 +3,18 @@ const testPost = {
   description: 'randomdescription'
 };
 
+const testUser = {
+  email: 'testemail@gmail.com',
+  username: 'testusername',
+  password: "testpassword",
+};
+
 describe('Creating new post', () => {
 
   beforeEach(() => {
     cy.request('POST', 'http://localhost:3001/api/testing/resetdb');
 
     // creating user for testing
-    const testUser = {
-      email: 'testemail@gmail.com',
-      username: 'testusername',
-      password: "testpassword",
-    }
     cy.request('POST', 'http://localhost:3001/api/users/', testUser)
 
     cy.visit('http://localhost:3000');
@@ -21,8 +22,8 @@ describe('Creating new post', () => {
 
     // logging in the user before running tests
     cy.contains('Sign in to your account');
-    cy.get('#username').type('testusername');
-    cy.get('#password').type('testpassword');
+    cy.get('#username').type(testUser.username);
+    cy.get('#password').type(testUser.password);
     cy.get('#loginButton').should('be.enabled');
     cy.get('#loginButton').click();
     

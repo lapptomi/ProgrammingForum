@@ -51,7 +51,15 @@ const parseNewPost = (newPost) => {
   };
 };
 
+const parseComment = (comment) => {
+  if (!_.isString(comment) || comment.length > 200 || !comment) {
+    throw new Error(`Invalid or missing comment: ${comment}`);
+  }
+  return comment;
+};
+
 module.exports = {
   parseNewUser,
   parseNewPost,
+  parseComment,
 };

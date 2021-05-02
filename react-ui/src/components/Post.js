@@ -1,40 +1,47 @@
+/* eslint-disable no-console */
+import { useEffect, useState } from 'react';
 import {
   Container, Divider, Header, Segment,
 } from 'semantic-ui-react';
-import { useParams } from 'react-router-dom';
+import postService from '../services/postService';
+import CommentForm from './CommentForm';
 
-const Post = ({ posts }) => {
-  const { id } = useParams();
-  const post = posts.find((p) => p.id === Number(id));
+const Post = ({ post }) => {
+  const [comments, setComments] = useState([]);
 
-  const comments = [
-    { writer: 'randomuser123', comment: 'random comment 1' },
-    { writer: 'dragonslayer123', comment: 'random comment666' },
-  ];
-
-  if (!post) {
-    return (
-      <Container textAlign='center' style={{ padding: '50px' }}>
-        <h1>No post found with given id</h1>
-      </Container>
-    );
-  }
+  useEffect(() => {
+    postService.findCommentsByPostId(post.id)
+      .then((result) => setComments(result))
+      .catch((error) => console.log(error.message));
+  }, [post.id]);
 
   return (
     <Container>
+      <Header
+        style={{ marginTop: '50px' }}
+        as='h1'
+        content={`Post ${post.id}`}
+        subheader={`Original poster id: ${post.original_poster_id}`}
+      />
       <Segment size='huge'>
         <Header as='h1' content={post.title} />
         <Divider />
         <p>{post.description}</p>
       </Segment>
-      <Header as='h2' content='Comments:' />
-      {comments.map((comment, i) => (
+      <Header as='h3' content='Comments:' />
+
+      {comments.map((c, i) => (
         <Segment key={i}>
-          <Header as='h1' content={comment.writer} />
+          <Header
+            as='b'
+            subheader={`ID: ${c.writer_id} ${c.writer_username}`}
+          />
           <Divider />
-          <p>{comment.comment}</p>
+          <b>{c.comment}</b>
         </Segment>
       ))}
+
+      <CommentForm post={post} />
     </Container>
   );
 };

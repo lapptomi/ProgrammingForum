@@ -4,7 +4,9 @@ import {
   Switch,
   Route,
   Redirect,
+  useRouteMatch,
 } from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
 import CreatePostForm from './components/CreatePostForm';
 import LoginForm from './components/LoginForm';
 import NavBar from './components/NavBar';
@@ -24,26 +26,35 @@ const App = () => {
 
   const loggedUser = window.localStorage.getItem('loggedUser');
 
+  const match = useRouteMatch('/posts/:id');
+  const post = match
+    ? posts.find((p) => p.id === Number(match.params.id))
+    : null;
+
   return (
     <div className="App" style={{
       minWidth: '768px',
     }}>
       <NavBar />
       <Switch>
+
         <Route path="/posts/create">
-          { loggedUser !== null ? <CreatePostForm /> : <Redirect to="/login" />}
+          { loggedUser ? <CreatePostForm /> : <Redirect to="/login" /> }
         </Route>
 
         <Route path='/posts/:id'>
-          <Post posts={posts} />
+          {post
+            ? <Post post={post} />
+            : <Container textAlign= 'center'><h1>404 - Not Found</h1></Container>
+          }
         </Route>
 
         <Route exact path="/login">
-          { loggedUser !== null ? <Redirect to="/" /> : <LoginForm /> }
+          { loggedUser ? <Redirect to="/" /> : <LoginForm /> }
         </Route>
 
         <Route path="/register">
-          { loggedUser !== null ? <Redirect to="/" /> : <RegisterForm /> }
+          { loggedUser ? <Redirect to="/" /> : <RegisterForm /> }
         </Route>
 
         <Route path='/profile'>

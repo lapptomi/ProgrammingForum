@@ -16,7 +16,7 @@ const initializeDB = async () => {
   await pool.query('CREATE TABLE Posts (id SERIAL PRIMARY KEY, original_poster_id INTEGER REFERENCES Users(id), title TEXT NOT NULL, description TEXT NOT NULL)');
 
   await pool.query('DROP TABLE IF EXISTS Comments CASCADE');
-  await pool.query('CREATE TABLE Comments (id SERIAL PRIMARY KEY, post_id INTEGER REFERENCES Posts(id), comment TEXT NOT NULL)');
+  await pool.query('CREATE TABLE Comments (id SERIAL PRIMARY KEY, post_id INTEGER REFERENCES Posts(id), writer_id INTEGER REFERENCES Users(id), writer_username TEXT REFERENCES Users(username), comment TEXT NOT NULL)');
 };
 
 module.exports = {

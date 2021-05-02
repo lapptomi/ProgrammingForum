@@ -1,13 +1,14 @@
+const testUser = {
+  email: 'testemail@gmail.com',
+  username: 'testusername',
+  password: "testpassword",
+};
+
 describe('Sign in', () => {
   beforeEach(() => {
     cy.request('POST', 'http://localhost:3001/api/testing/resetdb');
 
     // creating user for testing
-    const testUser = {
-      email: 'testemail@gmail.com',
-      username: 'testusername',
-      password: "testpassword",
-    }
     cy.request('POST', 'http://localhost:3001/api/users/', testUser)
 
     cy.visit('http://localhost:3000');
@@ -16,8 +17,8 @@ describe('Sign in', () => {
 
   it('works with correct credentials', () => {
     cy.contains('Sign in to your account');
-    cy.get('#username').type('testusername');
-    cy.get('#password').type('testpassword');
+    cy.get('#username').type(testUser.username);
+    cy.get('#password').type(testUser.password);
     cy.get('#loginButton').should('be.enabled');
     cy.get('#loginButton').click();
     
@@ -28,7 +29,7 @@ describe('Sign in', () => {
 
   it('fails with invalid credentials', () => {
     cy.contains('Sign in to your account');
-    cy.get('#username').type('testusername');
+    cy.get('#username').type(testUser.username);
     cy.get('#password').type('wrongpassword');
     cy.get('#loginButton').should('be.enabled');
     cy.get('#loginButton').click();
