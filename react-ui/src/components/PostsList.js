@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const PostsList = ({ posts }) => {
   return (
-    <Container>
+    <Container style={{ marginTop: '50px' }}>
       <Grid celled padded style={{ padding: '20px 50px 0px 50px' }}>
         <Header as='h1' content='Posts: ' />
         {posts.map((post, i) => (

@@ -7,17 +7,17 @@ const testUser = {
   email: 'testemail@gmail.com',
   username: 'testusername',
   password: "testpassword",
-}
+};
 
 const testComment = {
   comment: 'random comment'
-}
+};
 const testComment2 = {
   comment: 'random comment2'
-}
+};
 const invalidComment = {
   comment: ''
-}
+};
 
 describe.only('Adding comments to a post', () => {
 

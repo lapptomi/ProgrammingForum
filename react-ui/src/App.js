@@ -6,7 +6,9 @@ import {
   Redirect,
   useRouteMatch,
 } from 'react-router-dom';
-import { Container } from 'semantic-ui-react';
+import {
+  Container, Grid, Header, Icon,
+} from 'semantic-ui-react';
 import CreatePostForm from './components/CreatePostForm';
 import LoginForm from './components/LoginForm';
 import NavBar from './components/NavBar';
@@ -14,6 +16,7 @@ import PostsList from './components/PostsList';
 import RegisterForm from './components/RegisterForm';
 import Post from './components/Post';
 import postService from './services/postService';
+import Footer from './components/Footer';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -36,35 +39,61 @@ const App = () => {
       minWidth: '768px',
     }}>
       <NavBar />
-      <Switch>
+      <div style={{
+        minHeight: '80vh',
+      }}>
+        <Switch>
+          <Route path="/posts/create">
+            { loggedUser ? <CreatePostForm /> : <Redirect to="/login" /> }
+          </Route>
 
-        <Route path="/posts/create">
-          { loggedUser ? <CreatePostForm /> : <Redirect to="/login" /> }
-        </Route>
+          <Route path='/posts/:id'>
+            {post
+              ? <Post post={post} />
+              : <Container textAlign= 'center'><h1>404 - Not Found</h1></Container>
+            }
+          </Route>
 
-        <Route path='/posts/:id'>
-          {post
-            ? <Post post={post} />
-            : <Container textAlign= 'center'><h1>404 - Not Found</h1></Container>
-          }
-        </Route>
+          <Route exact path="/login">
+            { loggedUser ? <Redirect to="/" /> : <LoginForm /> }
+          </Route>
 
-        <Route exact path="/login">
-          { loggedUser ? <Redirect to="/" /> : <LoginForm /> }
-        </Route>
+          <Route path="/register">
+            { loggedUser ? <Redirect to="/" /> : <RegisterForm /> }
+          </Route>
 
-        <Route path="/register">
-          { loggedUser ? <Redirect to="/" /> : <RegisterForm /> }
-        </Route>
+          <Route path='/profile'>
+            <h1>Profile page</h1>
+          </Route>
 
-        <Route path='/profile'>
-          <h1>Profile page</h1>
-        </Route>
+          <Route path={['/', '/posts']}>
+            <Grid divided inverted stackable>
+              <Grid.Row
+                color='violet'
+                textAlign='center'
+                style={{ padding: '150px' }}
+              >
+                <Grid.Column width={16} textAlign='center'>
+                  <Header
+                    style={{ fontSize: '48px' }}
+                    inverted
+                  >
+                    <Icon name='code' /> Programming Forum
+                  </Header>
+                  <Header
+                    style={{ fontSize: '18px' }}
+                    inverted
+                    content='Your number #1 place for talking about coding related stuff!'
+                  />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+            <PostsList posts={posts} />
+          </Route>
+        </Switch>
+      </div>
 
-        <Route path={['/', '/posts']}>
-          <PostsList posts={posts} />
-        </Route>
-      </Switch>
+      <Footer />
     </div>
   );
 };

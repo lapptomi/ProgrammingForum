@@ -27,7 +27,6 @@ describe('Creating new user', () => {
   });
 
   it('fails when non unique username is given', () => {
-   
     cy.request('POST', 'http://localhost:3001/api/users/', testUser)
     
     cy.contains('Create new account');
