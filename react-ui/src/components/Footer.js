@@ -11,10 +11,10 @@ const Footer = () => (
   <Segment
     inverted
     vertical
-    style={{ margin: '5em 0em 0em', padding: '5em 0em' }}
+    style={{ padding: '80px', bottom: 0, marginTop: '200px' }}
   >
     <Container textAlign='center'>
-      <Grid divided inverted stackable>
+      <Grid divided inverted>
         <Grid.Column width={16}>
           <Header inverted as='h2' content='Programming Forum' />
           <p>© 2021 All Rights Reserved</p>
@@ -22,7 +22,7 @@ const Footer = () => (
       </Grid>
 
       <Divider inverted section />
-      <List horizontal inverted divided link size='small'>
+      <List horizontal inverted link size='small'>
         <List.Item as='a' href='#'>
           Site Map
         </List.Item>

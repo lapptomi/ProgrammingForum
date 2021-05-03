@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { useEffect, useState } from 'react';
 import {
-  Container, Divider, Header, Segment,
+  Container, Divider, Header, Segment, Comment,
 } from 'semantic-ui-react';
 import postService from '../services/postService';
 import CommentForm from './CommentForm';
@@ -30,16 +30,20 @@ const Post = ({ post }) => {
       </Segment>
       <Header as='h3' content='Comments:' />
 
-      {comments.map((c, i) => (
-        <Segment key={i}>
-          <Header
-            as='b'
-            subheader={`ID: ${c.writer_id} ${c.writer_username}`}
-          />
-          <Divider />
-          <b>{c.comment}</b>
-        </Segment>
-      ))}
+      <Comment.Group>
+        {comments.map((comment, i) => (
+          <Comment key={i}>
+            <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
+            <Comment.Content>
+              <Comment.Author as='a'>{comment.writer_username}</Comment.Author>
+              <Comment.Metadata>
+                <div>Today at 5:42PM</div>
+              </Comment.Metadata>
+              <Comment.Text>{comment.comment}</Comment.Text>
+            </Comment.Content>
+          </Comment>
+        ))}
+      </Comment.Group>
 
       <CommentForm post={post} />
     </Container>

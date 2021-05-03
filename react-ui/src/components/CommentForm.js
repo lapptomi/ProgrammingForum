@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 import { useState } from 'react';
 import {
-  Form, Segment, Header,
+  Form, Button, Header, Segment,
 } from 'semantic-ui-react';
 import postService from '../services/postService';
 
@@ -11,7 +11,6 @@ const CommentForm = ({ post }) => {
   const handleSubmit = () => {
     postService.addComment(post.id, comment)
       .then(() => {
-        window.alert('Comment added!');
         window.location.reload();
       })
       .catch(({ response }) => {
@@ -24,14 +23,13 @@ const CommentForm = ({ post }) => {
   };
 
   const loggedUser = window.localStorage.getItem('loggedUser');
-
   if (!loggedUser) {
     return <Header as='b' content='Please sign in to add comments' />;
   }
 
   return (
     <Segment>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} reply>
         <Form.TextArea
           id='commentField'
           style={{ minHeight: '50px' }}
@@ -39,13 +37,14 @@ const CommentForm = ({ post }) => {
           placeholder='Comment...'
           onChange={((event) => setComment(event.target.value))}
         />
-        <Form.Button
+        <Button
           id='addCommentButton'
+          content='Add Comment'
+          labelPosition='left'
+          icon='edit'
           primary
-          disabled={comment.length < 2}
-        >
-          Create
-        </Form.Button>
+          disabled={!comment}
+        />
       </Form>
     </Segment>
   );

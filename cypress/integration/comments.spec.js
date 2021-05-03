@@ -19,7 +19,7 @@ const invalidComment = {
   comment: ''
 };
 
-describe.only('Adding comments to a post', () => {
+describe('Adding comments to a post', () => {
 
   beforeEach(() => {
     cy.request('POST', 'http://localhost:3001/api/testing/resetdb');
@@ -58,11 +58,7 @@ describe.only('Adding comments to a post', () => {
     cy.get('#addCommentButton').should('be.enabled');
     cy.get('#addCommentButton').click();
     
-    cy.wait(2000);
-    cy.on('window:alert', (alertText) => {
-      expect(alertText).to.equal('Comment added!');
-    });
-
+    cy.wait(1000);
     cy.contains(testComment.comment);
     cy.contains(testUser.username);
   });
@@ -94,23 +90,15 @@ describe.only('Adding comments to a post', () => {
     cy.get('#commentField').type(testComment.comment);
     cy.get('#addCommentButton').should('be.enabled');
     cy.get('#addCommentButton').click();
-
-    cy.wait(2000);
-    cy.on('window:alert', (alertText) => {
-      expect(alertText).to.equal('Comment added!');
-    });
-
+    cy.wait(1000);
+    
     // Add another comment
     cy.contains('Add a new comment.');
     cy.get('#commentField').type(testComment2.comment);
     cy.get('#addCommentButton').should('be.enabled');
     cy.get('#addCommentButton').click();
-
-    cy.wait(2000);
-    cy.on('window:alert', (alertText) => {
-      expect(alertText).to.equal('Comment added!');
-    });
-
+    cy.wait(1000);
+  
     cy.contains(testComment.comment);
     cy.contains(testComment2.comment);
     cy.contains(testUser.username);

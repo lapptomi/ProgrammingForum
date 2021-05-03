@@ -7,7 +7,8 @@ import {
   useRouteMatch,
 } from 'react-router-dom';
 import {
-  Container, Grid, Header, Icon,
+  Container,
+  Grid, Header, Icon, Loader,
 } from 'semantic-ui-react';
 import CreatePostForm from './components/CreatePostForm';
 import LoginForm from './components/LoginForm';
@@ -17,49 +18,65 @@ import RegisterForm from './components/RegisterForm';
 import Post from './components/Post';
 import postService from './services/postService';
 import Footer from './components/Footer';
+import { useStateValue } from './state/state';
 
 const App = () => {
-  const [posts, setPosts] = useState([]);
+  const [state, dispatch] = useStateValue();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     postService.getAll()
-      .then((result) => setPosts(result))
-      .catch((e) => console.log(e));
-  }, []);
-
-  const loggedUser = window.localStorage.getItem('loggedUser');
+      .then((result) => {
+        dispatch({ type: 'SET_POSTS_LIST', posts: result });
+        setLoading(false);
+      })
+      .catch((e) => {
+        setLoading(false);
+        console.log(e);
+      });
+  }, [dispatch]);
 
   const match = useRouteMatch('/posts/:id');
   const post = match
-    ? posts.find((p) => p.id === Number(match.params.id))
+    ? state.posts.find((p) => p.id === Number(match.params.id))
     : null;
 
+  const loggedUser = window.localStorage.getItem('loggedUser');
+
+  if (loading) {
+    return (
+      <div className="App">
+        <NavBar />
+        <Loader active size='big'>Loading</Loader>
+      </div>
+    );
+  }
+
   return (
-    <div className="App" style={{
-      minWidth: '768px',
-    }}>
+    <div className="App">
       <NavBar />
       <div style={{
-        minHeight: '80vh',
+        minWidth: '768px',
+        minHeight: '100vh',
       }}>
         <Switch>
           <Route path="/posts/create">
-            { loggedUser ? <CreatePostForm /> : <Redirect to="/login" /> }
+            {loggedUser ? <CreatePostForm /> : <Redirect to="/login" />}
           </Route>
 
           <Route path='/posts/:id'>
             {post
               ? <Post post={post} />
-              : <Container textAlign= 'center'><h1>404 - Not Found</h1></Container>
+              : <Container textAlign='center'><h1>404 - Not Found</h1></Container>
             }
           </Route>
 
           <Route exact path="/login">
-            { loggedUser ? <Redirect to="/" /> : <LoginForm /> }
+            {loggedUser ? <Redirect to="/" /> : <LoginForm />}
           </Route>
 
           <Route path="/register">
-            { loggedUser ? <Redirect to="/" /> : <RegisterForm /> }
+            {loggedUser ? <Redirect to="/" /> : <RegisterForm />}
           </Route>
 
           <Route path='/profile'>
@@ -88,11 +105,10 @@ const App = () => {
                 </Grid.Column>
               </Grid.Row>
             </Grid>
-            <PostsList posts={posts} />
+            <PostsList />
           </Route>
         </Switch>
       </div>
-
       <Footer />
     </div>
   );
