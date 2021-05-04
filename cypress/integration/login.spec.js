@@ -46,7 +46,7 @@ describe('Sign in', () => {
     });
   });
 
-  it('fails when username given does not exist', () => {
+  it('fails when user with username given does not exist', () => {
     cy.contains('Sign in to your account');
     cy.get('#username').type(nonExistingUser.username);
     cy.get('#password').type(nonExistingUser.password);
