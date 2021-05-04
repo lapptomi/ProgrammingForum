@@ -31,8 +31,8 @@ const RegisterForm = () => {
     axios.post('/api/users', newUser)
       .then(() => {
         loginService.login({ username, password })
-          .then((user) => {
-            window.localStorage.setItem('loggedUser', JSON.stringify(user));
+          .then((result) => {
+            window.localStorage.setItem('loggedUser', JSON.stringify(result.data));
             window.location.replace('/');
           })
           .catch(() => window.alert('Error logging in'));

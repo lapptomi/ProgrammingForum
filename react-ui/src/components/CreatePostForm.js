@@ -20,6 +20,8 @@ const CreatePostForm = () => {
           window.alert('Error: session has expired, please sign in again');
           window.localStorage.clear();
           window.location.replace('/login');
+        } else {
+          window.alert(`Error creating post: ${response.data}`);
         }
       });
   };
