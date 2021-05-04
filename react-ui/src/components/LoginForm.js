@@ -6,6 +6,7 @@ import {
   Grid,
   Header,
   Message,
+  Icon,
 } from 'semantic-ui-react';
 import loginService from '../services/loginService';
 
@@ -15,23 +16,37 @@ const LoginForm = () => {
 
   const handleSubmit = () => {
     loginService.login({ username, password })
-      .then((user) => {
-        window.localStorage.setItem('loggedUser', JSON.stringify(user));
+      .then((result) => {
+        window.localStorage.setItem('loggedUser', JSON.stringify(result.data));
         window.location.replace('/');
       })
-      .catch(() => window.alert('Error logging in'));
+      .catch(({ response }) => {
+        window.alert(JSON.stringify(response.data.error));
+      });
   };
 
   return (
     <Grid
       textAlign='center'
-      style={{ minHeight: '100vh', margin: 0 }}
       verticalAlign='middle'
     >
+
+      <Grid.Row
+        color='violet'
+        textAlign='center'
+        style={{ padding: '100px' }}
+      >
+        <Grid.Column width={16} textAlign='center'>
+          <Header inverted style={{ fontSize: '48px' }}>
+            <Icon name='code' /> Sign in to your account
+          </Header>
+        </Grid.Column>
+      </Grid.Row>
+
       <Grid.Row>
-        <Grid.Column style={{ maxWidth: 450 }} width={16}>
-          <Header as='h2' textAlign='center'>
-            Sign in to your account
+        <Grid.Column style={{ maxWidth: '500px', marginTop: '100px' }} width={16}>
+          <Header as='h2' textAlign='left'>
+            Sign in
           </Header>
           <Form size='large' onSubmit={handleSubmit}>
             <Form.Input

@@ -19,8 +19,8 @@ const getToken = () => {
 };
 
 const login = async ({ username, password }) => {
-  const { data } = await axios.post(baseUrl, { username, password });
-  return data;
+  const response = await axios.post(baseUrl, { username, password });
+  return response;
 };
 
 export default {

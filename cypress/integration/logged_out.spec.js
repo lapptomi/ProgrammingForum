@@ -5,8 +5,7 @@ describe('When user is logged out', () => {
   });
 
   it('front page can be opened', () => {
-    cy.contains('Sign in');
-    cy.contains('Sign in');
+    cy.contains('random text');
     cy.contains('Home');
   });
 });

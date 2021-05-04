@@ -6,6 +6,7 @@ import {
   Grid,
   Header,
   Message,
+  Icon,
 } from 'semantic-ui-react';
 import axios from 'axios';
 import loginService from '../services/loginService';
@@ -42,13 +43,25 @@ const RegisterForm = () => {
   return (
     <Grid
       textAlign='center'
-      style={{ minHeight: '100vh', margin: 0 }}
       verticalAlign='middle'
     >
+
+      <Grid.Row
+        color='violet'
+        textAlign='center'
+        style={{ padding: '100px' }}
+      >
+        <Grid.Column width={16} textAlign='center'>
+          <Header inverted style={{ fontSize: '48px' }}>
+            <Icon name='code' /> Create a new account
+          </Header>
+        </Grid.Column>
+      </Grid.Row>
+
       <Grid.Row>
-        <Grid.Column style={{ maxWidth: 450 }} width={16}>
-          <Header as='h2' textAlign='center'>
-            Create new account
+        <Grid.Column style={{ maxWidth: '500px', marginTop: '100px' }} width={16}>
+          <Header as='h2' textAlign='left'>
+            Sign up
           </Header>
           <Form size='large' onSubmit={handleSubmit}>
             <Form.Input

@@ -29,7 +29,10 @@ jobs:
           start: npm run start:full
           wait-on: http://localhost:3000
 
-      - uses: akhileshns/heroku-deploy@v3.12.12
+      - name: Heroku deploy
+        # Deploy app to Heroku if all steps have passed
+        uses: akhileshns/heroku-deploy@v3.12.12
+        if: ${{ success() }}
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "tsoha-2021-tl"

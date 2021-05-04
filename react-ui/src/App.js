@@ -53,11 +53,10 @@ const App = () => {
   }
 
   return (
-    <div className="App">
+    <div style={{ minWidth: '768px' }}>
       <NavBar />
       <div style={{
-        minWidth: '768px',
-        minHeight: '100vh',
+        minHeight: '1000px',
       }}>
         <Switch>
           <Route path="/posts/create">
@@ -84,7 +83,7 @@ const App = () => {
           </Route>
 
           <Route path={['/', '/posts']}>
-            <Grid divided inverted stackable>
+            <Grid>
               <Grid.Row
                 color='violet'
                 textAlign='center'
@@ -92,13 +91,13 @@ const App = () => {
               >
                 <Grid.Column width={16} textAlign='center'>
                   <Header
-                    style={{ fontSize: '48px' }}
+                    style={{ fontSize: '64px' }}
                     inverted
                   >
                     <Icon name='code' /> Programming Forum
                   </Header>
                   <Header
-                    style={{ fontSize: '18px' }}
+                    style={{ fontSize: '22px' }}
                     inverted
                     content='Your number #1 place for talking about coding related stuff!'
                   />
