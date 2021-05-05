@@ -34,8 +34,8 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/:id/comments', async (req, res) => {
-  const postId = req.params.id;
   try {
+    const postId = req.params.id;
     const comments = await commentRepository.findByPostId(postId);
     if (_.isEmpty(comments)) {
       res.status(404).json(`Could not find comments with post id: ${postId}`);

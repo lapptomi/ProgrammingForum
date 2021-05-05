@@ -16,9 +16,10 @@ describe('Sign in', () => {
 
     // creating user for testing
     cy.request('POST', 'http://localhost:3001/api/users/', testUser)
-
     cy.visit('http://localhost:3000');
-    cy.contains('Sign in').click();
+
+    cy.wait(1000);
+    cy.get('#navbarSignInButton').click();
   });
 
   it('works with correct credentials', () => {

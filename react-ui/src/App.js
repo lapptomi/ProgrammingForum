@@ -1,37 +1,36 @@
 /* eslint-disable no-console */
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   Switch,
   Route,
   Redirect,
   useRouteMatch,
 } from 'react-router-dom';
-import {
-  Container,
-  Grid, Header, Icon, Loader,
-} from 'semantic-ui-react';
-import CreatePostForm from './components/CreatePostForm';
-import LoginForm from './components/LoginForm';
+import { Container } from 'semantic-ui-react';
+import LoginPage from './pages/LoginPage';
 import NavBar from './components/NavBar';
-import PostsList from './components/PostsList';
-import RegisterForm from './components/RegisterForm';
-import Post from './components/Post';
+import Post from './pages/PostPage';
 import postService from './services/postService';
 import Footer from './components/Footer';
-import { useStateValue } from './state/state';
+import { useGlobalState } from './state/state';
+import { setLoading, setPostsList } from './state/reducer';
+import HomePage from './pages/HomePage';
+import RegisterPage from './pages/RegisterPage';
+import CreatePostPage from './pages/CreatePostPage';
+import LoadingScreen from './components/LoadingScreen';
 
 const App = () => {
-  const [state, dispatch] = useStateValue();
-  const [loading, setLoading] = useState(true);
+  const [state, dispatch] = useGlobalState();
 
   useEffect(() => {
+    dispatch(setLoading(true));
     postService.getAll()
-      .then((result) => {
-        dispatch({ type: 'SET_POSTS_LIST', posts: result });
-        setLoading(false);
+      .then((posts) => {
+        dispatch(setPostsList(posts));
+        dispatch(setLoading(false));
       })
       .catch((e) => {
-        setLoading(false);
+        dispatch(setLoading(false));
         console.log(e);
       });
   }, [dispatch]);
@@ -41,14 +40,9 @@ const App = () => {
     ? state.posts.find((p) => p.id === Number(match.params.id))
     : null;
 
-  const loggedUser = window.localStorage.getItem('loggedUser');
-
-  if (loading) {
+  if (state.isLoading) {
     return (
-      <div className="App">
-        <NavBar />
-        <Loader active size='big'>Loading</Loader>
-      </div>
+      <LoadingScreen />
     );
   }
 
@@ -60,7 +54,7 @@ const App = () => {
       }}>
         <Switch>
           <Route path="/posts/create">
-            {loggedUser ? <CreatePostForm /> : <Redirect to="/login" />}
+            {state.isLoggedIn ? <CreatePostPage /> : <Redirect to="/login" />}
           </Route>
 
           <Route path='/posts/:id'>
@@ -71,11 +65,11 @@ const App = () => {
           </Route>
 
           <Route exact path="/login">
-            {loggedUser ? <Redirect to="/" /> : <LoginForm />}
+            {state.isLoggedIn ? <Redirect to="/" /> : <LoginPage />}
           </Route>
 
           <Route path="/register">
-            {loggedUser ? <Redirect to="/" /> : <RegisterForm />}
+            {state.isLoggedIn ? <Redirect to="/" /> : <RegisterPage />}
           </Route>
 
           <Route path='/profile'>
@@ -83,28 +77,7 @@ const App = () => {
           </Route>
 
           <Route path={['/', '/posts']}>
-            <Grid>
-              <Grid.Row
-                color='violet'
-                textAlign='center'
-                style={{ padding: '150px' }}
-              >
-                <Grid.Column width={16} textAlign='center'>
-                  <Header
-                    style={{ fontSize: '64px' }}
-                    inverted
-                  >
-                    <Icon name='code' /> Programming Forum
-                  </Header>
-                  <Header
-                    style={{ fontSize: '22px' }}
-                    inverted
-                    content='Your number #1 place for talking about coding related stuff!'
-                  />
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-            <PostsList />
+            <HomePage />
           </Route>
         </Switch>
       </div>

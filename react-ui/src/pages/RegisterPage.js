@@ -11,7 +11,7 @@ import {
 import axios from 'axios';
 import loginService from '../services/loginService';
 
-const RegisterForm = () => {
+const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -119,4 +119,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default RegisterPage;

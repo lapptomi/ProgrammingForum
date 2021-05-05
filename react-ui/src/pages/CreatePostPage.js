@@ -5,7 +5,7 @@ import {
 } from 'semantic-ui-react';
 import postService from '../services/postService';
 
-const CreatePostForm = () => {
+const CreatePostPage = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
@@ -99,4 +99,4 @@ const CreatePostForm = () => {
   );
 };
 
-export default CreatePostForm;
+export default CreatePostPage;

@@ -4,11 +4,18 @@ import {
   Grid, Header, Divider, Icon, Container,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { useStateValue } from '../state/state';
+import { useGlobalState } from '../state/state';
 
 const PostsList = () => {
-  const [state] = useStateValue();
-
+  const [state] = useGlobalState();
+  if (state.posts.length === 0) {
+    return (
+      <Container textAlign='center' style={{ paddingTop: '50px' }}>
+        <Header as='h1' content='No posts added yet...' />
+        <a href='/posts/create'><h4>Be the first  to create one here!</h4></a>
+      </Container>
+    );
+  }
   return (
     <Container>
       <Header as='h1' content='Newest Posts' style={{ padding: '40px' }} textAlign='center' />
@@ -16,24 +23,24 @@ const PostsList = () => {
         {state.posts.map((post, i) => (
           <React.Fragment key={i}>
 
-            <Grid.Row style={{ padding: '10px' }} color='grey'>
+            <Grid.Row style={{ padding: '10px' }} color='violet'>
               <Link to={`/posts/${post.id}`}>
                 <Header
                   inverted
                   as='h3'
                   content={post.title}
-                  subheader={`Posted by user id ${post.original_poster_id}`}
+                  subheader={`Posted on ${post.posting_date.substring(0, 10)}`}
                 />
               </Link>
             </Grid.Row>
 
-            <Grid.Row key={i} divided>
+            <Grid.Row>
 
               <Grid.Column width={12} floated='left'>
                 <Header
                   size='small'
                   content={post.description}
-                  style={{ padding: '15px', fontWeight: 'normal' }}
+                  style={{ padding: '20px 10px 20px 10px', fontWeight: 'normal' }}
                 />
                 <Divider />
                 <Header
@@ -50,21 +57,11 @@ const PostsList = () => {
                 width={2}
                 floated='right'
                 textAlign='center'
+                style={{ margin: 0, padding: '20px', maxWidth: '85px' }}
               >
-                Lastest Message: 12:20
-                <Divider />
-                By User123
-              </Grid.Column>
-
-              <Grid.Column
-                width={2}
-                floated='right'
-                textAlign='center'
-                style={{ margin: 0, maxWidth: '70px' }}
-              >
-                <Icon name='arrow up' /> 0
-                <Header as='h4' content='likes' />
-                <Icon name='arrow down' /> 0
+                <Icon name='arrow up' />
+                <Header as='h4' content='likes 0' />
+                <Icon name='arrow down' />
               </Grid.Column>
 
             </Grid.Row>

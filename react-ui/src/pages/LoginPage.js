@@ -10,7 +10,7 @@ import {
 } from 'semantic-ui-react';
 import loginService from '../services/loginService';
 
-const LoginForm = () => {
+const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -86,4 +86,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default LoginPage;

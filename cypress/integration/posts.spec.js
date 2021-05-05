@@ -18,9 +18,10 @@ describe('Creating new post', () => {
     cy.request('POST', 'http://localhost:3001/api/users/', testUser)
 
     cy.visit('http://localhost:3000');
-    cy.contains('Sign in').click();
 
     // logging in the user before running tests
+    cy.wait(1000);
+    cy.get('#navbarSignInButton').click();
     cy.contains('Sign in to your account');
     cy.get('#username').type(testUser.username);
     cy.get('#password').type(testUser.password);

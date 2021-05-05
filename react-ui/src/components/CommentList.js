@@ -2,7 +2,7 @@ import { Comment, Divider, Header } from 'semantic-ui-react';
 
 const CommentList = ({ comments }) => {
   if (comments.length === 0) {
-    return <Header as='p' subheader='No Comments Added Yet...' />;
+    return <Header as='b' subheader='No Comments Added Yet...' />;
   }
   return (
     <Comment.Group>
@@ -12,7 +12,7 @@ const CommentList = ({ comments }) => {
           <Comment.Content>
             <Comment.Author as='a'>{comment.writer_username}</Comment.Author>
             <Comment.Metadata>
-              <div>Today at 5:42PM</div>
+              <div>{comment.posting_date.substring(0, 10)}</div>
             </Comment.Metadata>
             <Comment.Text>{comment.comment}</Comment.Text>
           </Comment.Content>

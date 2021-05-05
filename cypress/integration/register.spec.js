@@ -9,7 +9,9 @@ describe('Creating new user', () => {
   beforeEach(() => {
     cy.request('POST', 'http://localhost:3001/api/testing/resetdb');
     cy.visit('http://localhost:3000');
-    cy.contains('Sign up').click();
+
+    cy.wait(1000);
+    cy.get('#navbarSignUpButton').click();
     cy.contains('Create a new account');
   });
 

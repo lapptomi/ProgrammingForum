@@ -6,6 +6,7 @@ import {
   Grid,
 } from 'semantic-ui-react';
 import loginService from '../services/loginService';
+import { useGlobalState } from '../state/state';
 
 const LoggedOutNavBar = () => {
   const path = window.location.pathname;
@@ -18,9 +19,9 @@ const LoggedOutNavBar = () => {
       >
         <Icon name={'home'} /> Home
       </Menu.Item>
-
       <Menu.Item position='right'>
         <Button
+          id='navbarSignInButton'
           color='black'
           as='a'
           href={'/login'}
@@ -28,6 +29,7 @@ const LoggedOutNavBar = () => {
           Sign in
         </Button>
         <Button
+          id='navbarSignUpButton'
           color='black'
           as='a'
           href={'/register'}
@@ -51,7 +53,6 @@ const LoggedInNavBar = () => {
       >
         <Icon name={'home'} /> Home
       </Menu.Item>
-
       <Menu.Item
         as='a'
         href='/posts/create'
@@ -59,7 +60,6 @@ const LoggedInNavBar = () => {
       >
         <Icon name={'edit outline'} /> Create New Post
       </Menu.Item>
-
       <Menu.Item position='right'>
         <Button
           color='black'
@@ -82,7 +82,8 @@ const LoggedInNavBar = () => {
 };
 
 const NavBar = () => {
-  const loggedUser = window.localStorage.getItem('loggedUser');
+  const [state] = useGlobalState();
+
   return (
     <Grid>
       <Grid.Row>
@@ -94,7 +95,7 @@ const NavBar = () => {
             minWidth: '100%',
           }}
         >
-          { loggedUser ? <LoggedInNavBar /> : <LoggedOutNavBar /> }
+          { state.isLoggedIn ? <LoggedInNavBar /> : <LoggedOutNavBar /> }
         </Menu>
       </Grid.Row>
     </Grid>

@@ -4,10 +4,10 @@ import {
   Container, Divider, Header, Segment, Grid, Icon,
 } from 'semantic-ui-react';
 import postService from '../services/postService';
-import CommentForm from './CommentForm';
-import CommentList from './CommentList';
+import CommentForm from '../components/CommentForm';
+import CommentList from '../components/CommentList';
 
-const Post = ({ post }) => {
+const PostPage = ({ post }) => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const Post = ({ post }) => {
           <Segment size='huge'>
             <Header as='h1' content={post.title} />
             <Divider />
-            <p>{post.description}</p>
+            <Header as='p' content={post.description} />
           </Segment>
 
           <Segment color='black'>
@@ -60,4 +60,4 @@ const Post = ({ post }) => {
   );
 };
 
-export default Post;
+export default PostPage;
