@@ -1,8 +1,13 @@
 name: Pipeline
 
 on:
+  push:
+    branches:
+      - main
+
   pull_request:
-    types: [closed]
+    branches: [main]
+    types: [opened]
 
 jobs:
   test_and_deploy:
@@ -26,3 +31,11 @@ jobs:
           headless: true
           start: npm run start:full
           wait-on: http://localhost:3000
+
+      - name: run if branch is main
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: echo "MAIN123"
+
+      - name: run if branch is development
+        if: ${{ github.ref == 'refs/heads/development' }}
+        run: echo "DEV123"
