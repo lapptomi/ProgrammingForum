@@ -6,12 +6,11 @@ on:
       - main
 
 jobs:
-  test_and_deploy:
+  heroku_deploy:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - name: Heroku deploy
-        uses: akhileshns/heroku-deploy@v3.12.12
+      - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "tsoha-2021-tl"

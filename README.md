@@ -1,4 +1,5 @@
-[![Test And Deploy](https://github.com/lapptomi/tsoha-2021/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/lapptomi/tsoha-2021/actions/workflows/deploy.yml)
+[![Heroku Deploy](https://github.com/lapptomi/tsoha-2021/actions/workflows/deploy.yml/badge.svg)](https://github.com/lapptomi/tsoha-2021/actions/workflows/deploy.yml)
+[![Test And Lint](https://github.com/lapptomi/tsoha-2021/actions/workflows/pipeline.yml/badge.svg)](https://github.com/lapptomi/tsoha-2021/actions/workflows/pipeline.yml)
 
 # tsoha-2021
 

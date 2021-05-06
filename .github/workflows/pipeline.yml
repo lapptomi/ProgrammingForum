@@ -1,9 +1,8 @@
 name: Pipeline
 
 on:
-  push:
-    branches:
-      - development
+  pull_request:
+    types: [closed]
 
 jobs:
   test_and_deploy:
