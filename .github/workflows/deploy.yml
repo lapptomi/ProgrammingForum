@@ -1,4 +1,4 @@
-name: Test And Deploy
+name: Heroku Deploy
 
 on:
   push:
@@ -8,31 +8,10 @@ on:
 jobs:
   test_and_deploy:
     runs-on: ubuntu-18.04
-    
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '14'
-      - name: npm install
-        run: npm install && cd react-ui && npm install
-      - name: lint
-        run: npm run eslint
-      - name: e2e tests
-        uses: cypress-io/github-action@v2
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          SECRET: 'supersecretkey'
-        with:
-          browser: chrome
-          headless: true
-          start: npm run start:full
-          wait-on: http://localhost:3000
-
       - name: Heroku deploy
-        # Deploy app to Heroku if all steps have passed
         uses: akhileshns/heroku-deploy@v3.12.12
-        if: ${{ success() }}
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "tsoha-2021-tl"

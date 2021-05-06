@@ -18,7 +18,6 @@ const PostPage = ({ post }) => {
 
   return (
     <Grid>
-
       <Grid.Row
         color='violet'
         textAlign='center'
@@ -30,7 +29,6 @@ const PostPage = ({ post }) => {
           </Header>
         </Grid.Column>
       </Grid.Row>
-
       <Grid.Row>
         <Container>
           <Header
@@ -39,23 +37,19 @@ const PostPage = ({ post }) => {
             content={`Post ${post.id}`}
             subheader={`Original poster id: ${post.original_poster_id}`}
           />
-
           <Segment size='huge'>
             <Header as='h1' content={post.title} />
             <Divider />
             <Header as='p' content={post.description} />
           </Segment>
-
           <Segment color='black'>
             <Header as='h2' content='Comments:' />
             <Divider />
             <CommentList comments={comments} />
           </Segment>
-
           <CommentForm post={post} />
         </Container>
       </Grid.Row>
-
     </Grid>
   );
 };

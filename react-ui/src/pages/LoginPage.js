@@ -30,7 +30,6 @@ const LoginPage = () => {
       textAlign='center'
       verticalAlign='middle'
     >
-
       <Grid.Row
         color='violet'
         textAlign='center'
@@ -42,7 +41,6 @@ const LoginPage = () => {
           </Header>
         </Grid.Column>
       </Grid.Row>
-
       <Grid.Row>
         <Grid.Column style={{ maxWidth: '500px', marginTop: '100px' }} width={16}>
           <Header as='h2' textAlign='left'>
