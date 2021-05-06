@@ -32,7 +32,8 @@ jobs:
           start: npm run start:full
           wait-on: http://localhost:3000
 
-      - uses: akhileshns/heroku-deploy@v3.12.12
+      - name: Heroku deploy
+        uses: akhileshns/heroku-deploy@v3.12.12
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
