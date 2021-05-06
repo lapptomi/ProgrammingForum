@@ -32,10 +32,13 @@ jobs:
           start: npm run start:full
           wait-on: http://localhost:3000
 
-      - name: run if branch is main
+      - uses: akhileshns/heroku-deploy@v3.12.12
         if: ${{ github.ref == 'refs/heads/main' }}
-        run: echo "MAIN123"
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "tsoha-2021-tl"
+          heroku_email: ${{ secrets.EMAIL }}
+          healthcheck: "https://tsoha-2021-tl.herokuapp.com/api/testing/health"
+          checkstring: "ok"
+          rollbackonhealthcheckfailed: true
 
-      - name: run if branch is development
-        if: ${{ github.ref == 'refs/heads/development' }}
-        run: echo "DEV123"
