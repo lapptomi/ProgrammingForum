@@ -6,7 +6,7 @@ import {
   Redirect,
   useRouteMatch,
 } from 'react-router-dom';
-import { Container } from 'semantic-ui-react';
+import { Container, Loader } from 'semantic-ui-react';
 import LoginPage from './pages/LoginPage';
 import NavBar from './components/NavBar';
 import Post from './pages/PostPage';
@@ -17,7 +17,6 @@ import { setLoading, setPostsList } from './state/reducer';
 import HomePage from './pages/HomePage';
 import RegisterPage from './pages/RegisterPage';
 import CreatePostPage from './pages/CreatePostPage';
-import LoadingScreen from './components/LoadingScreen';
 
 const App = () => {
   const [state, dispatch] = useGlobalState();
@@ -42,7 +41,10 @@ const App = () => {
 
   if (state.isLoading) {
     return (
-      <LoadingScreen />
+      <div>
+        <NavBar />
+        <Loader active />
+      </div>
     );
   }
 

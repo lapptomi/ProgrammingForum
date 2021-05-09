@@ -15,7 +15,6 @@ const Footer = () => (
       }}
     >
       <Grid.Column width={16}>
-
         <Container textAlign='center'>
           <Grid divided inverted>
             <Grid.Column width={16}>
@@ -23,7 +22,6 @@ const Footer = () => (
               <p>© 2021 All Rights Reserved</p>
             </Grid.Column>
           </Grid>
-
           <Divider inverted section />
           <List horizontal inverted link size='small'>
             <List.Item as='a' href='#'>
@@ -43,7 +41,6 @@ const Footer = () => (
       </Grid.Column>
     </Grid.Row>
   </Grid>
-
 );
 
 export default Footer;

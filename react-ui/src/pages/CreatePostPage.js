@@ -35,7 +35,6 @@ const CreatePostPage = () => {
 
   return (
     <Grid centered>
-
       <Grid.Row
         color='violet'
         textAlign='center'
@@ -47,7 +46,6 @@ const CreatePostPage = () => {
           </Header>
         </Grid.Column>
       </Grid.Row>
-
       <Grid.Row style={{ padding: '50px' }}>
         <Grid.Column width={16}>
           <Container>
@@ -94,7 +92,6 @@ const CreatePostPage = () => {
           </Container>
         </Grid.Column>
       </Grid.Row>
-
     </Grid>
   );
 };
