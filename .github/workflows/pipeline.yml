@@ -37,7 +37,7 @@ jobs:
   
       - name: Heroku deploy
         uses: akhileshns/heroku-deploy@v3.12.12
-        # Deploy to Heroku when pushing to main branch
+        # Deploy to Heroku when pushing to the main branch
         if: ${{ success() && github.ref == 'refs/heads/main' }}
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
@@ -46,11 +46,3 @@ jobs:
           healthcheck: "https://tsoha-2021-tl.herokuapp.com/api/testing/health"
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
-
-      - uses: actions/checkout@v2
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.33.0
-        if: ${{ success() && github.ref == 'refs/heads/main' }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: 'patch'
