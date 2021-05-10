@@ -3,7 +3,7 @@ import { pool } from '../config/dbconfig';
 
 const getAll = async (): Promise<Array<Post>> => {
   const result = await pool.query(`
-    SELECT P.*, U.username as writer_username
+    SELECT P.*, U.username AS writer_username
     FROM Posts P, Users U 
     WHERE P.original_poster_id = U.id
   `);
