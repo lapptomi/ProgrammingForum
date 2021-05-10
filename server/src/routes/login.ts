@@ -1,13 +1,14 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const express = require('express');
-const userRepository = require('../repository/userRepository');
+import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
+import express from 'express';
+import userRepository from '../repository/userRepository';
+import { Token, User } from '../../types';
 
 const router = express.Router();
 
 router.post('/', async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password } = req.body as User;
     const user = await userRepository.findByUsername(username);
     const passwordsMatch = await bcrypt.compare(password, user.password);
 
@@ -18,18 +19,18 @@ router.post('/', async (req, res) => {
     const userForToken = {
       username: user.username,
       id: user.id,
-    };
+    } as Token;
 
     const token = jwt.sign(
       userForToken,
-      process.env.SECRET,
+      process.env.SECRET as string,
       { expiresIn: 60 * 60 }, // expires in 1h
     );
 
     res.status(200).send({ token, username: userForToken.username });
-  } catch (error) {
-    res.status(401).send({ error: error.message });
+  } catch (e) {
+    res.status(401).send({ error: (e as Error).message });
   }
 });
 
-module.exports = router;
+export default router;

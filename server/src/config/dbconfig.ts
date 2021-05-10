@@ -1,14 +1,16 @@
-const { Pool } = require('pg');
-require('dotenv').config();
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
 
-const connectionString = process.env.DATABASE_URL;
+dotenv.config();
 
-const pool = new Pool({
+const connectionString = process.env.DATABASE_URL as string;
+
+export const pool = new Pool({
   connectionString,
   ssl: { rejectUnauthorized: false },
 });
 
-const initializeDB = async () => {
+export const initializeDB = async (): Promise<void> => {
   await pool.query('DROP TABLE IF EXISTS Users CASCADE');
   await pool.query(`CREATE TABLE Users (
     id SERIAL PRIMARY KEY, 
@@ -35,9 +37,4 @@ const initializeDB = async () => {
     comment TEXT NOT NULL,
     posting_date DATE NOT NULL DEFAULT CURRENT_DATE
   )`);
-};
-
-module.exports = {
-  pool,
-  initializeDB,
 };

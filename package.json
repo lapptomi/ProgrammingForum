@@ -4,14 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "heroku-postbuild": "npm run build:ui",
-    "start": "NODE_ENV=production node server/index.js",
-    "dev": "NODE_ENV=development nodemon server/index.js",
-    "eslint": "eslint .",
-    "build:ui": "cd react-ui && npm install && npm run build --prod && cp -r build ../",
+    "heroku-postbuild": "npm run build:full",
+    "build": "tsc",
+    "build:ui": "cd react-ui && npm install && npm run build --prod && cp -r build ../dist",
+    "build:full": "npm run build && npm run build:ui",
+    "start": "ts-node server/index.js",
+    "start:prod": "NODE_ENV=production node dist/index.js",
+    "dev": "NODE_ENV=development ts-node-dev server/index.ts",
+    "eslint": "eslint --ext=.ts,.tsx,.js,.jsx .",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "start:full": "concurrently \"NODE_ENV=test node server/index.js\" \"cd react-ui && npm start\""
+    "start:test": "concurrently \"NODE_ENV=test ts-node server/index.ts\" \"cd react-ui && npm start\""
   },
   "repository": {
     "type": "git",
@@ -24,6 +27,8 @@
   },
   "homepage": "https://github.com/lapptomi/tsoha-2021#readme",
   "dependencies": {
+    "@types/cors": "^2.8.10",
+    "@types/lodash": "^4.14.168",
     "bcrypt": "^5.0.1",
     "concurrently": "^6.0.2",
     "cors": "^2.8.5",
@@ -32,15 +37,25 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
-    "nodemon": "^2.0.7",
     "pg": "^8.6.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.11",
+    "@types/jsonwebtoken": "^8.5.1",
+    "@types/node": "^15.0.2",
+    "@types/pg": "^7.14.11",
+    "@typescript-eslint/eslint-plugin": "^4.22.1",
+    "@typescript-eslint/parser": "^4.22.1",
     "eslint": "^7.24.0",
-    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.2",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "ts-node": "^9.1.1",
+    "ts-node-dev": "^1.1.6",
+    "typescript": "^4.2.4"
   }
 }

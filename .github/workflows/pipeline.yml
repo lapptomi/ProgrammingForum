@@ -32,7 +32,7 @@ jobs:
         with:
           browser: chrome
           headless: true
-          start: npm run start:full
+          start: npm run start:test
           wait-on: http://localhost:3000
   
       - name: Heroku deploy

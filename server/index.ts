@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-const http = require('http');
-const app = require('./src/app');
+import http from 'http';
+import app from './src/app';
 
 const server = http.createServer(app);
 

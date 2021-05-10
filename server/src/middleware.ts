@@ -1,5 +1,7 @@
+import { NextFunction, Request, Response } from 'express';
+
 /* eslint-disable no-console */
-const tokenExtractor = (req, _res, next) => {
+export const tokenExtractor = (req: Request, _res: Response, next: NextFunction): void => {
   const authorization = req.get('authorization');
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
     req.token = authorization.substring(7);
@@ -7,12 +9,9 @@ const tokenExtractor = (req, _res, next) => {
   next();
 };
 
-const errorHandler = (err, _req, _res, next) => {
+export const errorHandler = (
+  err: Error, _req: Request, _res: Response, next: NextFunction,
+): void => {
   console.log('ERROR =', err);
   next();
-};
-
-module.exports = {
-  tokenExtractor,
-  errorHandler,
 };
