@@ -8,14 +8,16 @@ import { useGlobalState } from '../state/state';
 
 const PostsList = () => {
   const [state] = useGlobalState();
+
   if (state.posts.length === 0) {
     return (
-      <Container textAlign='center' style={{ paddingTop: '50px' }}>
+      <Container textAlign='center' style={{ paddingTop: '100px' }}>
         <Header as='h1' content='No posts added yet...' />
         <a href='/posts/create'><h4>Be the first  to create one here!</h4></a>
       </Container>
     );
   }
+
   return (
     <Container>
       <Header as='h1' content='Newest Posts' style={{ padding: '40px' }} textAlign='center' />
@@ -29,14 +31,15 @@ const PostsList = () => {
                   inverted
                   as='h3'
                   content={post.title}
-                  subheader={`Posted on ${post.posting_date.substring(0, 10)}`}
+                  subheader={`Posted on ${post.posting_date.substring(0, 10)}
+                  by ${post.writer_username}`}
                 />
               </Link>
             </Grid.Row>
 
             <Grid.Row>
 
-              <Grid.Column width={12} floated='left'>
+              <Grid.Column width={14} floated='left'>
                 <Header
                   size='small'
                   content={post.description}

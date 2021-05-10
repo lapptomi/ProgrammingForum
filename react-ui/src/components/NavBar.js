@@ -51,7 +51,7 @@ const LoggedInNavBar = () => {
         href='/'
         active={path === '/'}
       >
-        <Icon name={'home'} /> Home
+        <Icon name='home' /> Home
       </Menu.Item>
       <Menu.Item
         as='a'
@@ -90,11 +90,7 @@ const NavBar = () => {
         <Menu
           inverted
           size='large'
-          style={{
-            borderRadius: '0px',
-            minWidth: '100%',
-          }}
-        >
+          style={{ borderRadius: '0px', minWidth: '100%' }}>
           { state.isLoggedIn ? <LoggedInNavBar /> : <LoggedOutNavBar /> }
         </Menu>
       </Grid.Row>

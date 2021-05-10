@@ -1,6 +1,7 @@
 import express from 'express';
+import { NewUser } from '../../types';
 import userRepository from '../repository/userRepository';
-import { parseNewUser } from '../utils';
+import { toNewUser } from '../utils';
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ router.get('/', async (_req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const newUser = parseNewUser(req.body);
+    const newUser = toNewUser(req.body as NewUser);
     const addedUser = await userRepository.create(newUser);
     res.status(201).json(addedUser);
   } catch (e) {

@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import express, { Request } from 'express';
 import * as jwt from 'jsonwebtoken';
 import * as _ from 'lodash';
 import postRepository from '../repository/postRepository';
 import commentRepository from '../repository/commentRepository';
-import { parseNewPost, parseComment } from '../utils';
-import { Token } from '../../types';
+import { toNewPost, toNewComment } from '../utils';
+import { NewPost, Token } from '../../types';
 
 const router = express.Router();
 
@@ -22,12 +23,12 @@ router.post('/', async (req: Request, res) => {
     const token = req.token as string;
     const decodedToken = jwt.verify(token, process.env.SECRET as string) as Token;
 
-    if (!token || !decodedToken.username) {
+    if (!token || !decodedToken.id) {
       throw new Error('Token missing or invalid');
     }
 
-    const newPost = parseNewPost(req.body);
-    const addedPost = await postRepository.create(decodedToken.id, newPost);
+    const newPost = toNewPost(decodedToken.id, req.body as NewPost);
+    const addedPost = await postRepository.create(newPost);
     res.status(201).json(addedPost);
   } catch (e) {
     res.status(401).send((e as Error).message);
@@ -50,20 +51,21 @@ router.get('/:id/comments', async (req: Request, res) => {
 
 router.post('/:id/comments', async (req: Request, res) => {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const comment = req.body.comment as string;
+    const token = req.token as string;
+    const decodedToken = jwt.verify(token, process.env.SECRET as string) as Token;
 
-    const decodedToken = jwt.verify(req.token, process.env.SECRET as string) as Token;
-    if (!req.token || !decodedToken.username) {
+    if (!token || !decodedToken.username) {
       throw new Error('Token missing or invalid');
     }
 
-    const addedComment = await commentRepository.create(
-      Number(req.params.id),
-      Number(decodedToken.id),
-      decodedToken.username,
-      parseComment(comment),
-    );
+    const newComment = toNewComment({
+      post_id: Number(req.params.id),
+      writer_id: decodedToken.id,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      comment: req.body.comment as string,
+    });
+
+    const addedComment = await commentRepository.create(newComment);
 
     res.status(201).json(addedComment);
   } catch (e) {

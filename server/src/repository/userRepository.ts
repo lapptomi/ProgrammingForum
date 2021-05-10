@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt';
-import { User } from '../../types';
+import { NewUser, User } from '../../types';
 import { pool } from '../config/dbconfig';
 
 const getAll = async (): Promise<Array<User>> => {
@@ -7,7 +7,7 @@ const getAll = async (): Promise<Array<User>> => {
   return result.rows as Array<User>;
 };
 
-const create = async (user: User): Promise<User> => {
+const create = async (user: NewUser): Promise<NewUser> => {
   const query = ('INSERT INTO Users (email, username, password) VALUES ($1, $2, $3)');
   const passwordHash = await bcrypt.hash(user.password, 10);
   const values = [user.email, user.username, passwordHash];
@@ -17,7 +17,7 @@ const create = async (user: User): Promise<User> => {
     email: user.email,
     username: user.username,
     password: passwordHash,
-  } as User;
+  } as NewUser;
 };
 
 const findByUsername = async (username: string): Promise<User> => {
@@ -26,7 +26,7 @@ const findByUsername = async (username: string): Promise<User> => {
   if (result.rowCount === 0) {
     throw new Error(`No user found with username: ${username}`);
   }
-  return result.rows[0] as User; // result.rows[0] is the user found from the db
+  return result.rows[0] as User;
 };
 
 export default {

@@ -4,8 +4,10 @@ import {
   Form, Button, Header, Segment,
 } from 'semantic-ui-react';
 import postService from '../services/postService';
+import { useGlobalState } from '../state/state';
 
 const CommentForm = ({ post }) => {
+  const [state] = useGlobalState();
   const [comment, setComment] = useState('');
 
   const handleSubmit = () => {
@@ -22,8 +24,7 @@ const CommentForm = ({ post }) => {
       });
   };
 
-  const loggedUser = window.localStorage.getItem('loggedUser');
-  if (!loggedUser) {
+  if (!state.isLoggedIn) {
     return <Header as='b' content='Please sign in to add comments' />;
   }
 

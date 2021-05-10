@@ -1,14 +1,15 @@
 import { Comment, Divider, Header } from 'semantic-ui-react';
+import img from '../avatar.png';
 
 const CommentList = ({ comments }) => {
   if (comments.length === 0) {
     return <Header as='b' subheader='No Comments Added Yet...' />;
   }
   return (
-    <Comment.Group>
+    <Comment.Group style={{ minWidth: '100%', paddingLeft: '10px' }}>
       {comments.map((comment, i) => (
         <Comment key={i}>
-          <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
+          <Comment.Avatar src={img} />
           <Comment.Content>
             <Comment.Author as='a'>{comment.writer_username}</Comment.Author>
             <Comment.Metadata>

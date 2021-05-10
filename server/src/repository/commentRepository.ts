@@ -1,4 +1,4 @@
-import { Comment } from '../../types';
+import { Comment, NewComment } from '../../types';
 import { pool } from '../config/dbconfig';
 
 const getAll = async (): Promise<Array<Comment>> => {
@@ -7,24 +7,25 @@ const getAll = async (): Promise<Array<Comment>> => {
 };
 
 const findByPostId = async (postId: number): Promise<Array<Comment>> => {
-  const query = ('SELECT * FROM Comments WHERE (post_id = $1)');
+  const query = (`
+    SELECT C.*, U.username AS writer_username
+    FROM Comments C, Users U 
+    WHERE (post_id = $1) AND (U.id = C.writer_id) 
+  `);
   const result = await pool.query(query, [postId]);
-  return result.rows as Array<Comment>; // result.rows are the comments found from the db
+
+  return result.rows as Array<Comment>;
 };
 
-const create = async (
-  postId: number, writerId: number, writerName: string, newComment: string,
-): Promise<Comment> => {
-  const query = ('INSERT INTO Comments (post_id, writer_id, writer_username, comment) VALUES ($1, $2, $3, $4)');
-  const values = [postId, writerId, writerName, newComment];
+const create = async (comment: NewComment): Promise<NewComment> => {
+  const query = (`
+    INSERT INTO Comments (post_id, writer_id, comment) 
+    VALUES ($1, $2, $3)  
+  `);
+  const values = [comment.post_id, comment.writer_id, comment.comment];
   await pool.query(query, values);
 
-  return {
-    post_id: postId,
-    writer_id: writerId,
-    writer_username: writerName,
-    comment: newComment,
-  } as Comment;
+  return comment;
 };
 
 export default {

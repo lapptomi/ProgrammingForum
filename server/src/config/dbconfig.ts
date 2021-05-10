@@ -33,7 +33,6 @@ export const initializeDB = async (): Promise<void> => {
     id SERIAL PRIMARY KEY, 
     post_id INTEGER REFERENCES Posts(id), 
     writer_id INTEGER REFERENCES Users(id), 
-    writer_username TEXT REFERENCES Users(username), 
     comment TEXT NOT NULL,
     posting_date DATE NOT NULL DEFAULT CURRENT_DATE
   )`);

@@ -3,7 +3,7 @@
 /* eslint-disable arrow-body-style */
 
 import * as _ from 'lodash';
-import { Post, User } from '../types';
+import { NewComment, NewPost, NewUser } from '../types';
 
 const parseEmail = (email: any): string => {
   if (!_.isString(email) || email.length > 30 || !email) {
@@ -40,7 +40,14 @@ const parseDescription = (description: any): string => {
   return description;
 };
 
-export const parseNewUser = (user: User): User => {
+const parseId = (id: any): number => {
+  if (!_.isNumber(id) || !id) {
+    throw new Error(`Invalid or missing id: ${id as string}`);
+  }
+  return id;
+};
+
+export const toNewUser = (user: NewUser): NewUser => {
   return {
     email: parseEmail(user.email),
     username: parseUsername(user.username),
@@ -48,8 +55,9 @@ export const parseNewUser = (user: User): User => {
   };
 };
 
-export const parseNewPost = (newPost: Post): Post => {
+export const toNewPost = (posterId: number, newPost: NewPost): NewPost => {
   return {
+    original_poster_id: parseId(posterId),
     title: parseTitle(newPost.title),
     description: parseDescription(newPost.description),
   };
@@ -60,4 +68,12 @@ export const parseComment = (comment: any): string => {
     throw new Error(`Invalid or missing comment: ${comment as string}`);
   }
   return comment;
+};
+
+export const toNewComment = (object: NewComment): NewComment => {
+  return {
+    post_id: parseId(object.post_id),
+    writer_id: parseId(object.writer_id),
+    comment: parseComment(object.comment),
+  };
 };

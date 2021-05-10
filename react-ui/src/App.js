@@ -9,7 +9,7 @@ import {
 import { Container, Loader } from 'semantic-ui-react';
 import LoginPage from './pages/LoginPage';
 import NavBar from './components/NavBar';
-import Post from './pages/PostPage';
+import PostPage from './pages/PostPage';
 import postService from './services/postService';
 import Footer from './components/Footer';
 import { useGlobalState } from './state/state';
@@ -61,7 +61,7 @@ const App = () => {
 
           <Route path='/posts/:id'>
             {post
-              ? <Post post={post} />
+              ? <PostPage post={post} />
               : <Container textAlign='center'><h1>404 - Not Found</h1></Container>
             }
           </Route>
