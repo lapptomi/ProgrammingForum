@@ -28,7 +28,7 @@ describe('Creating new post', () => {
     cy.get('#loginButton').should('be.enabled');
     cy.get('#loginButton').click();
     
-    cy.wait(2000);
+    cy.wait(1000);
     cy.contains('Profile');
     cy.contains('Create New Post');
   });
@@ -40,7 +40,7 @@ describe('Creating new post', () => {
     cy.get('#createPostButton').should('be.enabled');
     cy.get('#createPostButton').click();
 
-    cy.wait(2000)
+    cy.wait(1000)
     cy.on('window:alert', (alertText) => {
       expect(alertText).to.equal('Post created!');
     });

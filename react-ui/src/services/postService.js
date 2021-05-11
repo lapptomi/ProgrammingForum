@@ -31,9 +31,15 @@ const addComment = async (postId, comment) => {
   return response;
 };
 
+const addLike = async (postId) => {
+  const response = await axios.post(`${baseUrl}/${postId}/likes`, postId, config);
+  return response;
+};
+
 export default {
   create,
   getAll,
   findCommentsByPostId,
   addComment,
+  addLike,
 };

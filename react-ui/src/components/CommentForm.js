@@ -12,9 +12,7 @@ const CommentForm = ({ post }) => {
 
   const handleSubmit = () => {
     postService.addComment(post.id, comment)
-      .then(() => {
-        window.location.reload();
-      })
+      .then(() => window.location.reload())
       .catch(({ response }) => {
         if (response.data === 'jwt expired') {
           window.alert('Error: session has expired, please sign in again');

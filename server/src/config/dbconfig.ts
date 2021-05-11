@@ -28,12 +28,18 @@ export const initializeDB = async (): Promise<void> => {
     posting_date DATE NOT NULL DEFAULT CURRENT_DATE
   )`);
 
-  await pool.query('DROP TABLE IF EXISTS Comments CASCADE');
-  await pool.query(`CREATE TABLE Comments (
+  await pool.query('DROP TABLE IF EXISTS Post_Comments CASCADE');
+  await pool.query(`CREATE TABLE Post_Comments (
     id SERIAL PRIMARY KEY, 
     post_id INTEGER REFERENCES Posts(id), 
     writer_id INTEGER REFERENCES Users(id), 
     comment TEXT NOT NULL,
     posting_date DATE NOT NULL DEFAULT CURRENT_DATE
+  )`);
+
+  await pool.query('DROP TABLE IF EXISTS Post_Likes CASCADE');
+  await pool.query(`CREATE TABLE Post_Likes (
+    post_id INTEGER REFERENCES Posts(id), 
+    liker_id INTEGER REFERENCES Users(id)
   )`);
 };

@@ -39,7 +39,7 @@ describe('Adding comments to a post', () => {
     cy.get('#loginButton').click();
     
     // Creating a new post
-    cy.wait(2000);
+    cy.wait(1000);
     cy.contains('Create New Post').click();
     cy.get('#title').type(testPost.title);
     cy.get('#description').type(testPost.description);

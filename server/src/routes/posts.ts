@@ -4,7 +4,7 @@ import * as jwt from 'jsonwebtoken';
 import * as _ from 'lodash';
 import postRepository from '../repository/postRepository';
 import commentRepository from '../repository/commentRepository';
-import { toNewPost, toNewComment } from '../utils';
+import { toNewPost, toNewComment, parseId } from '../utils';
 import { NewPost, Token } from '../../types';
 
 const router = express.Router();
@@ -29,9 +29,28 @@ router.post('/', async (req: Request, res) => {
 
     const newPost = toNewPost(decodedToken.id, req.body as NewPost);
     const addedPost = await postRepository.create(newPost);
+
     res.status(201).json(addedPost);
   } catch (e) {
     res.status(401).send((e as Error).message);
+  }
+});
+
+router.post('/:id/likes', async (req: Request, res) => {
+  try {
+    const postId = parseId(Number(req.params.id));
+
+    const token = req.token as string;
+    const decodedToken = jwt.verify(token, process.env.SECRET as string) as Token;
+
+    if (!token || !decodedToken.id) {
+      throw new Error('Token missing or invalid');
+    }
+
+    const addedLike = await postRepository.addLike(postId, decodedToken.id);
+    res.status(201).json(addedLike);
+  } catch (e) {
+    res.status(400).send((e as Error).message);
   }
 });
 
@@ -54,7 +73,7 @@ router.post('/:id/comments', async (req: Request, res) => {
     const token = req.token as string;
     const decodedToken = jwt.verify(token, process.env.SECRET as string) as Token;
 
-    if (!token || !decodedToken.username) {
+    if (!token || !decodedToken.id) {
       throw new Error('Token missing or invalid');
     }
 
@@ -66,7 +85,6 @@ router.post('/:id/comments', async (req: Request, res) => {
     });
 
     const addedComment = await commentRepository.create(newComment);
-
     res.status(201).json(addedComment);
   } catch (e) {
     res.status(401).send((e as Error).message);

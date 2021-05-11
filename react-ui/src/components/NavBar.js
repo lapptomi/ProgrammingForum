@@ -69,6 +69,7 @@ const LoggedInNavBar = () => {
           Profile
         </Button>
         <Button
+          id='navbarSignOutButton'
           color='black'
           as='a'
           onClick={() => loginService.logout()}

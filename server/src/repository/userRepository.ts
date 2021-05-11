@@ -10,8 +10,8 @@ const getAll = async (): Promise<Array<User>> => {
 const create = async (user: NewUser): Promise<NewUser> => {
   const query = ('INSERT INTO Users (email, username, password) VALUES ($1, $2, $3)');
   const passwordHash = await bcrypt.hash(user.password, 10);
-  const values = [user.email, user.username, passwordHash];
-  await pool.query(query, values);
+  const params = [user.email, user.username, passwordHash];
+  await pool.query(query, params);
 
   return {
     email: user.email,

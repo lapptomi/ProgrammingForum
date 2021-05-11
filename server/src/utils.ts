@@ -40,7 +40,7 @@ const parseDescription = (description: any): string => {
   return description;
 };
 
-const parseId = (id: any): number => {
+export const parseId = (id: any): number => {
   if (!_.isNumber(id) || !id) {
     throw new Error(`Invalid or missing id: ${id as string}`);
   }

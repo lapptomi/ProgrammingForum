@@ -29,7 +29,7 @@ describe('Sign in', () => {
     cy.get('#loginButton').should('be.enabled');
     cy.get('#loginButton').click();
     
-    cy.wait(2000);
+    cy.wait(1000);
     cy.contains('Profile');
     cy.contains('Create New Post');
   });
@@ -41,7 +41,7 @@ describe('Sign in', () => {
     cy.get('#loginButton').should('be.enabled');
     cy.get('#loginButton').click();
     
-    cy.wait(2000)
+    cy.wait(1000)
     cy.on('window:alert', (alertText) => {
       expect(alertText).to.contain('Invalid username or password');
     });
@@ -54,7 +54,7 @@ describe('Sign in', () => {
     cy.get('#loginButton').should('be.enabled');
     cy.get('#loginButton').click();
     
-    cy.wait(2000)
+    cy.wait(1000)
     cy.on('window:alert', (alertText) => {
       expect(alertText).to.contain(`No user found with username: ${nonExistingUser.username}`);
     });
