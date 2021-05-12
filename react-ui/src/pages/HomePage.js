@@ -1,4 +1,7 @@
-import { Grid, Header, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import {
+  Grid, Header, Icon,
+} from 'semantic-ui-react';
 import PostsList from '../components/PostsList';
 
 const HomePage = () => (
@@ -23,7 +26,28 @@ const HomePage = () => (
           />
         </Grid.Column>
       </Grid.Row>
+      <Grid.Row color='blue'>
+        <Grid.Column
+          width={8}
+          textAlign='right'
+          style={{ paddingRight: '100px' }}
+        >
+          <Link to={{ pathname: '/posts', search: '?sort=likes' }}>
+            <Header inverted as='h2' content='Popular Posts' />
+          </Link>
+        </Grid.Column>
+        <Grid.Column
+          width={8}
+          textAlign='left'
+          style={{ paddingLeft: '100px' }}
+        >
+          <Link to={{ pathname: '/posts', search: '?sort=date' }}>
+            <Header inverted as='h2' content='Newest Posts' />
+          </Link>
+        </Grid.Column>
+      </Grid.Row>
     </Grid>
+
     <PostsList />
   </div>
 );

@@ -1,8 +1,8 @@
+import { Link } from 'react-router-dom';
 import {
   Menu,
   Icon,
   Container,
-  Button,
   Grid,
 } from 'semantic-ui-react';
 import loginService from '../services/loginService';
@@ -12,31 +12,28 @@ const LoggedOutNavBar = () => {
   const path = window.location.pathname;
   return (
     <Container>
-      <Menu.Item
-        as='a'
-        href='/'
-        active={path === '/'}
-      >
-        <Icon name={'home'} /> Home
+      <Menu.Item active={path === '/'}>
+        <Link to='/'>
+          <Icon name='home' /> Home
+        </Link>
       </Menu.Item>
-      <Menu.Item position='right'>
-        <Button
-          id='navbarSignInButton'
-          color='black'
-          as='a'
-          href={'/login'}
-        >
-          Sign in
-        </Button>
-        <Button
-          id='navbarSignUpButton'
-          color='black'
-          as='a'
-          href={'/register'}
-          style={{ marginLeft: '0.5em' }}
-        >
-          Sign up
-        </Button>
+      <Menu.Item
+        id='navbarSignInButton'
+        active={path === '/login'}
+        position='right'
+      >
+        <Link to='/login'>
+          <Icon name='sign in' /> Sign in
+        </Link>
+      </Menu.Item>
+      <Menu.Item
+        id='navbarSignUpButton'
+        active={path === '/register'}
+        style={{ marginLeft: '0.5em' }}
+      >
+        <Link to='/register'>
+          <Icon name='signup' /> Sign up
+        </Link>
       </Menu.Item>
     </Container>
   );
@@ -46,37 +43,30 @@ const LoggedInNavBar = () => {
   const path = window.location.pathname;
   return (
     <Container>
-      <Menu.Item
-        as='a'
-        href='/'
-        active={path === '/'}
-      >
-        <Icon name='home' /> Home
+      <Menu.Item active={path === '/'}>
+        <Link to='/'>
+          <Icon name='home' /> Home
+        </Link>
+      </Menu.Item>
+      <Menu.Item active={path === '/posts/create'}>
+        <Link to='/posts/create'>
+          <Icon name={'edit outline'} /> Create New Post
+        </Link>
       </Menu.Item>
       <Menu.Item
-        as='a'
-        href='/posts/create'
-        active={path === '/posts/create'}
+        active={path === '/profile'}
+        position='right'
       >
-        <Icon name={'edit outline'} /> Create New Post
+        <Link to='/profile'>
+          <Icon name='user' /> Profile
+        </Link>
       </Menu.Item>
-      <Menu.Item position='right'>
-        <Button
-          color='black'
-          as='a'
-          href='/profile'
-        >
-          Profile
-        </Button>
-        <Button
-          id='navbarSignOutButton'
-          color='black'
-          as='a'
-          onClick={() => loginService.logout()}
-          style={{ marginLeft: '0.5em' }}
-        >
-          Sign Out
-        </Button>
+      <Menu.Item
+        id='navbarSignOutButton'
+        onClick={() => loginService.logout()}
+        style={{ marginLeft: '0.5em' }}
+      >
+        <Icon name='log out' /> Sign Out
       </Menu.Item>
     </Container>
   );
@@ -91,8 +81,12 @@ const NavBar = () => {
         <Menu
           inverted
           size='large'
-          style={{ borderRadius: '0px', minWidth: '100%' }}>
-          { state.isLoggedIn ? <LoggedInNavBar /> : <LoggedOutNavBar /> }
+          style={{ borderRadius: '0px', minWidth: '100%' }}
+        >
+          {state.isLoggedIn
+            ? <LoggedInNavBar />
+            : <LoggedOutNavBar />
+          }
         </Menu>
       </Grid.Row>
     </Grid>

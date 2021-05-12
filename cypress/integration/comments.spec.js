@@ -50,7 +50,7 @@ describe('Adding comments to a post', () => {
     cy.wait(1000);
     cy.contains('Posts');
     cy.contains(testPost.title);
-    cy.contains('Show Comments').click();
+    cy.contains('Comments').click();
   });
 
   it('works when valid comment is given', () => {

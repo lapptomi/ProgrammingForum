@@ -6,6 +6,7 @@ import {
 import postService from '../services/postService';
 import CommentForm from '../components/CommentForm';
 import CommentList from '../components/CommentList';
+import Post from '../components/Post';
 
 const PostPage = ({ post }) => {
   const [comments, setComments] = useState([]);
@@ -33,44 +34,7 @@ const PostPage = ({ post }) => {
       </Grid>
       <Container style={{ marginTop: '100px' }}>
         <Grid celled>
-          <Grid.Row style={{ padding: '10px' }} color='violet'>
-            <Header
-              inverted
-              as='h3'
-              content={post.title}
-              subheader={`
-                Posted on ${post.posting_date.substring(0, 10)}
-                by ${post.writer_username}`
-              }
-            />
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={14} floated='left'>
-              <Header
-                size='small'
-                content={post.description}
-                style={{ padding: '30px 10px 30px 10px', fontWeight: 'normal' }}
-              />
-              <Divider />
-              <Icon name='reply' color='black' />
-              <Header
-                as='b'
-                size='small'
-                content={`${comments.length} replies`}
-                style={{ padding: '10px' }}
-              />
-            </Grid.Column>
-            <Grid.Column
-              width={2}
-              floated='right'
-              textAlign='center'
-              style={{ margin: 0, padding: '20px', maxWidth: '85px' }}
-            >
-              <Icon name='arrow up' />
-              <Header as='h4' content='likes 0' />
-              <Icon name='arrow down' />
-            </Grid.Column>
-          </Grid.Row>
+          <Post post={post} />
         </Grid>
         <Divider />
         <CommentList comments={comments} />

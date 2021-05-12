@@ -1,11 +1,17 @@
-import { Comment, Divider, Header } from 'semantic-ui-react';
+import {
+  Comment, Divider, Header, Icon,
+} from 'semantic-ui-react';
 import img from '../avatar.png';
 
-const CommentList = ({ comments }) => {
-  if (comments.length === 0) {
-    return <Header as='b' subheader='No Comments Added Yet...' />;
-  }
-  return (
+const CommentList = ({ comments }) => (
+  <div>
+    <Icon name='reply' color='black' />
+    <Header
+      as='b'
+      size='small'
+      content={`${comments.length} replies`}
+      style={{ padding: '10px' }}
+    />
     <Comment.Group style={{ minWidth: '100%', paddingLeft: '10px' }}>
       {comments.map((comment, i) => (
         <Comment key={i}>
@@ -21,7 +27,7 @@ const CommentList = ({ comments }) => {
         </Comment>
       ))}
     </Comment.Group>
-  );
-};
+  </div>
+);
 
 export default CommentList;
