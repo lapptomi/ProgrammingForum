@@ -56,7 +56,7 @@ describe('Sign in', () => {
     
     cy.wait(1000)
     cy.on('window:alert', (alertText) => {
-      expect(alertText).to.contain(`No user found with username: ${nonExistingUser.username}`);
+      expect(alertText).to.contain('User not found');
     });
   });
 });

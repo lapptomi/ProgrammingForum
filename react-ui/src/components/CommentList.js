@@ -19,7 +19,7 @@ const CommentList = ({ comments }) => (
           <Comment.Content>
             <Comment.Author as='a'>{comment.writer_username}</Comment.Author>
             <Comment.Metadata>
-              <div>{comment.posting_date.substring(0, 10)}</div>
+              <div>{comment.created_at.substring(0, 10)}</div>
             </Comment.Metadata>
             <Comment.Text>{comment.comment}</Comment.Text>
           </Comment.Content>

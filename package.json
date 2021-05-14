@@ -14,7 +14,8 @@
     "eslint": "eslint --ext=.ts,.tsx,.js,.jsx .",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "start:test": "concurrently \"NODE_ENV=test ts-node server/index.ts\" \"cd react-ui && npm start\""
+    "start:test": "concurrently \"NODE_ENV=test ts-node server/index.ts\" \"cd react-ui && npm start\"",
+    "knex": "./node_modules/.bin/knex --knexfile server/src/database/knexfile.ts"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.5",
     "lodash": "^4.17.21",
     "pg": "^8.6.0"
   },

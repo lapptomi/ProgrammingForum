@@ -1,45 +1,47 @@
-import { NewPost, Post } from '../../types';
-import { pool } from '../config/dbconfig';
+import { NewPost, Post, Table } from '../../types';
+import database from '../database/knex';
 
 const getAll = async (): Promise<Array<Post>> => {
-  const result = await pool.query(`
-    SELECT P.*, U.username, COUNT(L.liker_id) AS likes
-    FROM Posts P LEFT JOIN Users U ON P.original_poster_id = U.id
-                 LEFT JOIN Post_Likes L ON P.id = L.post_id
-    GROUP BY P.id, U.username;
-  `);
+  const posts = await database
+    .from(Table.Post)
+    .join(Table.User, 'user.id', '=', 'original_poster_id')
+    .select('post.*', 'user.username')
+    .timeout(5000);
 
-  return result.rows as Array<Post>;
+  return posts as Array<Post>;
 };
 
-const create = async (newPost: NewPost): Promise<NewPost> => {
-  const query = (`
-    INSERT INTO Posts (original_poster_id, title, description) 
-    VALUES ($1, $2, $3) 
-  `);
-  const params = [newPost.original_poster_id, newPost.title, newPost.description];
-  await pool.query(query, params);
-
-  return newPost;
+const create = async (post: NewPost): Promise<void> => {
+  await database<Post>(Table.Post)
+    .insert({
+      original_poster_id: post.original_poster_id,
+      title: post.title,
+      description: post.description,
+    });
 };
 
 const addLike = async (postId: number, likerId: number): Promise<void> => {
-  const postLikes = await pool.query(`
-    SELECT * FROM Post_Likes  
-    WHERE (liker_id = ${likerId}) AND (post_id = ${postId})
-  `);
+  const postLikes = await database
+    .select('*')
+    .from(Table.PostLikes)
+    .where('post_id', '=', postId)
+    .andWhere('liker_id', '=', likerId);
 
+  const hasLikedAlready = postLikes.length !== 0;
   // Check that the post is not already liked by the user
-  if (postLikes.rowCount !== 0) {
+  if (hasLikedAlready) {
     throw new Error('Could not add like, you can only like post once');
   }
 
-  const query = (`
-    INSERT INTO Post_Likes (post_id, liker_id)
-    VALUES ($1, $2)
-  `);
-  const params = [postId, likerId];
-  await pool.query(query, params);
+  await database(Table.Post)
+    .increment('likes', 1)
+    .where('post.id', '=', postId);
+
+  await database(Table.PostLikes)
+    .insert({
+      post_id: postId,
+      liker_id: likerId,
+    });
 };
 
 export default {

@@ -1,32 +1,38 @@
 import * as bcrypt from 'bcrypt';
-import { NewUser, User } from '../../types';
-import { pool } from '../config/dbconfig';
+import { NewUser, Table, User } from '../../types';
+import database from '../database/knex';
 
 const getAll = async (): Promise<Array<User>> => {
-  const result = await pool.query('SELECT * FROM Users');
-  return result.rows as Array<User>;
+  const users = await database
+    .select('*')
+    .from<User>(Table.User)
+    .timeout(5000);
+
+  return users as Array<User>;
 };
 
-const create = async (user: NewUser): Promise<NewUser> => {
-  const query = ('INSERT INTO Users (email, username, password) VALUES ($1, $2, $3)');
+const create = async (user: NewUser): Promise<void> => {
   const passwordHash = await bcrypt.hash(user.password, 10);
-  const params = [user.email, user.username, passwordHash];
-  await pool.query(query, params);
 
-  return {
-    email: user.email,
-    username: user.username,
-    password: passwordHash,
-  } as NewUser;
+  await database<User>(Table.User)
+    .insert({
+      email: user.email,
+      username: user.username,
+      password: passwordHash,
+    });
 };
 
 const findByUsername = async (username: string): Promise<User> => {
-  const query = ('SELECT * FROM Users WHERE (username = $1)');
-  const result = await pool.query(query, [username]);
-  if (result.rowCount === 0) {
-    throw new Error(`No user found with username: ${username}`);
+  const user = await database
+    .select()
+    .first()
+    .from<User>(Table.User)
+    .where('username', username);
+
+  if (!user) {
+    throw new Error('User not found');
   }
-  return result.rows[0] as User;
+  return user;
 };
 
 export default {

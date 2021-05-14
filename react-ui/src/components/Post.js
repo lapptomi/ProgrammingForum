@@ -42,7 +42,7 @@ const Post = ({ post }) => {
               as='h3'
               content={post.title}
               subheader={`
-                Posted on ${post.posting_date.substring(0, 10)}
+                Posted on ${post.created_at.substring(0, 10)}
                 by ${post.username}
               `}
             />

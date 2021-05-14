@@ -31,3 +31,10 @@ export type NewComment = Omit<Comment, 'id'|'posting_date'>;
 export type NewPost = Omit<Post, 'id'|'posting_date'>;
 
 export type NewUser = Omit<User, 'id'>;
+
+export enum Table {
+  User = 'user',
+  Post = 'post',
+  PostLikes = 'post_like',
+  PostComments = 'post_comment',
+}

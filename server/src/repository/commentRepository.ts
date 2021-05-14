@@ -1,31 +1,33 @@
-import { Comment, NewComment } from '../../types';
-import { pool } from '../config/dbconfig';
+import { Comment, NewComment, Table } from '../../types';
+import database from '../database/knex';
 
 const getAll = async (): Promise<Array<Comment>> => {
-  const result = await pool.query('SELECT * FROM Post_Comments');
-  return result.rows as Array<Comment>;
+  const comments = await database
+    .select('*')
+    .from(Table.PostComments)
+    .timeout(5000);
+
+  return comments as Array<Comment>;
 };
 
 const findByPostId = async (postId: number): Promise<Array<Comment>> => {
-  const query = (`
-    SELECT C.*, U.username AS writer_username
-    FROM Post_Comments C, Users U 
-    WHERE (post_id = $1) AND (U.id = C.writer_id) 
-  `);
-  const result = await pool.query(query, [postId]);
+  const comments = await database
+    .from(Table.PostComments)
+    .join(Table.User, 'user.id', '=', 'post_comment.writer_id')
+    .select('post_comment.*', 'user.username')
+    .where('post_comment.post_id', '=', postId)
+    .timeout(5000);
 
-  return result.rows as Array<Comment>;
+  return comments as Array<Comment>;
 };
 
-const create = async (comment: NewComment): Promise<NewComment> => {
-  const query = (`
-    INSERT INTO Post_Comments (post_id, writer_id, comment) 
-    VALUES ($1, $2, $3)  
-  `);
-  const params = [comment.post_id, comment.writer_id, comment.comment];
-  await pool.query(query, params);
-
-  return comment;
+const create = async (comment: NewComment): Promise<void> => {
+  await database(Table.PostComments)
+    .insert({
+      post_id: comment.post_id,
+      writer_id: comment.writer_id,
+      comment: comment.comment,
+    });
 };
 
 export default {
