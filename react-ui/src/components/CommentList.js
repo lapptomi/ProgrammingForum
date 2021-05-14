@@ -17,7 +17,7 @@ const CommentList = ({ comments }) => (
         <Comment key={i}>
           <Comment.Avatar src={img} />
           <Comment.Content>
-            <Comment.Author as='a'>{comment.writer_username}</Comment.Author>
+            <Comment.Author as='a'>{comment.username}</Comment.Author>
             <Comment.Metadata>
               <div>{comment.created_at.substring(0, 10)}</div>
             </Comment.Metadata>
