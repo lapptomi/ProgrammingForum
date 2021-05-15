@@ -91,4 +91,22 @@ router.post('/:id/comments', async (req: Request, res) => {
   }
 });
 
+router.post('/comments/:id/likes', async (req: Request, res) => {
+  try {
+    const commentId = parseId(Number(req.params.id));
+
+    const token = req.token as string;
+    const decodedToken = jwt.verify(token, process.env.SECRET as string) as Token;
+
+    if (!token || !decodedToken.id) {
+      throw new Error('Token missing or invalid');
+    }
+
+    const addedLike = await commentRepository.addLike(commentId, decodedToken.id);
+    res.status(201).json(addedLike);
+  } catch (e) {
+    res.status(400).send((e as Error).message);
+  }
+});
+
 export default router;

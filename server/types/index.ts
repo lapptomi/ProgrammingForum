@@ -24,6 +24,7 @@ export interface Comment {
   writer_id: number;
   comment: string;
   posting_date: Date;
+  likes?: number;
 }
 
 export type NewComment = Omit<Comment, 'id'|'posting_date'>;
@@ -37,4 +38,5 @@ export enum Table {
   Post = 'post',
   PostLikes = 'post_like',
   PostComments = 'post_comment',
+  PostCommentLikes = 'post_comment_like',
 }

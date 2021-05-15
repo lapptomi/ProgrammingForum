@@ -35,7 +35,7 @@ const Post = ({ post }) => {
   return (
     <>
       <Grid.Row color='violet'>
-        <Grid.Column width={15} style={{ padding: '8px' }}>
+        <Grid.Column width={14} style={{ padding: '8px' }}>
           <Link to={`/posts/${post.id}`}>
             <Header
               inverted
@@ -48,7 +48,7 @@ const Post = ({ post }) => {
             />
           </Link>
         </Grid.Column>
-        <Grid.Column width={1}>
+        <Grid.Column width={2} textAlign='center'>
           <Item id='postLikes'>
             <Icon
               id='postLikeButton'

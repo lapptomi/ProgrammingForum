@@ -17,7 +17,8 @@ const create = async (post: NewPost): Promise<void> => {
       original_poster_id: post.original_poster_id,
       title: post.title,
       description: post.description,
-    });
+    })
+    .timeout(5000);
 };
 
 const addLike = async (postId: number, likerId: number): Promise<void> => {
@@ -25,23 +26,26 @@ const addLike = async (postId: number, likerId: number): Promise<void> => {
     .select('*')
     .from(Table.PostLikes)
     .where('post_id', '=', postId)
-    .andWhere('liker_id', '=', likerId);
+    .andWhere('liker_id', '=', likerId)
+    .timeout(5000);
 
   const hasLikedAlready = postLikes.length !== 0;
   // Check that the post is not already liked by the user
   if (hasLikedAlready) {
-    throw new Error('Could not add like, you can only like post once');
+    throw new Error('Could not add like, you can like post only once');
   }
 
   await database(Table.Post)
     .increment('likes', 1)
-    .where('post.id', '=', postId);
+    .where('post.id', '=', postId)
+    .timeout(5000);
 
   await database(Table.PostLikes)
     .insert({
       post_id: postId,
       liker_id: likerId,
-    });
+    })
+    .timeout(5000);
 };
 
 export default {

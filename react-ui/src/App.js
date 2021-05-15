@@ -17,6 +17,7 @@ import { setLoading, setPostsList } from './state/reducer';
 import HomePage from './pages/HomePage';
 import RegisterPage from './pages/RegisterPage';
 import CreatePostPage from './pages/CreatePostPage';
+import ProfilePage from './pages/ProfilePage';
 
 const App = () => {
   const [state, dispatch] = useGlobalState();
@@ -75,7 +76,7 @@ const App = () => {
           </Route>
 
           <Route path='/profile'>
-            <h1>Profile page</h1>
+            {state.isLoggedIn ? <ProfilePage /> : <LoginPage />}
           </Route>
 
           <Route path={['/', '/posts']}>

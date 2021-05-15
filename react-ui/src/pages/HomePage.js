@@ -26,7 +26,7 @@ const HomePage = () => (
           />
         </Grid.Column>
       </Grid.Row>
-      <Grid.Row color='blue'>
+      <Grid.Row color='black'>
         <Grid.Column
           width={8}
           textAlign='right'

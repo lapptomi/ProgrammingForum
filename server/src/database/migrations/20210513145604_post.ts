@@ -5,7 +5,7 @@ import { Table } from '../../../types';
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable(Table.Post, (table: Knex.TableBuilder) => {
     // Schema for the post table
-    table.increments('id').primary();
+    table.increments('id').primary().unique();
     table.integer('original_poster_id')
       .notNullable()
       .references('id')

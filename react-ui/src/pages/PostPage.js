@@ -3,16 +3,16 @@ import { useEffect, useState } from 'react';
 import {
   Divider, Header, Grid, Icon, Container,
 } from 'semantic-ui-react';
-import postService from '../services/postService';
 import CommentForm from '../components/CommentForm';
 import CommentList from '../components/CommentList';
 import Post from '../components/Post';
+import commentService from '../services/commentService';
 
 const PostPage = ({ post }) => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    postService.findCommentsByPostId(post.id)
+    commentService.findCommentsByPostId(post.id)
       .then((result) => setComments(result))
       .catch((error) => console.log(error.message));
   }, [post.id]);

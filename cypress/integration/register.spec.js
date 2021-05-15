@@ -5,7 +5,6 @@ const testUser = {
 } 
 
 describe('Creating new user', () => {
-
   beforeEach(() => {
     cy.request('POST', 'http://localhost:3001/api/testing/resetdb');
     cy.visit('http://localhost:3000');

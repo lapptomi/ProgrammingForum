@@ -2,7 +2,7 @@
 /* eslint-disable arrow-body-style */
 import React from 'react';
 import {
-  Grid, Header, Container,
+  Grid, Header, Container, Icon, Item,
 } from 'semantic-ui-react';
 import { useGlobalState } from '../state/state';
 import Post from './Post';
@@ -26,12 +26,15 @@ const PostsList = () => {
 
   return (
     <Container>
-      <Header
-        as='h1'
-        content='Posts'
-        style={{ padding: '40px' }}
-        textAlign='center'
-      />
+      <Item>
+        <Header
+          as='h1'
+          style={{ paddingTop: '100px' }}
+          textAlign='left'
+        >
+          <Icon color='black' name='list' /> Posts
+        </Header>
+      </Item>
       <Grid celled>
         {state.posts.map((post, i) => (
           <Post post={post} key={i} />

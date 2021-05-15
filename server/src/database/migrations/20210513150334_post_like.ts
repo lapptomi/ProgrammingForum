@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable(Table.PostLikes,
     (table: Knex.TableBuilder) => {
       // Schema for the post_like table
-      table.increments('id').primary();
+      table.increments('id').primary().unique();
       table.integer('post_id')
         .notNullable()
         .references('id')

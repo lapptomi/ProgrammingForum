@@ -1,14 +1,11 @@
 import React, { createContext, useContext, useReducer } from 'react';
 
-const currentUser = window.localStorage.getItem('loggedUser');
-const userToken = currentUser
-  ? JSON.parse(currentUser).token
-  : null;
+const currentUser = JSON.parse(window.localStorage.getItem('loggedUser'));
 
 const initialState = {
   posts: [],
   isLoggedIn: currentUser !== null,
-  token: userToken,
+  loggedUser: currentUser,
   isLoading: false,
 };
 
