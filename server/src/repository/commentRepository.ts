@@ -9,7 +9,7 @@ interface CommentLikes {
 }
 
 interface CommentReturnType extends Comment {
-  likes: number; // post likes
+  likes: number; // comment likes
   username: string; // comment writer username
 }
 
