@@ -3,6 +3,8 @@ export interface User {
   email: string;
   username: string;
   password: string;
+  created_at?: Date;
+  updated_at?: Date;
 }
 
 export interface Post {
@@ -10,7 +12,8 @@ export interface Post {
   original_poster_id: number;
   title: string;
   description: string;
-  posting_date: Date;
+  created_at?: Date;
+  updated_at?: Date;
 }
 
 export interface Token {
@@ -23,16 +26,17 @@ export interface Comment {
   post_id: number;
   writer_id: number;
   comment: string;
-  posting_date: Date;
-  likes?: number;
+  created_at?: Date;
+  updated_at?: Date;
 }
 
-export type NewComment = Omit<Comment, 'id'|'posting_date'>;
+export type NewComment = Omit<Comment, 'id'>;
 
-export type NewPost = Omit<Post, 'id'|'posting_date'>;
+export type NewPost = Omit<Post, 'id'>;
 
 export type NewUser = Omit<User, 'id'>;
 
+// Table names on the database
 export enum Table {
   User = 'user',
   Post = 'post',

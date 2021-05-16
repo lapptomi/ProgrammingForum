@@ -1,15 +1,31 @@
-import { Comment, NewComment, Table } from '../../types';
+import {
+  Comment, NewComment, Table, User,
+} from '../../types';
 import database from '../database/knex';
 
-const findByPostId = async (postId: number): Promise<Array<Comment>> => {
+interface CommentLikes {
+  post_comment_id: number;
+  liker_id: number;
+}
+
+interface CommentReturnType extends Comment {
+  likes: number; // post likes
+  username: string; // original poster username
+}
+
+const findByPostId = async (postId: number): Promise<Array<CommentReturnType>> => {
+  // Join comment writer username and comment likes to the comment
   const comments = await database
-    .from(Table.PostComments)
-    .join(Table.User, 'user.id', '=', 'post_comment.writer_id')
+    .from<Comment>(Table.PostComments)
+    .join<User>(Table.User, 'user.id', '=', 'post_comment.writer_id')
+    .leftJoin<CommentLikes>(Table.PostCommentLikes, 'post_comment_id', '=', 'post_comment.id')
     .select('post_comment.*', 'user.username')
+    .count('post_comment_like.* AS likes')
     .where('post_comment.post_id', '=', postId)
+    .groupBy('post_comment.id', 'user.username')
     .timeout(5000);
 
-  return comments as Array<Comment>;
+  return comments as Array<CommentReturnType>;
 };
 
 const create = async (comment: NewComment): Promise<void> => {
@@ -36,11 +52,7 @@ const addLike = async (commentId: number, likerId: number): Promise<void> => {
     throw new Error('Could not add like, you can like comment only once');
   }
 
-  await database(Table.PostComments)
-    .increment('likes', 1)
-    .where('post_comment.id', '=', commentId)
-    .timeout(5000);
-
+  // Else add new like
   await database(Table.PostCommentLikes)
     .insert({
       post_comment_id: commentId,
@@ -54,3 +66,4 @@ export default {
   create,
   addLike,
 };
+

@@ -1,11 +1,11 @@
 import express from 'express';
-import { initializeDB } from '../config/dbconfig';
+import { resetDatabase } from '../config/dbconfig';
 
 const router = express.Router();
 
 router.post('/resetdb', async (_req, res) => {
   try {
-    await initializeDB();
+    await resetDatabase();
     res.status(200).end();
   } catch (e) {
     res.status(400).send({ error: (e as Error).message });

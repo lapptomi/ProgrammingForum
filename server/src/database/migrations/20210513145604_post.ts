@@ -13,7 +13,6 @@ export async function up(knex: Knex): Promise<void> {
       .onDelete('CASCADE')
       .index();
     table.string('title').notNullable();
-    table.integer('likes').notNullable().defaultTo(0);
     table.string('description').notNullable();
     table.timestamps(true, true);
   });

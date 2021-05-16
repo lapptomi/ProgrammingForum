@@ -10,7 +10,7 @@ router.get('/', async (_req, res) => {
     const users = await userRepository.getAll();
     res.status(200).json(users);
   } catch (e) {
-    res.status(404).send({ error: `Could not get users: ${(e as Error).message}` });
+    res.status(400).send({ error: `Could not get users: ${(e as Error).message}` });
   }
 });
 

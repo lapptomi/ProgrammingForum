@@ -174,9 +174,14 @@ describe('Liking a comment', () => {
     
     cy.wait(1000);
     cy.get('#commentLikes').contains(1);
-    
+
     cy.get('#commentLikeButton').click();
     cy.wait(1000);
+
+    cy.on('window:alert', (text) => {
+      cy.expect(text).to.eq('Could not add like, you can like comment only once')
+    });
+    
     cy.get('#commentLikes').contains(1);
   });
 

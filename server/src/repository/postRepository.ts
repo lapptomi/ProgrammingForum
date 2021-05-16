@@ -1,14 +1,31 @@
-import { NewPost, Post, Table } from '../../types';
+import {
+  NewPost, Post, Table, User,
+} from '../../types';
 import database from '../database/knex';
 
-const getAll = async (): Promise<Array<Post>> => {
+interface PostReturnType extends Post {
+  likes: number; // post likes
+  username: string; // original poster username
+}
+
+interface PostLikes {
+  id: number;
+  post_id: number;
+  liker_id: number;
+}
+
+const getAll = async (): Promise<Array<PostReturnType>> => {
+  // Join poster username and post likes to the post
   const posts = await database
-    .from(Table.Post)
-    .join(Table.User, 'user.id', '=', 'original_poster_id')
+    .from<Post>(Table.Post)
+    .join<User>(Table.User, 'user.id', '=', 'original_poster_id')
+    .leftJoin<PostLikes>(Table.PostLikes, 'post_id', '=', 'post.id')
     .select('post.*', 'user.username')
+    .count('post_like.* AS likes')
+    .groupBy('post.id', 'user.username')
     .timeout(5000);
 
-  return posts as Array<Post>;
+  return posts as Array<PostReturnType>;
 };
 
 const create = async (post: NewPost): Promise<void> => {
@@ -35,11 +52,7 @@ const addLike = async (postId: number, likerId: number): Promise<void> => {
     throw new Error('Could not add like, you can like post only once');
   }
 
-  await database(Table.Post)
-    .increment('likes', 1)
-    .where('post.id', '=', postId)
-    .timeout(5000);
-
+  // Else add new like
   await database(Table.PostLikes)
     .insert({
       post_id: postId,

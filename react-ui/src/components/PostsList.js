@@ -11,6 +11,7 @@ const PostsList = () => {
   const [state] = useGlobalState();
 
   const urlParams = new URLSearchParams(window.location.search);
+
   const sortByParam = urlParams.get('sort');
   // eslint-disable-next-line no-console
   console.log('sort = ', sortByParam);
