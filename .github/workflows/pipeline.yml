@@ -6,10 +6,15 @@ on:
       - main
       - development
 
+defaults:
+  run:
+    working-directory: ./app
+
 jobs:
   test_and_deploy:
     runs-on: ubuntu-18.04
     env: 
+
 
     steps:
       - uses: actions/checkout@v2
