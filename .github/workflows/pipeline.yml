@@ -29,7 +29,6 @@ jobs:
       - name: Cypress tests
         uses: cypress-io/github-action@v2
         with:
-          working-directory: app
           project: app
           browser: chrome
           headless: true
