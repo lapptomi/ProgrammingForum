@@ -11,11 +11,11 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "typeRoots": ["server/types"]
+    "typeRoots": ["./server/types"]
   },
   "exclude": [
     "node_modules",
     "react-ui",
-    "cypress"
-  ]
+    "test"
+  ],
 }
