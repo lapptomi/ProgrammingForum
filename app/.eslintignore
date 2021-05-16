@@ -1,0 +1,6 @@
+node_modules
+test
+build
+dist
+cypress
+tsconfig.json
