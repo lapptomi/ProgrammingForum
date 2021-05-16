@@ -4,10 +4,7 @@ on:
   push:
     branches:
       - main
-
-  pull_request:
-    branches: [main]
-    types: [opened]
+      - development
 
 jobs:
   test_and_deploy:
