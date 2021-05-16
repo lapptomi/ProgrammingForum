@@ -23,14 +23,14 @@ jobs:
       
       - name: Cypress tests
         uses: cypress-io/github-action@v2
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          SECRET: 'supersecretkey'
         with:
           browser: chrome
           headless: true
           start: npm run start:test
           wait-on: http://localhost:3000
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SECRET: 'supersecretkey'
   
       - name: Heroku deploy
         uses: akhileshns/heroku-deploy@v3.12.12
