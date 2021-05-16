@@ -7,3 +7,5 @@
 ### Environment variables needed to use this app
 <b>DATABASE_URL</b>=[PostgreSQL connection string] [More info here](https://node-postgres.com/features/connecting)  
 <b>SECRET</b>=[secret key for jwt tokens (can be any string)]
+
+test
