@@ -6,10 +6,6 @@ on:
       - main
       - development
 
-defaults:
-  run:
-    working-directory: ./app
-
 jobs:
   test_and_deploy:
     runs-on: ubuntu-18.04
@@ -21,10 +17,10 @@ jobs:
           node-version: '14'
       
       - name: npm install
-        run: npm install && cd react-ui && npm install
+        run: cd ./app npm install && cd react-ui && npm install
       
       - name: Run eslint
-        run: npm run eslint
+        run: cd ./app && npm run eslint
       
       - name: Cypress tests
         uses: cypress-io/github-action@v2
@@ -32,7 +28,7 @@ jobs:
           project: ./app
           browser: chrome
           headless: true
-          start: npm run start:test
+          start: cd ./app && npm run start:test
           wait-on: http://localhost:3000
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
