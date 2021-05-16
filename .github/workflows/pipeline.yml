@@ -28,6 +28,8 @@ jobs:
       
       - name: Cypress tests
         uses: cypress-io/github-action@v2
+        with:
+          project: ./app
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SECRET: 'supersecretkey'
