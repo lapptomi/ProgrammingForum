@@ -66,4 +66,3 @@ export default {
   create,
   addLike,
 };
-
