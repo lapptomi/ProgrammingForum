@@ -10,7 +10,7 @@ interface CommentLikes {
 
 interface CommentReturnType extends Comment {
   likes: number; // post likes
-  username: string; // original poster username
+  username: string; // comment writer username
 }
 
 const findByPostId = async (postId: number): Promise<Array<CommentReturnType>> => {
