@@ -9,7 +9,7 @@ text here
 
 
 # Documentation
-### [How to use](hhttps://github.com/lapptomi/tsoha-2021/blob/docs/documentation/user-guide.md)  
+### [How to use](https://github.com/lapptomi/tsoha-2021/blob/docs/documentation/user-guide.md)  
 
 ### [Database diagram](https://github.com/lapptomi/tsoha-2021/blob/docs/documentation/images/dbdiagram.png)
 
