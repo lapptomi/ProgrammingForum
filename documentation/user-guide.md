@@ -28,12 +28,13 @@ After filling the form with valid title and description, the <b>Create</b> butto
 After clicking the button, a new post should be created and you will be redirected to the home page, where the post just created can be seen.
 
 ## Liking a post
-You can like a post by clicking the <b>thumb icon</b> on a post. User can like a same post only once.
+You can like a post by clicking the <b>thumb icon</b> on a post.  
+User can like the same post only once.
 
 <b>Note. You cannot like posts if you are not signed in to the application</b>
 
 ## Liking a comment
 You can like a comment by opening a post and clicking the <b>heart icon</b> on a comment.  
-User can like a same comment only once.
+User can like the same comment only once.
 
 <b>Note. You cannot like comments if you are not signed in to the application</b>
