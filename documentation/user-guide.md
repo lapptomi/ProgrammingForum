@@ -11,7 +11,7 @@ When valid credentials are given the <b>Create  Account</b> button should be ena
 After clicking the button a new account should be created and you should be signed in.
 
 
-## Signin in
+## Signing in
 If you already have an account, you can click the <b>Sign in</b> button in the top navigation  
 and fill the login form.
 
