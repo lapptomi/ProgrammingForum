@@ -10,7 +10,7 @@ interface KnexConfig {
 const connectionString = process.env.DATABASE_URL;
 
 // Database uses different configuration
-// depending what environment (NODE_ENV) is being used
+// depending on what environment (NODE_ENV) is being used
 const dbconfig: KnexConfig = {
   development: {
     client: 'postgresql',
