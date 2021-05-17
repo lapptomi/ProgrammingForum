@@ -5,11 +5,11 @@
 ## [App on Heroku](https://tsoha-2021-tl.herokuapp.com/)
 
 # Purpose of the application
-text here
-
+Purpose of this application is to be a website where people can discuss programming related things.  
+Users can create posts where other people can answer. Users can also like the posts and the comments.
 
 # Documentation
-### [How to use](https://github.com/lapptomi/tsoha-2021/blob/main/documentation/user-guide.md)  
+### [User guide](https://github.com/lapptomi/tsoha-2021/blob/main/documentation/user-guide.md)  
 
 ### [Database diagram](https://github.com/lapptomi/tsoha-2021/blob/main/documentation/images/dbdiagram.png)
 
