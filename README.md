@@ -5,7 +5,7 @@
 ## [App on Heroku](https://tsoha-2021-tl.herokuapp.com/)
 
 # Purpose of the application
-Purpose of this application is to be a website where people can discuss programming related things.  
+Purpose of this application is to be a website / forum where people can discuss programming related things.  
 Users can create posts where other people can answer. Users can also like the posts and the comments.
 
 # Documentation
