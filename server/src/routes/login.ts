@@ -6,6 +6,7 @@ import { Token, User } from '../../types';
 
 const router = express.Router();
 
+// Return a token if correct username and password are given
 router.post('/', async (req, res) => {
   try {
     const { username, password } = req.body as User;

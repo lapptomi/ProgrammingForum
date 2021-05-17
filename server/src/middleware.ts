@@ -1,10 +1,13 @@
+/* eslint-disable prefer-destructuring */
 import { NextFunction, Request, Response } from 'express';
 
-/* eslint-disable no-console */
 export const tokenExtractor = (req: Request, _res: Response, next: NextFunction): void => {
   const authorization = req.get('authorization');
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    req.token = authorization.substring(7);
+    const auth: Array<string> = authorization.split(' ');
+    // auth[0] should equal 'bearer'
+    // and auth[1] should be the token
+    req.token = auth[1];
   }
   next();
 };
