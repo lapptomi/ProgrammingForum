@@ -25,7 +25,8 @@ That will open a form where you can enter the post title and description.
 <b>Title and description must also be at least 4 characters in length</b>.
 
 After filling the form with valid title and description, the <b>Create</b> button should be enabled.  
-After clicking the button, a new post should be created and you will be redirected to the home page, where the post just created can be seen.
+After clicking the button, a new post should be created and you will be redirected to the home page,  
+where the post that was created can be seen.
 
 ## Liking a post
 You can like a post by clicking the <b>thumb icon</b> on a post.  
