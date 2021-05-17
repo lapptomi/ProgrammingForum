@@ -27,7 +27,7 @@ const findByUsername = async (username: string): Promise<User> => {
     .select()
     .first()
     .from<User>(Table.User)
-    .where('username', username);
+    .where('username', '=', username);
 
   if (!user) {
     throw new Error('User not found');
