@@ -19,7 +19,6 @@ export async function up(knex: Knex): Promise<void> {
         .inTable(Table.User)
         .onDelete('CASCADE')
         .index();
-      table.integer('likes').notNullable().defaultTo(0);
       table.string('comment').notNullable();
       table.timestamps(true, true);
     });
