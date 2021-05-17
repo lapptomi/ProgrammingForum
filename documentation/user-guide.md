@@ -33,7 +33,7 @@ You can like a post by clicking the <b>thumb icon</b> on a post. User can like a
 <b>Note. You cannot like posts if you are not signed in to the application</b>
 
 ## Liking a comment
-You can like a comment by opening a post and clicking the <b>heart icon</b> on a comment. 
+You can like a comment by opening a post and clicking the <b>heart icon</b> on a comment.  
 User can like a same comment only once.
 
 <b>Note. You cannot like comments if you are not signed in to the application</b>
