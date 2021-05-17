@@ -9,6 +9,7 @@ import { NewPost, Token } from '../../types';
 
 const router = express.Router();
 
+// Get all posts
 router.get('/', async (_req, res) => {
   try {
     const posts = await postRepository.getAll();
@@ -18,6 +19,7 @@ router.get('/', async (_req, res) => {
   }
 });
 
+// Create new post
 router.post('/', async (req: Request, res) => {
   try {
     const token = req.token as string;
@@ -36,6 +38,7 @@ router.post('/', async (req: Request, res) => {
   }
 });
 
+// Add like to post
 router.post('/:id/likes', async (req: Request, res) => {
   try {
     const postId = parseId(Number(req.params.id));
@@ -54,6 +57,7 @@ router.post('/:id/likes', async (req: Request, res) => {
   }
 });
 
+// Get all comments of a post
 router.get('/:id/comments', async (req: Request, res) => {
   try {
     const postId = Number(req.params.id);
@@ -68,6 +72,7 @@ router.get('/:id/comments', async (req: Request, res) => {
   }
 });
 
+// Add new comment to post
 router.post('/:id/comments', async (req: Request, res) => {
   try {
     const token = req.token as string;
@@ -91,6 +96,7 @@ router.post('/:id/comments', async (req: Request, res) => {
   }
 });
 
+// Add like to post comment
 router.post('/comments/:id/likes', async (req: Request, res) => {
   try {
     const commentId = parseId(Number(req.params.id));

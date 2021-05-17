@@ -5,6 +5,7 @@ import { toNewUser } from '../utils';
 
 const router = express.Router();
 
+// Get all users
 router.get('/', async (_req, res) => {
   try {
     const users = await userRepository.getAll();
@@ -14,6 +15,7 @@ router.get('/', async (_req, res) => {
   }
 });
 
+// Create new user
 router.post('/', async (req, res) => {
   try {
     const newUser = toNewUser(req.body as NewUser);

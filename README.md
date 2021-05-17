@@ -14,8 +14,6 @@ text here
 ### [Database diagram](https://github.com/lapptomi/tsoha-2021/blob/docs/documentation/images/dbdiagram.png)
 
 
-
-
 # Running the app locally
 
 ### Environment variables needed to use this app

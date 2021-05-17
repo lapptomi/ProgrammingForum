@@ -19,7 +19,7 @@ const Footer = () => (
           <Grid divided inverted>
             <Grid.Column width={16}>
               <Header inverted as='h2' content='Programming Forum' />
-              <p>© 2021 All Rights Reserved</p>
+              <p>© 2021 All Rights Reserved jne</p>
             </Grid.Column>
           </Grid>
           <Divider inverted section />

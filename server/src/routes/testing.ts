@@ -3,6 +3,7 @@ import { resetDatabase } from '../config/dbconfig';
 
 const router = express.Router();
 
+// Deletes all rows from the database tables
 router.post('/resetdb', async (_req, res) => {
   try {
     await resetDatabase();
