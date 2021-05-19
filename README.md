@@ -20,14 +20,14 @@ Users can create posts where other people can answer. Users can also like the po
 If you want to run this app locally, you need to have these two environment variables:
 
 <b>DATABASE_URL</b>=[PostgreSQL connection string] [More info here](https://node-postgres.com/features/connecting)  
-<b>SECRET</b>=[secret key for jwt tokens]
+<b>SECRET</b>=[secret key for jwt tokens (can be any string)]
 
 You can set up these variables by making a .env file in the root of the project and by adding the two variables in it.
 
 #### The content of the .env file can be for example: 
 ```
 DATABASE_URL=postgresql://dbuser:secretpassword@database.server.com:3211/mydb <-[not a real database url]
-SECRET=secretkey <-[you can replace the "secretkey" by any text]
+SECRET=secretkey <-[you can replace the "secretkey" with any text]
 ```
 
 # Installing dependencies
