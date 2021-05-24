@@ -9,6 +9,7 @@ import {
   Icon,
 } from 'semantic-ui-react';
 import loginService from '../services/loginService';
+import img from '../style/header.jpg';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -31,13 +32,22 @@ const LoginPage = () => {
       verticalAlign='middle'
     >
       <Grid.Row
-        color='violet'
+        color='black'
         textAlign='center'
-        style={{ padding: '100px' }}
+        style={{
+          padding: '100px',
+          backgroundImage: `url(${img})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 200%',
+        }}
       >
         <Grid.Column width={16} textAlign='center'>
-          <Header inverted style={{ fontSize: '48px' }}>
-            <Icon name='code' /> Sign in to your account
+          <Header inverted style={{ fontSize: '40px' }}>
+            <p>
+              <Icon name='dollar sign' color='yellow' />
+              <span>SIGN IN TO YOUR ACCOUNT</span>
+              <span className="blinking">_</span>
+            </p>
           </Header>
         </Grid.Column>
       </Grid.Row>

@@ -1,9 +1,10 @@
 /* eslint-disable no-alert */
 import { useState } from 'react';
 import {
-  Form, Grid, Header, Icon, Container, Segment,
+  Form, Grid, Header, Container, Segment,
 } from 'semantic-ui-react';
 import postService from '../services/postService';
+import img from '../style/header.jpg';
 
 const CreatePostPage = () => {
   const [title, setTitle] = useState('');
@@ -38,11 +39,19 @@ const CreatePostPage = () => {
       <Grid.Row
         color='violet'
         textAlign='center'
-        style={{ padding: '100px' }}
+        style={{
+          padding: '100px',
+          backgroundImage: `url(${img})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 200%',
+        }}
       >
         <Grid.Column width={16} textAlign='center'>
-          <Header inverted style={{ fontSize: '48px' }}>
-            <Icon name='code' /> Create A New Post
+          <Header inverted style={{ fontSize: '46px' }}>
+            <p>
+              <span>CREATE NEW POST</span>
+              <span className="blinking">_</span>
+            </p>
           </Header>
         </Grid.Column>
       </Grid.Row>

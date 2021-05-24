@@ -8,7 +8,6 @@ import {
 } from 'react-router-dom';
 import { Container, Loader } from 'semantic-ui-react';
 import LoginPage from './pages/LoginPage';
-import NavBar from './components/NavBar';
 import PostPage from './pages/PostPage';
 import postService from './services/postService';
 import Footer from './components/Footer';
@@ -18,6 +17,7 @@ import HomePage from './pages/HomePage';
 import RegisterPage from './pages/RegisterPage';
 import CreatePostPage from './pages/CreatePostPage';
 import ProfilePage from './pages/ProfilePage';
+import TopNav from './components/TopNav';
 
 const App = () => {
   const [state, dispatch] = useGlobalState();
@@ -43,7 +43,7 @@ const App = () => {
   if (state.isLoading) {
     return (
       <div>
-        <NavBar />
+        <TopNav />
         <Loader active />
       </div>
     );
@@ -51,7 +51,7 @@ const App = () => {
 
   return (
     <div style={{ minWidth: '768px' }}>
-      <NavBar />
+      <TopNav />
       <div style={{
         minHeight: '1000px',
       }}>
