@@ -1,22 +1,32 @@
 import {
-  Grid, Header, Icon,
+  Grid, Header,
 } from 'semantic-ui-react';
 import PostsList from '../components/PostsList';
+import '../style/index.css';
+import img from '../style/header.jpg';
 
 const HomePage = () => (
   <div>
     <Grid>
       <Grid.Row
-        color='violet'
+        color='black'
         textAlign='center'
-        style={{ padding: '150px' }}
+        style={{
+          padding: '150px',
+          backgroundImage: `url(${img})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 200%',
+        }}
       >
         <Grid.Column width={16} textAlign='center'>
           <Header
             style={{ fontSize: '64px' }}
             inverted
           >
-            <Icon name='code' /> Programming Forum
+            <p>
+              <span>Programming Forum</span>
+              <span className="blinking">_</span>
+            </p>
           </Header>
           <Header
             style={{ fontSize: '22px' }}
