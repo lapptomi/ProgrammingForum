@@ -1,12 +1,9 @@
-const testUser = {
-  email: 'testemail@gmail.com',
-  username: 'testusername',
-  password: "testpassword",
-} 
+import { testUser, baseUrl } from '../constants';
 
 describe('Creating new user', () => {
   beforeEach(() => {
-    cy.request('POST', 'http://localhost:3001/api/testing/resetdb');
+    cy.request('POST', `${baseUrl}/api/testing/resetdb`);
+
     cy.visit('http://localhost:3000');
 
     cy.wait(1000);
@@ -26,7 +23,7 @@ describe('Creating new user', () => {
   });
 
   it('fails when non unique username is given', () => {
-    cy.request('POST', 'http://localhost:3001/api/users/', testUser)
+    cy.request('POST', `${baseUrl}/api/users`, testUser)
     
     cy.get('#email').type(testUser.email);
     cy.get('#username').type(testUser.username);

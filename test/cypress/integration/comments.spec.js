@@ -1,19 +1,4 @@
-const testPost = {
-  title: 'randomtitle',
-  description: 'randomdescription'
-};
-
-const testUser = {
-  email: 'testemail@gmail.com',
-  username: 'testusername',
-  password: "testpassword",
-};
-
-const testUser2 = {
-  email: 'testemail2@gmail.com',
-  username: 'testusername2',
-  password: "testpassword2",
-};
+import { testUser, testUser2, testPost, baseUrl } from '../constants';
 
 const testComment = {
   comment: 'random comment'
@@ -29,13 +14,13 @@ const invalidComment = {
 
 describe('Adding comments to a post', () => {
   beforeEach(() => {
-    cy.request('POST', 'http://localhost:3001/api/testing/resetdb');
+    cy.request('POST', `${baseUrl}/api/testing/resetdb`);
 
     // Creating user for testing
-    cy.request('POST', 'http://localhost:3001/api/users/', testUser)
+    cy.request('POST', `${baseUrl}/api/users`, testUser)
+
     cy.visit('http://localhost:3000');
     
-
     // Logging in the user before running tests
     cy.wait(1000);
     cy.get('#navbarSignInButton').click();
@@ -80,7 +65,7 @@ describe('Adding comments to a post', () => {
     // Try also adding an empty comment by POST request (should fail)
     cy.request({
       method: 'POST',
-      url: 'http://localhost:3001/api/posts/1/comments',
+      url: `${baseUrl}/api/posts/1/comments`,
       failOnStatusCode: false,
       form: true, 
       body: {
@@ -118,11 +103,11 @@ describe('Adding comments to a post', () => {
 
 describe('Liking a comment', () => {
   beforeEach(() => {
-    cy.request('POST', 'http://localhost:3001/api/testing/resetdb');
+    cy.request('POST', `${baseUrl}/api/testing/resetdb`);
 
     // Creating users for testing
-    cy.request('POST', 'http://localhost:3001/api/users/', testUser)
-    cy.request('POST', 'http://localhost:3001/api/users/', testUser2)
+    cy.request('POST', `${baseUrl}/api/users`, testUser)
+    cy.request('POST', `${baseUrl}/api/users`, testUser2)
 
     cy.visit('http://localhost:3000');
     

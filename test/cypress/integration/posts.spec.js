@@ -1,27 +1,11 @@
-const testPost = {
-  title: 'randomtitle',
-  description: 'randomdescription'
-};
-
-const testUser = {
-  email: 'testemail@gmail.com',
-  username: 'testusername',
-  password: "testpassword",
-};
-
-const testUser2 = {
-  email: 'testemail2@gmail.com',
-  username: 'testusername2',
-  password: "testpassword2",
-};
-
+import { testUser, testPost, testUser2, baseUrl } from '../constants';
 
 describe('Creating a new post', () => {
   beforeEach(() => {
-    cy.request('POST', 'http://localhost:3001/api/testing/resetdb');
+    cy.request('POST', `${baseUrl}/api/testing/resetdb`);
 
     // creating user for testing
-    cy.request('POST', 'http://localhost:3001/api/users/', testUser)
+    cy.request('POST', `${baseUrl}/api/users`, testUser)
 
     cy.visit('http://localhost:3000');
 
@@ -75,12 +59,12 @@ describe('Creating a new post', () => {
 
 describe('Liking a post', () => {
   beforeEach(() => {
-    cy.request('POST', 'http://localhost:3001/api/testing/resetdb');
+    cy.request('POST', `${baseUrl}/api/testing/resetdb`);
 
     // creating user for testing
-    cy.request('POST', 'http://localhost:3001/api/users/', testUser)
+    cy.request('POST', `${baseUrl}/api/users`, testUser)
     // creating second user for testing
-    cy.request('POST', 'http://localhost:3001/api/users/', testUser2)
+    cy.request('POST', `${baseUrl}/api/users`, testUser2)
 
     cy.visit('http://localhost:3000');
 

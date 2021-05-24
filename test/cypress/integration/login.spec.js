@@ -1,21 +1,12 @@
-const testUser = {
-  email: 'testemail@gmail.com',
-  username: 'testusername',
-  password: "testpassword",
-};
-
-const nonExistingUser = {
-  email: 'randomuser@gmail.com',
-  username: 'invalidusername',
-  password: "invalidpassword",
-};
+import { testUser, nonExistingUser, baseUrl } from '../constants';
 
 describe('Sign in', () => {
   beforeEach(() => {
-    cy.request('POST', 'http://localhost:3001/api/testing/resetdb');
+    cy.request('POST', `${baseUrl}/api/testing/resetdb`);
 
     // creating user for testing
-    cy.request('POST', 'http://localhost:3001/api/users/', testUser)
+    cy.request('POST', `${baseUrl}/api/users`, testUser)
+    
     cy.visit('http://localhost:3000');
 
     cy.wait(1000);
