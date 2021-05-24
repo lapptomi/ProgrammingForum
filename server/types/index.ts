@@ -17,8 +17,7 @@ export interface Post {
 }
 
 export interface Token {
-  id: number;
-  username: string;
+  value?: string;
 }
 
 export interface Comment {

@@ -2,7 +2,7 @@ import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 import express from 'express';
 import userRepository from '../repository/userRepository';
-import { Token, User } from '../../types';
+import { User } from '../../types';
 
 const router = express.Router();
 
@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
     const userForToken = {
       username: user.username,
       id: user.id,
-    } as Token;
+    } as User;
 
     const token = jwt.sign(
       userForToken,

@@ -13,6 +13,15 @@ interface CommentReturnType extends Comment {
   username: string; // comment writer username
 }
 
+const getAll = async (): Promise<Array<Comment>> => {
+  const comments = await database
+    .select('*')
+    .from<Comment>(Table.PostComments)
+    .timeout(5000);
+
+  return comments as Array<Comment>;
+};
+
 const findByPostId = async (postId: number): Promise<Array<CommentReturnType>> => {
   // Join comment writer username and comment likes to the comment
   const comments = await database
@@ -62,6 +71,7 @@ const addLike = async (commentId: number, likerId: number): Promise<void> => {
 };
 
 export default {
+  getAll,
   findByPostId,
   create,
   addLike,

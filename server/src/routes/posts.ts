@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import postRepository from '../repository/postRepository';
 import commentRepository from '../repository/commentRepository';
 import { toNewPost, toNewComment, parseId } from '../utils';
-import { NewPost, Token } from '../../types';
+import { NewPost, User } from '../../types';
 
 const router = express.Router();
 
@@ -23,7 +23,7 @@ router.get('/', async (_req, res) => {
 router.post('/', async (req: Request, res) => {
   try {
     const token = req.token as string;
-    const decodedToken = jwt.verify(token, process.env.SECRET as string) as Token;
+    const decodedToken = jwt.verify(token, process.env.SECRET as string) as User;
 
     if (!token || !decodedToken.id) {
       throw new Error('Token missing or invalid');
@@ -44,7 +44,7 @@ router.post('/:id/likes', async (req: Request, res) => {
     const postId = parseId(Number(req.params.id));
 
     const token = req.token as string;
-    const decodedToken = jwt.verify(token, process.env.SECRET as string) as Token;
+    const decodedToken = jwt.verify(token, process.env.SECRET as string) as User;
 
     if (!token || !decodedToken.id) {
       throw new Error('Token missing or invalid');
@@ -76,7 +76,7 @@ router.get('/:id/comments', async (req: Request, res) => {
 router.post('/:id/comments', async (req: Request, res) => {
   try {
     const token = req.token as string;
-    const decodedToken = jwt.verify(token, process.env.SECRET as string) as Token;
+    const decodedToken = jwt.verify(token, process.env.SECRET as string) as User;
 
     if (!token || !decodedToken.id) {
       throw new Error('Token missing or invalid');
@@ -102,7 +102,7 @@ router.post('/comments/:id/likes', async (req: Request, res) => {
     const commentId = parseId(Number(req.params.id));
 
     const token = req.token as string;
-    const decodedToken = jwt.verify(token, process.env.SECRET as string) as Token;
+    const decodedToken = jwt.verify(token, process.env.SECRET as string) as User;
 
     if (!token || !decodedToken.id) {
       throw new Error('Token missing or invalid');
