@@ -10,6 +10,7 @@ import CommentList from '../components/CommentList';
 import Loading from '../components/Loading';
 import Post from '../components/Post';
 import { FIND_POST_BY_ID } from '../queries/post';
+import img from '../style/header.jpg';
 
 const PostPage = () => {
   const [comments] = useState([]);
@@ -36,11 +37,20 @@ const PostPage = () => {
         <Grid.Row
           color='violet'
           textAlign='center'
-          style={{ padding: '100px' }}
+          style={{
+            padding: '100px',
+            backgroundImage: `url(${img})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: '100% 200%',
+          }}
         >
           <Grid.Column width={16} textAlign='center'>
-            <Header style={{ fontSize: '48px' }} inverted>
-              <Icon name='code' /> Programming Forum
+            <Header inverted style={{ fontSize: '40px' }}>
+              <p>
+                <Icon name='dollar sign' color='yellow' />
+                <span>{post.title}</span>
+                <span className="blinking">_</span>
+              </p>
             </Header>
           </Grid.Column>
         </Grid.Row>
