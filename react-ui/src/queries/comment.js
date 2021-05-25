@@ -8,6 +8,7 @@ export const FIND_COMMENTS_BY_POST_ID = gql`
       post_id
       writer_id
       comment
+      username
       likes
       created_at
       updated_at

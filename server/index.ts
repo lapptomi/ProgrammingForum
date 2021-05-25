@@ -53,6 +53,7 @@ const startApolloServer = async () => {
       post_id: ID!
       writer_id: ID!
       comment: String!
+      username: String!
       likes: Int!
       created_at: String
       updated_at: String
