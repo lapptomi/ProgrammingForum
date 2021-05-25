@@ -14,19 +14,19 @@ describe('Sign in', () => {
   });
 
   it('works with correct credentials', () => {
-    cy.contains('Sign in to your account');
+    cy.contains('SIGN IN TO YOUR ACCOUNT');
     cy.get('#username').type(testUser.username);
     cy.get('#password').type(testUser.password);
     cy.get('#loginButton').should('be.enabled');
     cy.get('#loginButton').click();
     
     cy.wait(1000);
-    cy.contains('Profile');
-    cy.contains('Create New Post');
+    cy.contains('PROFILE');
+    cy.contains('CREATE NEW POST');
   });
 
   it('fails with invalid credentials', () => {
-    cy.contains('Sign in to your account');
+    cy.contains('SIGN IN TO YOUR ACCOUNT');
     cy.get('#username').type(testUser.username);
     cy.get('#password').type('wrongpassword');
     cy.get('#loginButton').should('be.enabled');
@@ -39,7 +39,7 @@ describe('Sign in', () => {
   });
 
   it('fails when user with username given does not exist', () => {
-    cy.contains('Sign in to your account');
+    cy.contains('SIGN IN TO YOUR ACCOUNT');
     cy.get('#username').type(nonExistingUser.username);
     cy.get('#password').type(nonExistingUser.password);
     cy.get('#loginButton').should('be.enabled');

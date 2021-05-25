@@ -12,19 +12,20 @@ describe('Creating a new post', () => {
     // logging in the user before running tests
     cy.wait(1000);
     cy.get('#navbarSignInButton').click();
-    cy.contains('Sign in to your account');
+    cy.contains('SIGN IN TO YOUR ACCOUNT');
     cy.get('#username').type(testUser.username);
     cy.get('#password').type(testUser.password);
     cy.get('#loginButton').should('be.enabled');
     cy.get('#loginButton').click();
     
     cy.wait(1000);
-    cy.contains('Profile');
-    cy.contains('Create New Post');
+    cy.contains('PROFILE');
+    cy.contains('CREATE NEW POST');
+
   });
 
   it('works when valid title and description are given', () => {
-    cy.contains('Create New Post').click();
+    cy.contains('CREATE NEW POST').click();
     cy.get('#title').type(testPost.title);
     cy.get('#description').type(testPost.description);
     cy.get('#createPostButton').should('be.enabled');
@@ -42,13 +43,13 @@ describe('Creating a new post', () => {
   });
 
   it('is not allowed when title is left empty', () => {
-    cy.contains('Create New Post').click();
+    cy.contains('CREATE NEW POST').click();
     cy.get('#description').type(testPost.description);
     cy.get('#createPostButton').should('be.disabled');
   });
 
   it('is not allowed when description is left empty', () => {
-    cy.contains('Create New Post').click();
+    cy.contains('CREATE NEW POST').click();
     cy.get('#title').type(testPost.title);
     cy.get('#createPostButton').should('be.disabled');
   });
@@ -71,17 +72,17 @@ describe('Liking a post', () => {
     // logging in the user before running tests
     cy.wait(1000);
     cy.get('#navbarSignInButton').click();
-    cy.contains('Sign in to your account');
+    cy.contains('SIGN IN TO YOUR ACCOUNT');
     cy.get('#username').type(testUser.username);
     cy.get('#password').type(testUser.password);
     cy.get('#loginButton').should('be.enabled');
     cy.get('#loginButton').click();
     
     cy.wait(1000);
-    cy.contains('Profile');
+    cy.contains('PROFILE');
 
     // Creating a post
-    cy.contains('Create New Post').click();
+    cy.contains('CREATE NEW POST').click();
     cy.get('#title').type(testPost.title);
     cy.get('#description').type(testPost.description);
     cy.get('#createPostButton').should('be.enabled');
@@ -140,7 +141,7 @@ describe('Liking a post', () => {
     cy.get('#navbarSignOutButton').click();
     cy.wait(1000);
     cy.get('#navbarSignInButton').click();
-    cy.contains('Sign in to your account');
+    cy.contains('SIGN IN TO YOUR ACCOUNT');
     cy.get('#username').type(testUser2.username);
     cy.get('#password').type(testUser2.password);
     cy.get('#loginButton').should('be.enabled');
@@ -148,7 +149,7 @@ describe('Liking a post', () => {
     
     // Like post again by another user
     cy.wait(1000);
-    cy.contains('Profile');
+    cy.contains('PROFILE');
     cy.get('#postLikes').contains(1);
     cy.get('#postLikeButton').click();
 

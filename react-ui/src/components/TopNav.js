@@ -10,21 +10,27 @@ const LoggedOutTopNav = () => (
   <Grid.Column width={16}>
     <Menu secondary>
       <Container>
-        <Menu.Item position="left" active={false}>
+        <Menu.Item
+          id='navbarHomeButton'
+          position="left"
+        >
           <Link to="/">
             <Button color="black">
               <Header inverted as="h3" content="<HOME />" />
             </Button>
           </Link>
         </Menu.Item>
-        <Menu.Item position="right">
+        <Menu.Item
+          id='navbarSignInButton'
+          position="right"
+        >
           <Link to="/login">
             <Button color="black">
               <Header inverted as="h3" content="LOG IN" />
             </Button>
           </Link>
         </Menu.Item>
-        <Menu.Item>
+        <Menu.Item id='navbarSignUpButton'>
           <Link to="/register">
             <Button color="black">
               <Header inverted as="h3" content="SIGN UP" />
@@ -40,21 +46,24 @@ const LoggedInTopNav = () => (
   <Grid.Column width={16}>
     <Menu secondary>
       <Container>
-        <Menu.Item>
+        <Menu.Item id='navbarHomeButton'>
           <Link to="/">
             <Button color="black" active={false}>
               <Header inverted as="h3" content="<HOME />" />
             </Button>
           </Link>
         </Menu.Item>
-        <Menu.Item>
+        <Menu.Item id='navbarNewPostButton'>
           <Link to="/posts/create">
             <Button color="black">
-              <Header inverted as="h3" content="NEW POST " />
+              <Header inverted as="h3" content="CREATE NEW POST " />
             </Button>
           </Link>
         </Menu.Item>
-        <Menu.Item position="right">
+        <Menu.Item
+          id='navbarProfileButton'
+          position="right"
+        >
           <Link to="/profile">
             <Button color="black">
               <Header inverted as="h3" content="PROFILE" />
@@ -63,6 +72,7 @@ const LoggedInTopNav = () => (
         </Menu.Item>
         <Menu.Item>
           <Button
+            id='navbarSignOutButton'
             color="black"
             onClick={() => loginService.logout()}
           >

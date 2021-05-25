@@ -114,7 +114,6 @@ const startApolloServer = async () => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         const postId = parseId(Number(args.postId));
         const postComments = await commentRepository.findByPostId(postId);
-        console.log(postComments);
         return postComments;
       },
     },
@@ -163,7 +162,6 @@ const startApolloServer = async () => {
           throw new Error('not authenticated');
         }
         const { postId, comment } = args;
-        console.log(Number(postId), 'id');
         const newComment = toNewComment({
           post_id: Number(postId),
           writer_id: currentUser.id,
