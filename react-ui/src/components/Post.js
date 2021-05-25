@@ -1,35 +1,26 @@
 /* eslint-disable no-alert */
+import { useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import {
   Divider,
   Grid, Header, Icon, Item,
 } from 'semantic-ui-react';
-import postService from '../services/postService';
+import { LIKE_POST } from '../queries/post';
 import { useGlobalState } from '../state/state';
 
 const Post = ({ post }) => {
   const [state] = useGlobalState();
+
+  const [likePost] = useMutation(LIKE_POST);
 
   const handlePostLike = () => {
     if (!state.isLoggedIn) {
       window.alert('You must be logged in to add likes');
       return;
     }
-
-    postService.addLike(post.id)
-      .then(() => {
-        window.alert('Like added!');
-        window.location.reload();
-      })
-      .catch(({ response }) => {
-        if (response.data === 'jwt expired') {
-          window.alert('Error: session has expired, please sign in again');
-          window.localStorage.clear();
-          window.location.replace('/login');
-        } else {
-          window.alert(response.data);
-        }
-      });
+    likePost({ variables: { postId: post.id } })
+      .then(() => window.location.reload())
+      .catch((error) => window.alert(error.message));
   };
 
   return (
@@ -42,8 +33,8 @@ const Post = ({ post }) => {
               as='h3'
               content={post.title}
               subheader={`
-                Posted on ${post.created_at.substring(0, 10)}
-                by ${post.username}
+                Posted on ${post.created_at}
+                by ${post.original_poster_username}
               `}
             />
           </Link>

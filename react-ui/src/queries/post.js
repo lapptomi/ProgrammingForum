@@ -9,6 +9,23 @@ export const GET_ALL_POSTS = gql`
       description
       created_at
       updated_at
+      original_poster_username
+      likes
+    }
+  }
+`;
+
+export const FIND_POST_BY_ID = gql`
+  query findPost($postId: ID!) {
+    findPost(postId: $postId) {
+      id
+      original_poster_id
+      title
+      description
+      created_at
+      updated_at
+      original_poster_username
+      likes
     }
   }
 `;
@@ -21,6 +38,14 @@ export const CREATE_NEW_POST = gql`
     ) {
       title
       description
+    }
+  }
+`;
+
+export const LIKE_POST = gql`
+  mutation likePost($postId: ID!) {
+    likePost(postId: $postId) {
+      likes
     }
   }
 `;

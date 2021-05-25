@@ -1,24 +1,26 @@
 /* eslint-disable no-alert */
+import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import {
   Form, Button, Header, Segment,
 } from 'semantic-ui-react';
-import postService from '../services/postService';
+import { CREATE_NEW_COMMENT } from '../queries/comment';
 import { useGlobalState } from '../state/state';
 
 const CommentForm = ({ post }) => {
   const [state] = useGlobalState();
   const [comment, setComment] = useState('');
 
+  const [createNewComment] = useMutation(CREATE_NEW_COMMENT);
+
   const handleSubmit = () => {
-    postService.addComment(post.id, comment)
-      .then(() => window.location.reload())
-      .catch(({ response }) => {
-        if (response.data === 'jwt expired') {
-          window.alert('Error: session has expired, please sign in again');
-          window.localStorage.clear();
-          window.location.replace('/login');
-        }
+    createNewComment({ variables: { postId: post.id, comment } })
+      .then(() => {
+        setComment('');
+        window.location.reload();
+      })
+      .catch((error) => {
+        window.alert(error);
       });
   };
 

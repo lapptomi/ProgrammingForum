@@ -24,7 +24,7 @@ describe('Adding comments to a post', () => {
     // Logging in the user before running tests
     cy.wait(1000);
     cy.get('#navbarSignInButton').click();
-    cy.contains('Sign in to your account');
+    cy.contains('SIGN IN TO YOUR ACCOUNT');
     cy.get('#username').type(testUser.username);
     cy.get('#password').type(testUser.password);
     cy.get('#loginButton').should('be.enabled');
@@ -32,7 +32,7 @@ describe('Adding comments to a post', () => {
     
     // Creating a new post
     cy.wait(1000);
-    cy.contains('Create New Post').click();
+    cy.contains('CREATE NEW POST').click();
     cy.get('#title').type(testPost.title);
     cy.get('#description').type(testPost.description);
     cy.get('#createPostButton').should('be.enabled');
@@ -114,7 +114,7 @@ describe('Liking a comment', () => {
     // Logging in the user before running tests
     cy.wait(1000);
     cy.get('#navbarSignInButton').click();
-    cy.contains('Sign in to your account');
+    cy.contains('SIGN IN TO YOUR ACCOUNT');
     cy.get('#username').type(testUser.username);
     cy.get('#password').type(testUser.password);
     cy.get('#loginButton').should('be.enabled');
@@ -122,7 +122,7 @@ describe('Liking a comment', () => {
     
     // Creating a new post
     cy.wait(1000);
-    cy.contains('Create New Post').click();
+    cy.contains('CREATE NEW POST').click();
     cy.get('#title').type(testPost.title);
     cy.get('#description').type(testPost.description);
     cy.get('#createPostButton').should('be.enabled');
@@ -162,10 +162,6 @@ describe('Liking a comment', () => {
 
     cy.get('#commentLikeButton').click();
     cy.wait(1000);
-
-    cy.on('window:alert', (text) => {
-      cy.expect(text).to.eq('Could not add like, you can like comment only once')
-    });
     
     cy.get('#commentLikes').contains(1);
   });
@@ -197,7 +193,7 @@ describe('Liking a comment', () => {
     cy.get('#navbarSignOutButton').click();
     cy.wait(1000);
     cy.get('#navbarSignInButton').click();
-    cy.contains('Sign in to your account');
+    cy.contains('SIGN IN TO YOUR ACCOUNT');
     cy.get('#username').type(testUser2.username);
     cy.get('#password').type(testUser2.password);
     cy.get('#loginButton').should('be.enabled');
@@ -208,7 +204,7 @@ describe('Liking a comment', () => {
 
     // Like post again by another user
     cy.wait(1000);
-    cy.contains('Profile');
+    cy.contains('PROFILE');
     cy.get('#commentLikes').contains(1);
     cy.get('#commentLikeButton').click();
 

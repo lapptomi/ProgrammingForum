@@ -8,7 +8,7 @@ describe('Creating new user', () => {
 
     cy.wait(1000);
     cy.get('#navbarSignUpButton').click();
-    cy.contains('Create a new account');
+    cy.contains('CREATE NEW ACCOUNT');
   });
 
   it('works when valid credentials are given', () => {
@@ -19,7 +19,7 @@ describe('Creating new user', () => {
     cy.get('#registerButton').click();
     
     cy.wait(2000)
-    cy.contains('Profile')
+    cy.contains('PROFILE')
   });
 
   it('fails when non unique username is given', () => {
@@ -32,7 +32,7 @@ describe('Creating new user', () => {
     cy.get('#registerButton').click();
     
     cy.wait(2000)
-    cy.contains('Create a new account');
+    cy.contains('CREATE NEW ACCOUNT');
   });
 
   it('cannot be done if non matching passwords are given', () => {

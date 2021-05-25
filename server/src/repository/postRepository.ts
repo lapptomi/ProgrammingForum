@@ -20,7 +20,7 @@ const getAll = async (): Promise<Array<PostReturnType>> => {
     .from<Post>(Table.Post)
     .join<User>(Table.User, 'user.id', '=', 'original_poster_id')
     .leftJoin<PostLikes>(Table.PostLikes, 'post_id', '=', 'post.id')
-    .select('post.*', 'user.username')
+    .select('post.*', 'user.username AS original_poster_username')
     .count('post_like.* AS likes')
     .groupBy('post.id', 'user.username')
     .timeout(5000);
@@ -63,8 +63,21 @@ const addLike = async (postId: number, likerId: number): Promise<void> => {
     .timeout(5000);
 };
 
+const findLikesByPostId = async (postId: number): Promise<number> => {
+  const postLikes = await database
+    .select('*')
+    .from(Table.PostLikes)
+    .where('post_id', '=', postId)
+    .timeout(5000);
+
+  const likes: number = postLikes.length;
+
+  return likes;
+};
+
 export default {
   getAll,
   create,
   addLike,
+  findLikesByPostId,
 };

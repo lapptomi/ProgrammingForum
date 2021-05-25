@@ -47,7 +47,7 @@ const create = async (comment: NewComment): Promise<void> => {
     .timeout(5000);
 };
 
-const addLike = async (commentId: number, likerId: number): Promise<void> => {
+const addLike = async (commentId: number, likerId: number): Promise<number> => {
   const commentLikes = await database
     .select('*')
     .from(Table.PostCommentLikes)
@@ -68,6 +68,9 @@ const addLike = async (commentId: number, likerId: number): Promise<void> => {
       liker_id: likerId,
     })
     .timeout(5000);
+
+  const likes = commentLikes.length + 1;
+  return likes;
 };
 
 export default {

@@ -11,7 +11,7 @@ const getAll = async (): Promise<Array<User>> => {
   return users as Array<User>;
 };
 
-const create = async (user: NewUser): Promise<void> => {
+const create = async (user: NewUser): Promise<NewUser> => {
   const passwordHash = await bcrypt.hash(user.password, 10);
 
   await database<User>(Table.User)
@@ -19,7 +19,10 @@ const create = async (user: NewUser): Promise<void> => {
       email: user.email,
       username: user.username,
       password: passwordHash,
-    });
+    })
+    .timeout(5000);
+
+  return user;
 };
 
 const findByUsername = async (username: string): Promise<User> => {

@@ -1,16 +1,24 @@
 /* eslint-disable no-alert */
 /* eslint-disable arrow-body-style */
+import { useQuery } from '@apollo/client';
 import React from 'react';
 import {
   Grid, Header, Container,
 } from 'semantic-ui-react';
-import { useGlobalState } from '../state/state';
+import { GET_ALL_POSTS } from '../queries/post';
+import Loading from './Loading';
 import Post from './Post';
 
 const PostsList = () => {
-  const [state] = useGlobalState();
+  const { loading, data } = useQuery(GET_ALL_POSTS);
 
-  if (state.posts.length === 0) {
+  if (loading) {
+    return <Loading />;
+  }
+
+  const posts = data.allPosts;
+
+  if (posts.length === 0) {
     return (
       <Container textAlign='center' style={{ paddingTop: '100px' }}>
         <Header as='h1' content='No posts added yet...' />
@@ -22,7 +30,7 @@ const PostsList = () => {
   return (
     <Container style={{ marginTop: '80px' }}>
       <Grid celled>
-        {state.posts.map((post, i) => (
+        {posts.map((post, i) => (
           <Post post={post} key={i} />
         ))}
       </Grid>

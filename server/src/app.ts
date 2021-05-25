@@ -3,15 +3,13 @@ import cors from 'cors';
 import userRouter from './routes/users';
 import postRouter from './routes/posts';
 import testingRouter from './routes/testing';
-import { errorHandler, tokenExtractor } from './middleware';
+import { errorHandler } from './middleware';
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 app.use(express.static('./dist/build'));
-
-app.use(tokenExtractor);
 
 app.use('/api/users', userRouter);
 app.use('/api/posts', postRouter);

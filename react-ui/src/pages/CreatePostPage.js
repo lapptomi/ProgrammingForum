@@ -19,6 +19,7 @@ const CreatePostPage = () => {
         setTitle('');
         setDescription('');
         window.alert('Post created!');
+        window.location.replace('/');
       })
       .catch((error) => {
         console.log(error);
