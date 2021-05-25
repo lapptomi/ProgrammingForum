@@ -10,6 +10,12 @@ export const GET_ALL_USERS = gql`
   }
 `;
 
-export default {
-  GET_ALL_USERS,
-};
+export const CREATE_NEW_USER = gql`
+  mutation addUser($email: String!, $username: String!, $password: String!) {
+    addUser(email: $email, username: $username, password: $password) {
+      email
+      username
+      password
+    }
+  }
+`;

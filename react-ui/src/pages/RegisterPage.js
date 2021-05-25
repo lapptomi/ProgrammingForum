@@ -8,15 +8,19 @@ import {
   Message,
   Icon,
 } from 'semantic-ui-react';
-import axios from 'axios';
-import loginService from '../services/loginService';
+import { useMutation } from '@apollo/client';
 import img from '../style/header.jpg';
+import { CREATE_NEW_USER } from '../queries/user';
+import { LOG_IN } from '../queries/login';
 
 const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [createNewUser] = useMutation(CREATE_NEW_USER);
+  const [login] = useMutation(LOG_IN);
 
   // eslint-disable-next-line arrow-body-style
   const validCredentials = () => {
@@ -27,14 +31,17 @@ const RegisterPage = () => {
   };
 
   const handleSubmit = () => {
-    axios.post('/api/users', { email, username, password })
+    createNewUser({ variables: { email, username, password } })
       .then(() => {
-        loginService.login({ username, password })
+        login({ variables: { username, password } })
           .then((result) => {
-            window.localStorage.setItem('loggedUser', JSON.stringify(result.data));
-            window.location.replace('/');
+            const token = JSON.stringify(result.data.login);
+            window.localStorage.setItem('loggedUser', token);
+            window.location.reload();
           })
-          .catch(() => window.alert('Error logging in'));
+          .catch((error) => {
+            window.alert(error.message);
+          });
       })
       .catch(() => window.alert('Error creating user'));
   };

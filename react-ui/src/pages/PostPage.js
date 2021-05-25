@@ -1,21 +1,34 @@
 /* eslint-disable no-console */
-import { useEffect, useState } from 'react';
+import { useQuery } from '@apollo/client';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Divider, Header, Grid, Icon, Container,
 } from 'semantic-ui-react';
 import CommentForm from '../components/CommentForm';
 import CommentList from '../components/CommentList';
+import Loading from '../components/Loading';
 import Post from '../components/Post';
-import commentService from '../services/commentService';
+import { FIND_POST_BY_ID } from '../queries/post';
 
-const PostPage = ({ post }) => {
-  const [comments, setComments] = useState([]);
+const PostPage = () => {
+  const [comments] = useState([]);
 
-  useEffect(() => {
-    commentService.findCommentsByPostId(post.id)
-      .then((result) => setComments(result))
-      .catch((error) => console.log(error.message));
-  }, [post.id]);
+  const { id } = useParams();
+  const { loading, data } = useQuery(FIND_POST_BY_ID, {
+    variables: { postId: id },
+  });
+
+  if (loading) {
+    return <Loading />;
+  }
+  if (!data) {
+    return (
+      <Container textAlign='center'><h1>404 - Not Found</h1></Container>
+    );
+  }
+
+  const post = data.findPost;
 
   return (
     <div>

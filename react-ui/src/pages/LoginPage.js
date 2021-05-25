@@ -10,35 +10,23 @@ import {
 } from 'semantic-ui-react';
 import { useMutation } from '@apollo/client';
 import img from '../style/header.jpg';
-import { LOGIN } from '../queries/login';
+import { LOG_IN } from '../queries/login';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const [login] = useMutation(LOGIN);
-
-  /*
-  const handleSubmit = () => {
-    loginService.login({ username, password })
-      .then((result) => {
-        window.localStorage.setItem('loggedUser', JSON.stringify(result.data));
-        window.location.replace('/');
-      })
-      .catch(({ response }) => {
-        window.alert(JSON.stringify(response.data.error));
-      });
-  };
-  */
+  const [login] = useMutation(LOG_IN);
 
   const handleSubmit = () => {
     login({ variables: { username, password } })
       .then((result) => {
         const token = JSON.stringify(result.data.login);
         window.localStorage.setItem('loggedUser', token);
+        window.location.reload();
       })
-      .catch((result) => {
-        window.alert(JSON.stringify(result.data));
+      .catch((error) => {
+        window.alert(error.message);
       });
   };
 

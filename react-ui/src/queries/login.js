@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { gql } from '@apollo/client';
 
-export const LOGIN = gql`
+export const LOG_IN = gql`
   mutation login($username: String!, $password: String!) {
     login(
       username: $username,

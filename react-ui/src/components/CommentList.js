@@ -1,23 +1,43 @@
 /* eslint-disable no-alert */
+import { useMutation, useQuery } from '@apollo/client';
+import { useParams } from 'react-router-dom';
 import {
   Comment, Divider, Header, Icon,
 } from 'semantic-ui-react';
 import img from '../avatar.png';
-import commentService from '../services/commentService';
+import { FIND_COMMENTS_BY_POST_ID, LIKE_COMMENT } from '../queries/comment';
 import { useGlobalState } from '../state/state';
+import Loading from './Loading';
 
-const CommentList = ({ comments }) => {
+const CommentList = () => {
   const [state] = useGlobalState();
+
+  const [likeComment] = useMutation(LIKE_COMMENT);
 
   const handleCommentLike = (commentId) => {
     if (!state.isLoggedIn) {
       window.alert('Please sign in to like comments');
       return;
     }
-    commentService.addLike(commentId)
+
+    likeComment({ variables: { commentId } })
       .then(() => window.location.reload())
-      .catch(({ response }) => window.alert(response.data));
+      .catch((error) => window.alert(error));
   };
+
+  const { id } = useParams();
+  const { loading, data } = useQuery(FIND_COMMENTS_BY_POST_ID, {
+    variables: { postId: id },
+  });
+
+  if (loading) {
+    return <Loading />;
+  }
+  if (!data) {
+    return null;
+  }
+
+  const comments = data.findComments;
 
   return (
     <div>
