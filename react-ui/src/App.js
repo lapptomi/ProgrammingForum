@@ -7,6 +7,7 @@ import {
   useRouteMatch,
 } from 'react-router-dom';
 import { Container, Loader } from 'semantic-ui-react';
+import { useQuery } from '@apollo/client';
 import LoginPage from './pages/LoginPage';
 import PostPage from './pages/PostPage';
 import postService from './services/postService';
@@ -18,9 +19,11 @@ import RegisterPage from './pages/RegisterPage';
 import CreatePostPage from './pages/CreatePostPage';
 import ProfilePage from './pages/ProfilePage';
 import TopNav from './components/TopNav';
+import { GET_ALL_POSTS } from './queries/post';
 
 const App = () => {
   const [state, dispatch] = useGlobalState();
+  const { loading, data } = useQuery(GET_ALL_POSTS);
 
   useEffect(() => {
     dispatch(setLoading(true));
@@ -40,7 +43,7 @@ const App = () => {
     ? state.posts.find((p) => p.id === Number(match.params.id))
     : null;
 
-  if (state.isLoading) {
+  if (state.isLoading || loading) {
     return (
       <div>
         <TopNav />
@@ -48,6 +51,9 @@ const App = () => {
       </div>
     );
   }
+
+  const posts = data;
+  console.log('POSTS = ', posts);
 
   return (
     <div style={{ minWidth: '768px' }}>

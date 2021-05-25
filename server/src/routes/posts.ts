@@ -4,8 +4,8 @@ import * as jwt from 'jsonwebtoken';
 import * as _ from 'lodash';
 import postRepository from '../repository/postRepository';
 import commentRepository from '../repository/commentRepository';
-import { toNewPost, toNewComment, parseId } from '../utils';
-import { NewPost, User } from '../../types';
+import { toNewComment, parseId } from '../utils';
+import { User } from '../../types';
 
 const router = express.Router();
 
@@ -16,25 +16,6 @@ router.get('/', async (_req, res) => {
     res.status(200).json(posts);
   } catch (e) {
     res.status(404).send({ error: `Could not get posts: ${(e as Error).message}` });
-  }
-});
-
-// Create new post
-router.post('/', async (req: Request, res) => {
-  try {
-    const token = req.token as string;
-    const decodedToken = jwt.verify(token, process.env.SECRET as string) as User;
-
-    if (!token || !decodedToken.id) {
-      throw new Error('Token missing or invalid');
-    }
-
-    const newPost = toNewPost(decodedToken.id, req.body as NewPost);
-    const addedPost = await postRepository.create(newPost);
-
-    res.status(201).json(addedPost);
-  } catch (e) {
-    res.status(401).send((e as Error).message);
   }
 });
 

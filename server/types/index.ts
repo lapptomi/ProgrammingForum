@@ -17,7 +17,7 @@ export interface Post {
 }
 
 export interface Token {
-  value?: string;
+  token?: string;
 }
 
 export interface Comment {

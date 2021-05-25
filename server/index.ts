@@ -1,13 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable arrow-body-style */
-import { ApolloServer, gql } from 'apollo-server-express';
+import {
+  ApolloServer, gql, UserInputError,
+} from 'apollo-server-express';
 import dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
-import { User } from './types';
+import { NewPost, User } from './types';
 import app from './src/app';
 import commentRepository from './src/repository/commentRepository';
 import postRepository from './src/repository/postRepository';
 import userRepository from './src/repository/userRepository';
+import { toNewPost } from './src/utils';
 
 dotenv.config();
 
@@ -32,7 +37,9 @@ const startApolloServer = async () => {
     }
     
     type Token {
-      value: String!
+      id: Int!
+      username: String!
+      token: String!
     }
     
     type Comment {
@@ -48,10 +55,13 @@ const startApolloServer = async () => {
       allUsers: [User!]!
       allPosts: [Post!]!
       allComments: [Comment!]!
-      userCount: Int!
     }
 
     type Mutation {
+      addPost(
+        title: String!
+        description: String!
+      ): Post
       login(
         username: String!
         password: String!
@@ -64,9 +74,31 @@ const startApolloServer = async () => {
       allUsers: () => userRepository.getAll(),
       allPosts: () => postRepository.getAll(),
       allComments: () => commentRepository.getAll(),
-      userCount: () => 123,
     },
     Mutation: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      addPost: async (_root: any, args: NewPost, context: any) => {
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          const currentUser = context.currentUser as User;
+          if (!currentUser) {
+            throw new Error('not authenticated');
+          }
+
+          const newPost = toNewPost({
+            original_poster_id: currentUser.id,
+            title: args.title,
+            description: args.description,
+          });
+
+          const addedPost = await postRepository.create(newPost);
+          return addedPost;
+        } catch (e) {
+          throw new UserInputError((e as Error).message, {
+            invalidArgs: args,
+          });
+        }
+      },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       login: async (_root: any, args: any) => {
         const { username, password } = args as User;
@@ -78,18 +110,20 @@ const startApolloServer = async () => {
         }
 
         const userForToken = {
-          username: user.username,
           id: user.id,
+          username: user.username,
         };
 
-        const token = jwt.sign(
+        const newToken = jwt.sign(
           userForToken,
           process.env.SECRET as string,
           { expiresIn: 60 * 60 }, // expires in 1h
         );
 
         return {
-          value: token,
+          token: newToken,
+          username: user.username,
+          id: user.id,
         };
       },
     },
@@ -99,21 +133,28 @@ const startApolloServer = async () => {
     typeDefs,
     resolvers,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line consistent-return
     context: async ({ req }): Promise<any> => {
-      const auth = req ? req.headers.authorization : null;
-      if (auth && auth.toLowerCase().startsWith('bearer ')) {
+      const authorization = req ? req.headers.authorization : null;
+      if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+        const auth: Array<string> = authorization.split(' ');
+        // auth[0] should equal 'bearer'
+        // and auth[1] should be the token
+        const token = auth[1];
+
         const decodedToken = jwt.verify(
-          auth.substring(7), process.env.SECRET as string,
+          token, process.env.SECRET as string,
         ) as User;
 
-        const user = await userRepository
-          .findByUsername(decodedToken.username);
+        if (!token || !decodedToken.id) {
+          throw new Error('Token missing or invalid');
+        }
 
+        const user = await userRepository.findById(decodedToken.id);
         return {
           currentUser: user,
         };
       }
-      return null;
     },
   });
   await server.start();

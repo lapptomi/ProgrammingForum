@@ -28,7 +28,7 @@ const getAll = async (): Promise<Array<PostReturnType>> => {
   return posts as Array<PostReturnType>;
 };
 
-const create = async (post: NewPost): Promise<void> => {
+const create = async (post: NewPost): Promise<NewPost> => {
   await database<Post>(Table.Post)
     .insert({
       original_poster_id: post.original_poster_id,
@@ -36,6 +36,8 @@ const create = async (post: NewPost): Promise<void> => {
       description: post.description,
     })
     .timeout(5000);
+
+  return post;
 };
 
 const addLike = async (postId: number, likerId: number): Promise<void> => {

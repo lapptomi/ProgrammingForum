@@ -55,11 +55,11 @@ export const toNewUser = (user: NewUser): NewUser => {
   };
 };
 
-export const toNewPost = (posterId: number, newPost: NewPost): NewPost => {
+export const toNewPost = (object: NewPost): NewPost => {
   return {
-    original_poster_id: parseId(posterId),
-    title: parseTitle(newPost.title),
-    description: parseDescription(newPost.description),
+    original_poster_id: parseId(Number(object.original_poster_id)),
+    title: parseTitle(object.title),
+    description: parseDescription(object.description),
   };
 };
 

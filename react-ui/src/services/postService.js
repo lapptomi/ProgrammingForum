@@ -1,11 +1,12 @@
 import axios from 'axios';
-import loginService from './loginService';
 
 const baseUrl = '/api/posts';
 
+const token = window.localStorage.getItem('loggedUser');
+
 const config = {
   headers: {
-    Authorization: `bearer ${loginService.getToken()}`,
+    Authorization: `bearer ${JSON.parse(token)}`,
   },
 };
 

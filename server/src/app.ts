@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import userRouter from './routes/users';
-import loginRouter from './routes/login';
 import postRouter from './routes/posts';
 import testingRouter from './routes/testing';
 import { errorHandler, tokenExtractor } from './middleware';
@@ -15,7 +14,6 @@ app.use(express.static('./dist/build'));
 app.use(tokenExtractor);
 
 app.use('/api/users', userRouter);
-app.use('/api/login', loginRouter);
 app.use('/api/posts', postRouter);
 app.use('/api/testing', testingRouter);
 

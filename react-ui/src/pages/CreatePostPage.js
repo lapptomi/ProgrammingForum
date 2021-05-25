@@ -3,27 +3,25 @@ import { useState } from 'react';
 import {
   Form, Grid, Header, Container, Segment,
 } from 'semantic-ui-react';
-import postService from '../services/postService';
+import { useMutation } from '@apollo/client';
 import img from '../style/header.jpg';
+import { CREATE_NEW_POST } from '../queries/post';
 
 const CreatePostPage = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
+  const [createNewPost] = useMutation(CREATE_NEW_POST);
+
   const handleSubmit = () => {
-    postService.create({ title, description })
+    createNewPost({ variables: { title, description } })
       .then(() => {
+        setTitle('');
+        setDescription('');
         window.alert('Post created!');
-        window.location.replace('/posts');
       })
-      .catch(({ response }) => {
-        if (response.data === 'jwt expired') {
-          window.alert('Error: session has expired, please sign in again');
-          window.localStorage.clear();
-          window.location.replace('/login');
-        } else {
-          window.alert(`Error creating post: ${response.data}`);
-        }
+      .catch((error) => {
+        console.log(error);
       });
   };
 

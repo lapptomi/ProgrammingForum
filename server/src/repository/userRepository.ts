@@ -35,8 +35,22 @@ const findByUsername = async (username: string): Promise<User> => {
   return user;
 };
 
+const findById = async (id: number): Promise<User> => {
+  const user = await database
+    .select()
+    .first()
+    .from<User>(Table.User)
+    .where('id', '=', id);
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+  return user;
+};
+
 export default {
   getAll,
   create,
   findByUsername,
+  findById,
 };

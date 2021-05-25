@@ -1,14 +1,14 @@
 import axios from 'axios';
-import loginService from './loginService';
 
 const baseUrl = '/api/posts';
 
+const token = window.localStorage.getItem('loggedUser');
+
 const config = {
   headers: {
-    Authorization: `bearer ${loginService.getToken()}`,
+    Authorization: `bearer ${JSON.parse(token)}`,
   },
 };
-
 const findCommentsByPostId = async (postId) => {
   const { data } = await axios.get(`${baseUrl}/${postId}/comments`);
   return data;

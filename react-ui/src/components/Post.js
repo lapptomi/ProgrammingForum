@@ -34,7 +34,7 @@ const Post = ({ post }) => {
 
   return (
     <>
-      <Grid.Row color='violet'>
+      <Grid.Row color='grey'>
         <Grid.Column width={14} style={{ padding: '8px' }}>
           <Link to={`/posts/${post.id}`}>
             <Header

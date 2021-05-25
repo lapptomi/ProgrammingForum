@@ -8,13 +8,17 @@ import {
   Message,
   Icon,
 } from 'semantic-ui-react';
-import loginService from '../services/loginService';
+import { useMutation } from '@apollo/client';
 import img from '../style/header.jpg';
+import { LOGIN } from '../queries/login';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const [login] = useMutation(LOGIN);
+
+  /*
   const handleSubmit = () => {
     loginService.login({ username, password })
       .then((result) => {
@@ -23,6 +27,18 @@ const LoginPage = () => {
       })
       .catch(({ response }) => {
         window.alert(JSON.stringify(response.data.error));
+      });
+  };
+  */
+
+  const handleSubmit = () => {
+    login({ variables: { username, password } })
+      .then((result) => {
+        const token = JSON.stringify(result.data.login);
+        window.localStorage.setItem('loggedUser', token);
+      })
+      .catch((result) => {
+        window.alert(JSON.stringify(result.data));
       });
   };
 
