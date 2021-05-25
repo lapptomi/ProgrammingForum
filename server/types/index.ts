@@ -17,7 +17,13 @@ export interface Post {
 }
 
 export interface Token {
-  token?: string;
+  token: string;
+  username: string;
+  id: number;
+}
+
+export interface ApolloContext {
+  currentUser: User;
 }
 
 export interface Comment {

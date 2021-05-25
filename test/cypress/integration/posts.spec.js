@@ -53,7 +53,6 @@ describe('Creating a new post', () => {
     cy.get('#title').type(testPost.title);
     cy.get('#createPostButton').should('be.disabled');
   });
-
 });
 
 
@@ -160,6 +159,5 @@ describe('Liking a post', () => {
     cy.wait(1000);
     cy.get('#postLikes').contains(2);
   });
-
 });
 

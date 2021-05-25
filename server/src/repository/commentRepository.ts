@@ -37,14 +37,23 @@ const findByPostId = async (postId: number): Promise<Array<CommentReturnType>> =
   return comments as Array<CommentReturnType>;
 };
 
-const create = async (comment: NewComment): Promise<void> => {
-  await database(Table.PostComments)
-    .insert({
-      post_id: comment.post_id,
-      writer_id: comment.writer_id,
-      comment: comment.comment,
-    })
-    .timeout(5000);
+const create = async (comment: NewComment): Promise<Comment> => {
+  // eslint-disable-next-line @typescript-eslint/await-thenable
+  const newComment: Array<any> = (
+    await database(Table.PostComments)
+      .insert({
+        post_id: comment.post_id,
+        writer_id: comment.writer_id,
+        comment: comment.comment,
+      })
+      .returning('*')
+      .timeout(5000)
+  );
+
+  // newComment returns array for some reason at the moment
+  const addedComment = newComment[0] as Comment;
+
+  return addedComment;
 };
 
 const addLike = async (commentId: number, likerId: number): Promise<number> => {
