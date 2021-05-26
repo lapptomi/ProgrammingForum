@@ -6,15 +6,15 @@
   "scripts": {
     "heroku-postbuild": "npm run build:full",
     "build": "tsc",
-    "build:ui": "cd react-ui && npm install && npm run build --prod && cp -r build ../dist",
+    "build:ui": "cd client && npm install && npm run build --prod && cp -r build ../dist",
     "build:full": "npm run build && npm run build:ui",
     "start": "ts-node server/index.js",
     "start:prod": "NODE_ENV=production node dist/index.js",
     "dev": "NODE_ENV=development ts-node-dev server/index.ts",
-    "eslint": "eslint --ext=.ts,.tsx,.js,.jsx .",
+    "eslint": "eslint --ext=.ts,.tsx . && cd client && npm run lint",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "start:test": "concurrently \"NODE_ENV=test ts-node server/index.ts\" \"cd react-ui && npm start\"",
+    "start:test": "concurrently \"NODE_ENV=test ts-node server/index.ts\" \"cd client && npm start\"",
     "knex": "./node_modules/.bin/knex --knexfile server/src/database/knexfile.ts"
   },
   "repository": {
