@@ -34,7 +34,7 @@ SECRET=secretkey <-[you can replace the "secretkey" with any text]
 
 You can install the project dependencies by running command:
 ```
-npm install && cd react-ui && npm install
+npm install && cd client && npm install
 ```
 
 # Starting the application
@@ -50,7 +50,7 @@ npm run dev
 
 And the React UI by command: 
 ```
-cd react-ui && npm start
+cd client && npm start
 ```
 
 

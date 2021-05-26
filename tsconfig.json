@@ -16,7 +16,7 @@
   },
   "exclude": [
     "node_modules",
-    "react-ui",
+    "client",
     "cypress",
     "dist",
   ]
