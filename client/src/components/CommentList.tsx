@@ -19,7 +19,7 @@ const CommentList: React.FC<Props> = ({ comments }) => {
 
   const [likeComment] = useMutation(LIKE_COMMENT);
 
-  const handleCommentLike = (commentId: number) => {
+  const handleCommentLike = (commentId: string) => {
     if (!state.isLoggedIn) {
       window.alert('Please sign in to like comments');
       return;
@@ -42,11 +42,11 @@ const CommentList: React.FC<Props> = ({ comments }) => {
         style={{ padding: '10px' }}
       />
       <Comment.Group style={{ minWidth: '100%', paddingLeft: '10px' }}>
-        {comments.map((comment: IComment, i: number) => (
-          <Comment key={i}>
+        {comments.map((comment: IComment) => (
+          <Comment key={comment.id}>
             <Comment.Avatar src={img} />
             <Comment.Content>
-              <Comment.Author as="a">{comment.username}</Comment.Author>
+              <Comment.Author as="a">{comment.comment_writer.username}</Comment.Author>
               <Comment.Metadata>
                 <div>NULL</div>
               </Comment.Metadata>

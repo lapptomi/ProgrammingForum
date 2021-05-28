@@ -12,10 +12,8 @@ export interface IPost {
 }
 
 export interface IComment {
-  id: number;
-  post_id: number;
-  writer_id: number;
+  id: string;
+  comment_writer: IUser;
   comment: string;
   likes: number;
-  username: string;
 }

@@ -11,7 +11,6 @@ interface AddUserArgs {
 }
 
 export const userQueries = {
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   allUsers: () => User.find({}),
 };
 
@@ -21,8 +20,6 @@ export const userMutations = {
       const newUser = new User(toNewUser(args));
       newUser.password = await bcrypt.hash(newUser.password, 10);
       const addedUser = await newUser.save();
-
-      console.log('added = ', addedUser);
       return addedUser;
     } catch (e) {
       throw new UserInputError((e as Error).message, {

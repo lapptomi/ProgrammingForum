@@ -12,9 +12,11 @@ import User from './src/models/User';
 
 dotenv.config();
 
-const MONGODB_URI2 = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.NODE_ENV === 'test'
+  ? process.env.TEST_MONGODB_URI
+  : process.env.MONGODB_URI;
 
-mongoose.connect(MONGODB_URI2 as string, {
+mongoose.connect(MONGODB_URI as string, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,

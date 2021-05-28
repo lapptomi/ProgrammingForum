@@ -27,7 +27,7 @@ export interface ApolloContext {
 }
 
 export interface IComment {
-  id: number;
+  id: string;
   comment_writer: string;
   comment: string;
   created_at?: Date;

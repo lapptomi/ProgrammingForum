@@ -20,20 +20,29 @@ interface AddCommentArgs {
   postId: string;
   comment: string;
 }
+interface LikeCommentArgs {
+  commentId: string;
+}
 
 export const postQueries = {
   allPosts: async () => {
     const posts = await Post.find({})
-      .populate('original_poster')
-      .populate('comments');
-    console.log(posts);
+      .populate('original_poster');
+
     return posts;
   },
   findPost: async (
     _root: Root,
     args: FindPostArgs,
   ): Promise<IPostSchema | null> => {
-    const post = Post.findById(args.postId).populate('original_poster');
+    const post = Post.findById(args.postId).populate('original_poster')
+      .populate('original_poster')
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'comment_writer',
+        },
+      });
     return post;
   },
 };
@@ -98,7 +107,7 @@ export const postMutations = {
     context: ApolloContext,
   ): Promise<ICommentSchema> => {
     const { currentUser } = context;
-    if (!currentUser) {
+    if (!currentUser || !currentUser.id) {
       throw new Error('not authenticated');
     }
     const post = await Post.findById(args.postId);
@@ -107,7 +116,7 @@ export const postMutations = {
     }
 
     const newComment = new Comment(toNewComment({
-      comment_writer: args.postId,
+      comment_writer: currentUser.id,
       comment: args.comment,
     }));
 
@@ -116,5 +125,32 @@ export const postMutations = {
     await post.save();
 
     return addedComment;
+  },
+
+  likeComment: async (
+    _root: Root,
+    args: LikeCommentArgs,
+    context: ApolloContext,
+  ): Promise<any> => {
+    try {
+      const { currentUser } = context;
+      if (!currentUser) {
+        throw new Error('not authenticated');
+      }
+
+      const comment = await Comment.findById(args.commentId);
+      if (!comment) {
+        throw new Error('Error liking post: Post not found');
+      }
+      comment.likes += 1;
+      await comment.save();
+
+      return {
+        likes: comment.likes + 1,
+      };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   },
 };

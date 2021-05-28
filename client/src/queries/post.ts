@@ -10,10 +10,6 @@ export const GET_ALL_POSTS = gql`
         id
         username
       }
-      comments {
-        id
-        comment
-      }
       likes
     }
   }
@@ -29,6 +25,16 @@ export const FIND_POST_BY_ID = gql`
       }
       title
       description
+      comments {
+        id
+        comment
+        likes
+        comment_writer {
+          id
+          username
+        }
+      }
+      
       likes
     }
   }

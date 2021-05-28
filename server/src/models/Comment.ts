@@ -4,7 +4,7 @@ import uniqueValidator from 'mongoose-unique-validator';
 export interface ICommentSchema extends Document {
   comment_writer: string;
   comment: string;
-  likes?: number;
+  likes: number;
 }
 
 const userSchema: Schema = new mongoose.Schema({
