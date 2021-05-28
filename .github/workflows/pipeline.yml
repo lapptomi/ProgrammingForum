@@ -24,7 +24,7 @@ jobs:
       - name: Cypress tests
         uses: cypress-io/github-action@v2
         env:
-          DATABASE_URL: ${{ secrets.TEST_MONGODB_URI }}
+          TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
           SECRET: 'supersecretkey'
         with:
           browser: chrome
