@@ -40,8 +40,8 @@ const parseDescription = (description: any): string => {
   return description;
 };
 
-export const parseId = (id: any): number => {
-  if (!_.isNumber(id) || !id) {
+export const parseId = (id: any): string => {
+  if (!_.isString(id) || !id) {
     throw new Error(`Invalid or missing id: ${id as string}`);
   }
   return id;
@@ -57,7 +57,7 @@ export const toNewUser = (user: NewUser): NewUser => {
 
 export const toNewPost = (object: NewPost): NewPost => {
   return {
-    original_poster_id: parseId(Number(object.original_poster_id)),
+    original_poster: object.original_poster,
     title: parseTitle(object.title),
     description: parseDescription(object.description),
   };
@@ -72,8 +72,7 @@ export const parseComment = (comment: any): string => {
 
 export const toNewComment = (object: NewComment): NewComment => {
   return {
-    post_id: parseId(object.post_id),
-    writer_id: parseId(object.writer_id),
+    comment_writer: parseId(object.comment_writer),
     comment: parseComment(object.comment),
   };
 };

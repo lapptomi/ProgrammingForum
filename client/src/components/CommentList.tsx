@@ -1,23 +1,25 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-alert */
-import { useMutation, useQuery } from '@apollo/client';
-import { useParams } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
 import {
   Comment, Divider, Header, Icon,
 } from 'semantic-ui-react';
 import React from 'react';
 import img from '../style/avatar.png';
-import { FIND_COMMENTS_BY_POST_ID, LIKE_COMMENT } from '../queries/comment';
+import { LIKE_COMMENT } from '../queries/comment';
 import { useGlobalState } from '../state/state';
-import Loading from './Loading';
 import { IComment } from '../types';
 
-const CommentList: React.FC = () => {
+interface Props {
+  comments: Array<IComment>
+}
+
+const CommentList: React.FC<Props> = ({ comments }) => {
   const [state] = useGlobalState();
 
   const [likeComment] = useMutation(LIKE_COMMENT);
 
-  const handleCommentLike = (commentId: number) => {
+  const handleCommentLike = (commentId: string) => {
     if (!state.isLoggedIn) {
       window.alert('Please sign in to like comments');
       return;
@@ -28,19 +30,7 @@ const CommentList: React.FC = () => {
       .catch((error) => window.alert(error));
   };
 
-  const { id } = useParams<{ id: string }>();
-  const { loading, data } = useQuery(FIND_COMMENTS_BY_POST_ID, {
-    variables: { postId: id },
-  });
-
-  if (loading) {
-    return <Loading />;
-  }
-  if (!data) {
-    return null;
-  }
-
-  const comments = data.findComments;
+  console.log('comments =', comments);
 
   return (
     <div>
@@ -48,24 +38,24 @@ const CommentList: React.FC = () => {
       <Header
         as="b"
         size="small"
-        content={`${comments.length} replies`}
+        content="0 replies"
         style={{ padding: '10px' }}
       />
       <Comment.Group style={{ minWidth: '100%', paddingLeft: '10px' }}>
-        {comments.map((comment: IComment, i: number) => (
-          <Comment key={i}>
+        {comments.map((comment: IComment) => (
+          <Comment key={comment.id}>
             <Comment.Avatar src={img} />
             <Comment.Content>
-              <Comment.Author as="a">{comment.username}</Comment.Author>
+              <Comment.Author as="a">{comment.comment_writer.username}</Comment.Author>
               <Comment.Metadata>
-                <div>{comment.created_at.substring(0, 10)}</div>
+                <div>NULL</div>
               </Comment.Metadata>
               <Comment.Text>{comment.comment}</Comment.Text>
               <Comment.Actions>
                 <Comment.Action onClick={() => handleCommentLike(comment.id)}>
                   <Icon name="like" id="commentLikeButton" />
                   <span id="commentLikes">
-                    {comment.likes}
+                    {comment.likeCount}
                     {' '}
                     Likes
                   </span>

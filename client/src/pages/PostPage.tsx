@@ -28,6 +28,7 @@ const PostPage: React.FC = () => {
   }
 
   const post = data.findPost;
+  console.log('DATA =', post);
 
   return (
     <div>
@@ -58,7 +59,7 @@ const PostPage: React.FC = () => {
           <Post post={post} />
         </Grid>
         <Divider />
-        <CommentList />
+        <CommentList comments={post.comments} />
         <CommentForm postId={post.id} />
       </Container>
     </div>

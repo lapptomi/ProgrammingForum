@@ -1,10 +1,10 @@
-import database from '../database/knex';
-import { Table } from '../../types';
+import Comment from '../models/Comment';
+import Post from '../models/Post';
+import User from '../models/User';
 
 export const resetDatabase = async (): Promise<void> => {
   // Delete all rows from the tables
-  await database(Table.PostLikes).del();
-  await database(Table.PostComments).del();
-  await database(Table.Post).del();
-  await database(Table.User).del();
+  await Comment.deleteMany({});
+  await User.deleteMany({});
+  await Post.deleteMany({});
 };

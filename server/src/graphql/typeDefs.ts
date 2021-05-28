@@ -6,36 +6,30 @@ export const typeDefs = gql`
     email: String!
     username: String!
     password: String!
-    created_at: String
-    updated_at: String
   }
 
   type Post {
     id: ID!
-    original_poster_id: ID!
+    original_poster: User!
     title: String!
     description: String!
-    likes: Int
-    original_poster_username: String!
-    created_at: String
-    updated_at: String
+    likers: [User!]
+    likeCount: Int
+    comments: [Comment!]!
   }
 
   type Token {
-    id: Int!
+    id: ID!
     username: String!
     token: String!
   }
 
   type Comment {
     id: ID!
-    post_id: ID!
-    writer_id: ID!
+    comment_writer: User!
     comment: String!
-    username: String!
-    likes: Int!
-    created_at: String
-    updated_at: String  
+    likers: [User!]
+    likeCount: Int
   }
 
   type Query {
