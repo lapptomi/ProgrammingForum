@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { Token } from '../../../types';
-import userRepository from '../../repository/userRepository';
+import User from '../../models/User';
 
 interface LoginArgs {
   username: string;
@@ -11,15 +11,18 @@ interface LoginArgs {
 export const loginMutations = {
 
   login: async (_root: unknown, args: LoginArgs): Promise<Token> => {
-    const user = await userRepository.findByUsername(args.username);
-    const passwordsMatch = await bcrypt.compare(args.password, user.password);
+    const user = await User.findOne({ username: args.username });
+    if (!user) {
+      throw new Error('User not found');
+    }
 
-    if (!(user && passwordsMatch)) {
+    const passwordsMatch = await bcrypt.compare(args.password, user.password);
+    if (!passwordsMatch) {
       throw new Error('Invalid username or password');
     }
 
     const userForToken = {
-      id: user.id,
+      id: user.id as string,
       username: user.username,
     };
 
@@ -32,7 +35,7 @@ export const loginMutations = {
     return {
       token: newToken,
       username: user.username,
-      id: user.id,
+      id: user.id as string,
     };
   },
 

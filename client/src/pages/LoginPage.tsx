@@ -21,11 +21,13 @@ const LoginPage: React.FC = () => {
   const handleSubmit = () => {
     login({ variables: { username, password } })
       .then((result) => {
+        console.log('result = ', result);
         const token = JSON.stringify(result.data.login);
         window.localStorage.setItem('loggedUser', token);
         window.location.reload();
       })
       .catch((error) => {
+        console.log(error);
         window.alert(error.message);
       });
   };

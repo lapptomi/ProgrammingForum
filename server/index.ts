@@ -1,27 +1,38 @@
 import { ApolloServer } from 'apollo-server-express';
 import dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 import { Token } from './types';
 import app from './src/app';
-import userRepository from './src/repository/userRepository';
 import { postQueries, postMutations } from './src/graphql/resolvers/postResolver';
 import { userMutations, userQueries } from './src/graphql/resolvers/userResolver';
-import { commentMutations, commentQueries } from './src/graphql/resolvers/commentResolver';
 import { loginMutations } from './src/graphql/resolvers/loginResolver';
 import { typeDefs } from './src/graphql/typeDefs';
+import User from './src/models/User';
 
 dotenv.config();
+
+const MONGODB_URI2 = process.env.MONGODB_URI;
+
+mongoose.connect(MONGODB_URI2 as string, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+}).then(() => {
+  console.log('connected to MongoDB');
+}).catch((error) => {
+  console.log('error connecting to MongoDB:', (error as Error).message);
+});
 
 const startApolloServer = async () => {
   const resolvers = {
     Query: {
       ...postQueries,
       ...userQueries,
-      ...commentQueries,
     },
     Mutation: {
       ...postMutations,
-      ...commentMutations,
       ...userMutations,
       ...loginMutations,
     },
@@ -50,7 +61,7 @@ const startApolloServer = async () => {
           throw new Error('Token missing or invalid');
         }
 
-        const user = await userRepository.findById(decodedToken.id);
+        const user = await User.findById(decodedToken.id);
         return {
           currentUser: user,
         };

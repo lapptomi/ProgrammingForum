@@ -39,8 +39,8 @@ const Post: React.FC<Props> = ({ post }) => {
               as="h3"
               content={post.title}
               subheader={`
-                Posted on ${post.created_at}
-                by ${post.original_poster_username}
+                Posted on NULL
+                by ${post.original_poster.username}
               `}
             />
           </Link>

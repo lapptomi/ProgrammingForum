@@ -4,12 +4,16 @@ export const GET_ALL_POSTS = gql`
   query {
     allPosts  {
       id
-      original_poster_id
       title
       description
-      created_at
-      updated_at
-      original_poster_username
+      original_poster {
+        id
+        username
+      }
+      comments {
+        id
+        comment
+      }
       likes
     }
   }
@@ -19,12 +23,12 @@ export const FIND_POST_BY_ID = gql`
   query findPost($postId: ID!) {
     findPost(postId: $postId) {
       id
-      original_poster_id
+      original_poster {
+        email
+        username
+      }
       title
       description
-      created_at
-      updated_at
-      original_poster_username
       likes
     }
   }

@@ -1,5 +1,5 @@
-export interface User {
-  id: number;
+export interface IUser {
+  id: string;
   email: string;
   username: string;
   password: string;
@@ -7,9 +7,9 @@ export interface User {
   updated_at?: Date;
 }
 
-export interface Post {
+export interface IPost {
   id: number;
-  original_poster_id: number;
+  original_poster: string;
   title: string;
   description: string;
   created_at?: Date;
@@ -19,27 +19,26 @@ export interface Post {
 export interface Token {
   token: string;
   username: string;
-  id: number;
+  id: string;
 }
 
 export interface ApolloContext {
-  currentUser: User;
+  currentUser: IUser;
 }
 
-export interface Comment {
+export interface IComment {
   id: number;
-  post_id: number;
-  writer_id: number;
+  comment_writer: string;
   comment: string;
   created_at?: Date;
   updated_at?: Date;
 }
 
-export type NewComment = Omit<Comment, 'id'>;
+export type NewComment = Omit<IComment, 'id'>;
 
-export type NewPost = Omit<Post, 'id'>;
+export type NewPost = Omit<IPost, 'id'>;
 
-export type NewUser = Omit<User, 'id'>;
+export type NewUser = Omit<IUser, 'id'>;
 
 // Table names on the database
 export enum Table {

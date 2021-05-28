@@ -1,32 +1,15 @@
-import { ApolloContext, Comment } from '../../../types';
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+import { ApolloContext } from '../../../types';
 import commentRepository from '../../repository/commentRepository';
-import { parseId, toNewComment } from '../../utils';
+import { parseId } from '../../utils';
 
 interface AddCommentArgs {
   postId: number;
   comment: string;
 }
-interface FindCommentsArgs {
-  postId: number;
-}
 interface LikeCommentArgs {
   commentId: number;
 }
-
-export const commentQueries = {
-
-  allComments: (): Promise<Array<Comment>> => commentRepository.getAll(),
-
-  findComments: async (
-    _root: undefined,
-    args: FindCommentsArgs,
-  ): Promise<Array<Comment>> => {
-    const postId = parseId(Number(args.postId));
-    const postComments = await commentRepository.findByPostId(postId);
-    return postComments;
-  },
-
-};
 
 export const commentMutations = {
 
@@ -34,28 +17,23 @@ export const commentMutations = {
     _root: undefined,
     args: AddCommentArgs,
     context: ApolloContext,
-  ): Promise<Comment> => {
+  ): Promise<any> => {
     const { currentUser } = context;
     if (!currentUser) {
       throw new Error('not authenticated');
     }
 
-    const newComment = toNewComment({
+    console.log('POST ID = ', args);
+    /*
+    const newComment = new Comment(toNewComment({
       post_id: Number(args.postId),
-      writer_id: currentUser.id,
+      writer_id: 123,
       comment: args.comment,
-    });
+    }));
 
     const addedComment = await commentRepository.create(newComment);
-
-    return {
-      id: addedComment.id,
-      post_id: addedComment.post_id,
-      writer_id: addedComment.writer_id,
-      comment: addedComment.comment,
-      created_at: addedComment.created_at,
-      updated_at: addedComment.updated_at,
-    };
+    */
+    return null;
   },
 
   likeComment: async (
@@ -70,7 +48,7 @@ export const commentMutations = {
       }
 
       const commentId = parseId(Number(args.commentId));
-      const updatedLikes = await commentRepository.addLike(commentId, currentUser.id);
+      const updatedLikes = await commentRepository.addLike(commentId, 123);
 
       return {
         likes: updatedLikes,
