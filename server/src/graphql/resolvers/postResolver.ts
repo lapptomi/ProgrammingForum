@@ -27,7 +27,19 @@ interface LikeCommentArgs {
 export const postQueries = {
   allPosts: async () => {
     const posts = await Post.find({})
-      .populate('original_poster');
+      .populate('original_poster')
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'comment_writer',
+        },
+      })
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'likers',
+        },
+      });
 
     return posts;
   },
@@ -35,8 +47,14 @@ export const postQueries = {
     _root: Root,
     args: FindPostArgs,
   ): Promise<IPostSchema | null> => {
-    const post = Post.findById(args.postId).populate('original_poster')
+    const post = Post.findById(args.postId)
       .populate('original_poster')
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'likers',
+        },
+      })
       .populate({
         path: 'comments',
         populate: {
@@ -86,15 +104,17 @@ export const postMutations = {
       }
 
       const post = await Post.findById(args.postId);
-      if (!post) {
-        throw new Error('Error liking post: Post not found');
+      if (!post || (post.likers as Array<any>).includes(currentUser.id)) {
+        throw new Error('Error liking comment');
       }
 
-      post.likes += 1;
-      await post.save();
+      const updatedPost = await Post.findByIdAndUpdate(args.postId, {
+        $inc: { likeCount: 1 }, // Increment likeCount by one
+        $addToSet: { likers: currentUser.id }, // Add only unique id to set
+      });
 
       return {
-        likes: post.likes + 1,
+        likeCount: updatedPost?.likeCount,
       };
     } catch (error) {
       return null;
@@ -139,14 +159,17 @@ export const postMutations = {
       }
 
       const comment = await Comment.findById(args.commentId);
-      if (!comment) {
-        throw new Error('Error liking post: Post not found');
+      if (!comment || (comment.likers as Array<any>).includes(currentUser.id)) {
+        throw new Error('Error liking comment');
       }
-      comment.likes += 1;
-      await comment.save();
+
+      const updatedComment = await Comment.findByIdAndUpdate(args.commentId, {
+        $inc: { likeCount: 1 }, // Increment likeCount by one
+        $addToSet: { likers: currentUser.id }, // Add only unique id to set
+      });
 
       return {
-        likes: comment.likes + 1,
+        likeCount: updatedComment?.likeCount,
       };
     } catch (error) {
       console.log(error);

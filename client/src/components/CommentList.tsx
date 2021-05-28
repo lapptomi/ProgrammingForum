@@ -55,7 +55,7 @@ const CommentList: React.FC<Props> = ({ comments }) => {
                 <Comment.Action onClick={() => handleCommentLike(comment.id)}>
                   <Icon name="like" id="commentLikeButton" />
                   <span id="commentLikes">
-                    {comment.likes}
+                    {comment.likeCount}
                     {' '}
                     Likes
                   </span>

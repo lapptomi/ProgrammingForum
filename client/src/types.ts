@@ -6,7 +6,8 @@ export interface IUser {
 export interface IPost {
   id: number;
   original_poster: IUser;
-  likes: number;
+  likers: Array<IUser>;
+  likeCount: number;
   title: string;
   description: string;
 }
@@ -15,5 +16,6 @@ export interface IComment {
   id: string;
   comment_writer: IUser;
   comment: string;
-  likes: number;
+  likers: Array<IUser>;
+  likeCount: number;
 }

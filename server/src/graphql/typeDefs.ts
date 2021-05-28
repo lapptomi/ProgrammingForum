@@ -13,7 +13,8 @@ export const typeDefs = gql`
     original_poster: User!
     title: String!
     description: String!
-    likes: Int
+    likers: [User!]
+    likeCount: Int
     comments: [Comment!]!
   }
 
@@ -27,7 +28,8 @@ export const typeDefs = gql`
     id: ID!
     comment_writer: User!
     comment: String!
-    likes: Int!
+    likers: [User!]
+    likeCount: Int
   }
 
   type Query {

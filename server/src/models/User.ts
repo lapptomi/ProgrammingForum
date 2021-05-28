@@ -2,6 +2,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 
 export interface IUserSchema extends Document {
+  id: string;
   email: string;
   username: string;
   password: string;

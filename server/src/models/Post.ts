@@ -1,14 +1,16 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 import { IUser, IComment } from '../../types';
+import { IUserSchema } from './User';
 
 export interface IPostSchema extends Document {
   id: string;
   original_poster: IUser;
   title: string;
   description: string;
-  likes: number;
-  comments: Array<IComment>
+  likeCount: number;
+  likers: Array<IUserSchema>;
+  comments: Array<IComment>;
 }
 
 const userSchema: Schema = new mongoose.Schema({
@@ -28,7 +30,12 @@ const userSchema: Schema = new mongoose.Schema({
     required: true,
     unique: false,
   },
-  likes: {
+  likers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User',
+  }],
+  likeCount: {
     type: Number,
     default: 0,
   },

@@ -74,7 +74,7 @@ describe('Adding comments to a post', () => {
       headers: {
         Authorization: `bearer ${token}`,
       },
-    }).then((res) => expect(res.status).to.eq(401));
+    }).then((res) => expect(res.status).to.eq(404));
   });
 
   it('can be done multiple times', () => {

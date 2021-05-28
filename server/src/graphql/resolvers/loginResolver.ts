@@ -22,7 +22,7 @@ export const loginMutations = {
     }
 
     const userForToken = {
-      id: user.id as string,
+      id: user.id,
       username: user.username,
     };
 
@@ -35,7 +35,7 @@ export const loginMutations = {
     return {
       token: newToken,
       username: user.username,
-      id: user.id as string,
+      id: user.id,
     };
   },
 

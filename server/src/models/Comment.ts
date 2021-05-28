@@ -1,10 +1,12 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
+import { IUser } from '../../types';
 
 export interface ICommentSchema extends Document {
   comment_writer: string;
   comment: string;
-  likes: number;
+  likeCount: number;
+  likers: Array<IUser>;
 }
 
 const userSchema: Schema = new mongoose.Schema({
@@ -19,7 +21,12 @@ const userSchema: Schema = new mongoose.Schema({
     unique: false,
     minlength: 2,
   },
-  likes: {
+  likers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User',
+  }],
+  likeCount: {
     type: Number,
     default: 0,
   },

@@ -13,7 +13,7 @@ export const CREATE_NEW_COMMENT = gql`
 export const LIKE_COMMENT = gql`
   mutation likeComment($commentId: ID!) {
     likeComment(commentId: $commentId) {
-      likes
+      likeCount
     }
   }
 `;

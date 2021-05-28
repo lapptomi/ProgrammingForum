@@ -10,7 +10,7 @@ export const GET_ALL_POSTS = gql`
         id
         username
       }
-      likes
+      likeCount
     }
   }
 `;
@@ -28,14 +28,13 @@ export const FIND_POST_BY_ID = gql`
       comments {
         id
         comment
-        likes
+        likeCount
         comment_writer {
           id
           username
         }
-      }
-      
-      likes
+      } 
+      likeCount
     }
   }
 `;
@@ -55,7 +54,7 @@ export const CREATE_NEW_POST = gql`
 export const LIKE_POST = gql`
   mutation likePost($postId: ID!) {
     likePost(postId: $postId) {
-      likes
+      likeCount
     }
   }
 `;

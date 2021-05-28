@@ -53,7 +53,7 @@ const Post: React.FC<Props> = ({ post }) => {
               onClick={handlePostLike}
               name="thumbs up"
             />
-            <b>{post.likes}</b>
+            <b>{post.likeCount}</b>
           </Item>
         </Grid.Column>
       </Grid.Row>
