@@ -3,8 +3,6 @@ export interface IUser {
   email: string;
   username: string;
   password: string;
-  created_at?: Date;
-  updated_at?: Date;
 }
 
 export interface IPost {
@@ -12,8 +10,6 @@ export interface IPost {
   original_poster: string;
   title: string;
   description: string;
-  created_at?: Date;
-  updated_at?: Date;
 }
 
 export interface Token {
@@ -30,8 +26,6 @@ export interface IComment {
   id: string;
   comment_writer: string;
   comment: string;
-  created_at?: Date;
-  updated_at?: Date;
 }
 
 export type NewComment = Omit<IComment, 'id'>;

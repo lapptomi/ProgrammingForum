@@ -1,19 +1,9 @@
 [![Pipeline](https://github.com/lapptomi/tsoha-2021/actions/workflows/pipeline.yml/badge.svg)](https://github.com/lapptomi/tsoha-2021/actions/workflows/pipeline.yml)
 
-test
 
 # tsoha-2021
 
 ## [App on Heroku](https://tsoha-2021-tl.herokuapp.com/)
-
-# Purpose of the application
-Purpose of this application is to be a website / forum where people can discuss programming related things.  
-Users can create posts where other people can answer. Users can also like the posts and the comments.
-
-# Documentation
-### [User guide](https://github.com/lapptomi/tsoha-2021/blob/main/documentation/user-guide.md)  
-
-### [Database diagram](https://github.com/lapptomi/tsoha-2021/blob/main/documentation/images/dbdiagram.png)
 
 
 # Running the app locally

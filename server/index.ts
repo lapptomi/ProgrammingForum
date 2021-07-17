@@ -4,11 +4,8 @@ import * as jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import { Token } from './types';
 import app from './src/app';
-import { postQueries, postMutations } from './src/graphql/resolvers/postResolver';
-import { userMutations, userQueries } from './src/graphql/resolvers/userResolver';
-import { loginMutations } from './src/graphql/resolvers/loginResolver';
-import { typeDefs } from './src/graphql/typeDefs';
 import User from './src/models/User';
+import { schema } from './src/graphql/schema';
 
 dotenv.config();
 
@@ -28,21 +25,8 @@ mongoose.connect(MONGODB_URI as string, {
 });
 
 const startApolloServer = async () => {
-  const resolvers = {
-    Query: {
-      ...postQueries,
-      ...userQueries,
-    },
-    Mutation: {
-      ...postMutations,
-      ...userMutations,
-      ...loginMutations,
-    },
-  };
-
   const server = new ApolloServer({
-    typeDefs,
-    resolvers,
+    schema,
     // eslint-disable-next-line consistent-return
     context: async ({ req }): Promise<any> => {
       const authorization = req

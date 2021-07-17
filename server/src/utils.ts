@@ -55,11 +55,15 @@ export const toNewUser = (user: NewUser): NewUser => {
   };
 };
 
-export const toNewPost = (object: NewPost): NewPost => {
+export const toNewPost = (
+  original_poster?: string,
+  title?: string,
+  description?: string,
+): NewPost => {
   return {
-    original_poster: object.original_poster,
-    title: parseTitle(object.title),
-    description: parseDescription(object.description),
+    original_poster: parseId(original_poster),
+    title: parseTitle(title),
+    description: parseDescription(description),
   };
 };
 
@@ -70,9 +74,12 @@ export const parseComment = (comment: any): string => {
   return comment;
 };
 
-export const toNewComment = (object: NewComment): NewComment => {
+export const toNewComment = (
+  comment_writer_id?: string,
+  comment?: string,
+): NewComment => {
   return {
-    comment_writer: parseId(object.comment_writer),
-    comment: parseComment(object.comment),
+    comment_writer: parseId(comment_writer_id),
+    comment: parseComment(comment),
   };
 };
