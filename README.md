@@ -11,16 +11,10 @@
 ### Environment variables needed to use this app
 If you want to run this app locally, you need to have these two environment variables:
 
-<b>DATABASE_URL</b>=[PostgreSQL connection string] [More info here](https://node-postgres.com/features/connecting)  
+<b>MONGODB_URI</b>   
 <b>SECRET</b>=[secret key for jwt tokens (can be any string)]
 
 You can set up these variables by making a .env file in the root of the project and by adding the two variables in it.
-
-#### The content of the .env file can be for example: 
-```
-DATABASE_URL=postgresql://dbuser:secretpassword@database.server.com:3211/mydb <-[not a real database url]
-SECRET=secretkey <-[you can replace the "secretkey" with any text]
-```
 
 # Installing dependencies
 

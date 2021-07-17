@@ -1,6 +1,6 @@
 import { gql, UserInputError } from 'apollo-server-express';
 import * as bcrypt from 'bcrypt';
-import { NewUser } from '../../types';
+import { IUser, NewUser } from '../../types';
 import User from '../models/User';
 import { toNewUser } from '../utils';
 
@@ -27,10 +27,12 @@ export const typeDefs = gql`
 
 export const resolvers = {
   Query: {
-    allUsers: () => User.find({}),
+    allUsers: async (): Promise<Array<IUser>> => {
+      return User.find({});
+    },
   },
   Mutation: {
-    addUser: async (_root: any, args: NewUser): Promise<NewUser> => {
+    addUser: async (_root: unknown, args: NewUser): Promise<NewUser> => {
       try {
         const newUser = new User(toNewUser(args));
         newUser.password = await bcrypt.hash(newUser.password, 10);

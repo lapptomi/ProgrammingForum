@@ -61,7 +61,7 @@ export const typeDefs = gql`
 
 export const resolvers = {
   Query: {
-    allPosts: async () => {
+    allPosts: async (): Promise<Array<IPostSchema>> => {
       const posts = await Post.find({})
         .populate('original_poster')
         .populate({
@@ -79,7 +79,10 @@ export const resolvers = {
 
       return posts;
     },
-    findPost: async (_root: any, args: Args): Promise<IPostSchema | null> => {
+    findPost: async (
+      _root: unknown,
+      args: Args,
+    ): Promise<IPostSchema | null> => {
       const post = Post.findById(args.postId)
         .populate('original_poster')
         .populate({
@@ -99,7 +102,7 @@ export const resolvers = {
   },
   Mutation: {
     addPost: async (
-      _root: any,
+      _root: unknown,
       args: Args,
       context: ApolloContext,
     ): Promise<IPostSchema | null> => {
@@ -124,7 +127,7 @@ export const resolvers = {
     },
 
     likePost: async (
-      _root: any,
+      _root: unknown,
       args: Args,
       context: ApolloContext,
     ): Promise<any> => {
@@ -148,7 +151,7 @@ export const resolvers = {
           likeCount: updatedPost?.likeCount,
         };
       } catch (error) {
-        return null;
+        throw new Error(error);
       }
     },
 
@@ -158,10 +161,12 @@ export const resolvers = {
       context: ApolloContext,
     ): Promise<ICommentSchema> => {
       const { currentUser } = context;
+
       if (!currentUser || !currentUser.id) {
         throw new Error('not authenticated');
       }
       const post = await Post.findById(args.postId);
+
       if (!post) {
         throw new Error('Could not add comment');
       }
@@ -179,12 +184,13 @@ export const resolvers = {
     },
 
     likeComment: async (
-      _root: any,
+      _root: unknown,
       args: Args,
       context: ApolloContext,
     ): Promise<any> => {
       try {
         const { currentUser } = context;
+
         if (!currentUser) {
           throw new Error('not authenticated');
         }
