@@ -59,15 +59,6 @@ export const typeDefs = gql`
   }
 `;
 
-/*
-.populate({
-          path: 'comments',
-          populate: {
-            path: 'comment_writer likers',
-          },
-        })
-*/
-
 export const resolvers = {
   Query: {
     allPosts: async (): Promise<Array<IPost>> => {
