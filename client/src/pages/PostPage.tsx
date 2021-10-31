@@ -23,18 +23,9 @@ const PostPage: React.FC = () => {
   }
   if (!data) {
     return (
-      <Container textAlign="center"><h1>404 - Not Found</h1></Container>
-    );
-  }
-
-  const post = data.findPost;
-  console.log('DATA =', post);
-
-  return (
-    <div>
       <Grid>
         <Grid.Row
-          color="violet"
+          color="black"
           textAlign="center"
           style={{
             padding: '100px',
@@ -46,8 +37,37 @@ const PostPage: React.FC = () => {
           <Grid.Column width={16} textAlign="center">
             <Header inverted style={{ fontSize: '40px' }}>
               <p>
-                <Icon name="dollar sign" color="yellow" />
-                <span>{post.title}</span>
+                <span>404 - Could not find post</span>
+                <span className="blinking">_</span>
+              </p>
+            </Header>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    );
+  }
+
+  const post = data.findPost;
+  console.log('DATA =', post);
+
+  return (
+    <div>
+      <Grid>
+        <Grid.Row
+          color="black"
+          textAlign="center"
+          style={{
+            padding: '100px',
+            backgroundImage: `url(${img})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: '100% 200%',
+          }}
+        >
+          <Grid.Column width={16} textAlign="center">
+            <Header inverted style={{ fontSize: '40px' }}>
+              <p>
+                <Icon name="at" color="yellow" />
+                {post.title}
                 <span className="blinking">_</span>
               </p>
             </Header>
@@ -55,9 +75,7 @@ const PostPage: React.FC = () => {
         </Grid.Row>
       </Grid>
       <Container style={{ marginTop: '100px' }}>
-        <Grid celled>
-          <Post post={post} />
-        </Grid>
+        <Post post={post} />
         <Divider />
         <CommentList comments={post.comments} />
         <CommentForm postId={post.id} />

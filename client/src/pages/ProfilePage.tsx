@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-  Grid, Header, Icon,
+  Container,
+  Grid, Header, Icon, Message,
 } from 'semantic-ui-react';
 import { useGlobalState } from '../state/state';
 import img from '../style/header.jpg';
@@ -39,6 +40,17 @@ const ProfilePage: React.FC = () => {
             </p>
           </Header>
         </Grid.Column>
+      </Grid.Row>
+
+      <Grid.Row>
+        <Container textAlign="center">
+          <Message
+            color="yellow"
+            header="This page is still under construction..."
+            size="massive"
+            icon="wrench"
+          />
+        </Container>
       </Grid.Row>
     </Grid>
   );

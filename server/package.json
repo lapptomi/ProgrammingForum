@@ -10,7 +10,7 @@
     "build:full": "npm run build && npm run build:ui",
     "start": "ts-node server/index.js",
     "start:prod": "NODE_ENV=production node dist/index.js",
-    "dev": "NODE_ENV=development ts-node-dev server/index.ts",
+    "dev": "NODE_ENV=development ts-node-dev index.ts",
     "eslint": "eslint --ext=.ts,.tsx . && cd client && npm run lint",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",

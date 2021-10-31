@@ -5,6 +5,13 @@
 import * as _ from 'lodash';
 import { NewComment, NewPost, NewUser } from '../types';
 
+export const getCurrentDate = (): string => {
+  // Date is in format dd-mm-yyyy
+  const date = new Date();
+  const currentDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+  return currentDate;
+};
+
 const parseEmail = (email: any): string => {
   if (!_.isString(email) || email.length > 30 || !email) {
     throw new Error(`Invalid or missing email: ${email as string}`);

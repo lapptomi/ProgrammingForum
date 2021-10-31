@@ -1,19 +1,18 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
-import { IUser } from '../../types';
+import { IComment, SchemaName } from '../../types';
+import { getCurrentDate } from '../utils';
 
-export interface ICommentSchema extends Document {
-  comment_writer: string;
-  comment: string;
-  likeCount: number;
-  likers: Array<IUser>;
-}
-
-const userSchema: Schema = new mongoose.Schema({
+const commentSchema: Schema = new mongoose.Schema({
   comment_writer: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'User',
+    ref: SchemaName.User,
+  },
+  created_at: {
+    type: String,
+    required: true,
+    default: getCurrentDate(),
   },
   comment: {
     type: String,
@@ -23,15 +22,12 @@ const userSchema: Schema = new mongoose.Schema({
   },
   likers: [{
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'User',
+    required: false,
+    ref: SchemaName.User,
+    default: [],
   }],
-  likeCount: {
-    type: Number,
-    default: 0,
-  },
 });
 
-userSchema.plugin(uniqueValidator);
+commentSchema.plugin(uniqueValidator);
 
-export default mongoose.model<ICommentSchema>('Comment', userSchema);
+export default mongoose.model<IComment & Document>(SchemaName.Comment, commentSchema);

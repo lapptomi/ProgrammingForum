@@ -66,7 +66,7 @@ const RegisterPage: React.FC = () => {
         <Grid.Column width={16} textAlign="center">
           <Header inverted style={{ fontSize: '40px' }}>
             <p>
-              <Icon name="dollar" color="yellow" />
+              <Icon name="at" color="yellow" />
               <span>CREATE NEW ACCOUNT</span>
               <span className="blinking">_</span>
             </p>

@@ -19,7 +19,7 @@ describe('Adding comments to a post', () => {
     // Creating user for testing
     cy.request('POST', `${baseUrl}/api/users`, testUser)
 
-    cy.visit('http://localhost:3000');
+    cy.visit(`${baseUrl}`);
     
     // Logging in the user before running tests
     cy.wait(1000);
@@ -109,10 +109,9 @@ describe('Liking a comment', () => {
     cy.request('POST', `${baseUrl}/api/users`, testUser)
     cy.request('POST', `${baseUrl}/api/users`, testUser2)
 
-    cy.visit('http://localhost:3000');
+    cy.visit(`${baseUrl}`);
     
     // Logging in the user before running tests
-    cy.wait(1000);
     cy.get('#navbarSignInButton').click();
     cy.contains('SIGN IN TO YOUR ACCOUNT');
     cy.get('#username').type(testUser.username);
@@ -121,7 +120,6 @@ describe('Liking a comment', () => {
     cy.get('#loginButton').click();
     
     // Creating a new post
-    cy.wait(1000);
     cy.contains('CREATE NEW POST').click();
     cy.get('#title').type(testPost.title);
     cy.get('#description').type(testPost.description);
@@ -129,7 +127,6 @@ describe('Liking a comment', () => {
     cy.get('#createPostButton').click();   
 
     // Opening the post created
-    cy.wait(1000);
     cy.contains('Posts');
     cy.contains(testPost.title);
     cy.contains('Comments').click();
@@ -140,7 +137,6 @@ describe('Liking a comment', () => {
     cy.get('#addCommentButton').should('be.enabled');
     cy.get('#addCommentButton').click();
     
-    cy.wait(1000);
     cy.contains(testComment.comment);
     cy.contains(testUser.username);
   });
@@ -149,7 +145,6 @@ describe('Liking a comment', () => {
     cy.get('#commentLikes').contains(0);
     cy.get('#commentLikeButton').click();
     
-    cy.wait(1000);
     cy.get('#commentLikes').contains(1);
   });
 
@@ -157,11 +152,9 @@ describe('Liking a comment', () => {
     cy.get('#commentLikes').contains(0);
     cy.get('#commentLikeButton').click();
     
-    cy.wait(1000);
     cy.get('#commentLikes').contains(1);
 
     cy.get('#commentLikeButton').click();
-    cy.wait(1000);
     
     cy.get('#commentLikes').contains(1);
   });
@@ -173,11 +166,9 @@ describe('Liking a comment', () => {
     cy.get('#commentLikes').contains(0);
     cy.get('#commentLikeButton').click();
     
-    cy.wait(1000);
     cy.get('#commentLikes').contains(0);
     cy.get('#commentLikeButton').click();
 
-    cy.wait(1000);
     cy.get('#commentLikes').contains(0);
   });
  
@@ -185,13 +176,10 @@ describe('Liking a comment', () => {
     // Liking post by the first user
     cy.get('#commentLikes').contains(0);
     cy.get('#commentLikeButton').click();
-    cy.wait(1000);
     cy.get('#commentLikes').contains(1);
-    cy.wait(1000)
 
     // Sign out and sign in as another user
     cy.get('#navbarSignOutButton').click();
-    cy.wait(1000);
     cy.get('#navbarSignInButton').click();
     cy.contains('SIGN IN TO YOUR ACCOUNT');
     cy.get('#username').type(testUser2.username);
@@ -203,16 +191,13 @@ describe('Liking a comment', () => {
     cy.contains(testPost.title).click();
 
     // Like post again by another user
-    cy.wait(1000);
     cy.contains('PROFILE');
     cy.get('#commentLikes').contains(1);
     cy.get('#commentLikeButton').click();
 
-    cy.wait(1000);
     cy.get('#commentLikes').contains(2);
 
     cy.get('#commentLikeButton').click();
-    cy.wait(1000);
     cy.get('#commentLikes').contains(2);
   });
 

@@ -1,12 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
-
-export interface IUserSchema extends Document {
-  id: string;
-  email: string;
-  username: string;
-  password: string;
-}
+import { IUser, SchemaName } from '../../types';
 
 const userSchema: Schema = new mongoose.Schema({
   email: {
@@ -28,4 +22,4 @@ const userSchema: Schema = new mongoose.Schema({
 
 userSchema.plugin(uniqueValidator);
 
-export default mongoose.model<IUserSchema>('User', userSchema);
+export default mongoose.model<IUser & Document>(SchemaName.User, userSchema);

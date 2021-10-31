@@ -4,9 +4,8 @@ describe('Creating new user', () => {
   beforeEach(() => {
     cy.request('POST', `${baseUrl}/api/testing/resetdb`);
 
-    cy.visit('http://localhost:3000');
+    cy.visit(`${baseUrl}`);
 
-    cy.wait(1000);
     cy.get('#navbarSignUpButton').click();
     cy.contains('CREATE NEW ACCOUNT');
   });
@@ -18,7 +17,6 @@ describe('Creating new user', () => {
     cy.get('#confirmPassword').type(testUser.password);
     cy.get('#registerButton').click();
     
-    cy.wait(2000)
     cy.contains('PROFILE')
   });
 
@@ -31,7 +29,6 @@ describe('Creating new user', () => {
     cy.get('#confirmPassword').type(testUser.password);
     cy.get('#registerButton').click();
     
-    cy.wait(2000)
     cy.contains('CREATE NEW ACCOUNT');
   });
 

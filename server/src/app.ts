@@ -11,6 +11,10 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static('./dist/build'));
 
+app.get('/', (_req, res) => {
+  res.send('Hello world!').status(200);
+});
+
 app.use('/api/users', userRouter);
 app.use('/api/testing', testingRouter);
 

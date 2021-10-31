@@ -7,9 +7,8 @@ describe('Sign in', () => {
     // creating user for testing
     cy.request('POST', `${baseUrl}/api/users`, testUser)
     
-    cy.visit('http://localhost:3000');
+    cy.visit(`${baseUrl}`);
 
-    cy.wait(1000);
     cy.get('#navbarSignInButton').click();
   });
 
@@ -20,7 +19,6 @@ describe('Sign in', () => {
     cy.get('#loginButton').should('be.enabled');
     cy.get('#loginButton').click();
     
-    cy.wait(1000);
     cy.contains('PROFILE');
     cy.contains('CREATE NEW POST');
   });
@@ -32,7 +30,6 @@ describe('Sign in', () => {
     cy.get('#loginButton').should('be.enabled');
     cy.get('#loginButton').click();
     
-    cy.wait(1000)
     cy.on('window:alert', (alertText) => {
       expect(alertText).to.contain('Invalid username or password');
     });
@@ -45,7 +42,6 @@ describe('Sign in', () => {
     cy.get('#loginButton').should('be.enabled');
     cy.get('#loginButton').click();
     
-    cy.wait(1000)
     cy.on('window:alert', (alertText) => {
       expect(alertText).to.contain('User not found');
     });

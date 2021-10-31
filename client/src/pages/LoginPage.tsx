@@ -50,7 +50,7 @@ const LoginPage: React.FC = () => {
         <Grid.Column width={16} textAlign="center">
           <Header inverted style={{ fontSize: '40px' }}>
             <p>
-              <Icon name="dollar sign" color="yellow" />
+              <Icon name="at" color="yellow" />
               <span>SIGN IN TO YOUR ACCOUNT</span>
               <span className="blinking">_</span>
             </p>
