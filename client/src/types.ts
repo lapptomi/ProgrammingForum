@@ -17,6 +17,5 @@ export interface IComment {
   comment_writer: IUser;
   comment: string;
   likers: Array<IUser>;
-  likeCount: number;
   created_at: string;
 }
