@@ -37,21 +37,19 @@ jobs:
         uses: akhileshns/heroku-deploy@v3.12.12
         # Deploy to Heroku when pushing to the main branch
     #   if: ${{ success() && github.ref == 'refs/heads/main' }}
-        env:
-          NODE_ENV: production
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
-          SECRET: 'supersecretkey'
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "tsoha-2021-tl"
           heroku_email: ${{ secrets.EMAIL }}
           usedocker: true
-
           docker_build_args: |
             NODE_ENV
             MONGODB_URI
             SECRET
-            
           healthcheck: "https://tsoha-2021-tl.herokuapp.com/api/testing/health"
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
+        env:
+          NODE_ENV: production
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          SECRET: 'supersecretkey'
