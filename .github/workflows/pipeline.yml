@@ -46,11 +46,12 @@ jobs:
           heroku_app_name: "tsoha-2021-tl"
           heroku_email: ${{ secrets.EMAIL }}
           usedocker: true
+
           docker_build_args: |
             NODE_ENV
             MONGODB_URI
             SECRET
-
+            
           healthcheck: "https://tsoha-2021-tl.herokuapp.com/api/testing/health"
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
