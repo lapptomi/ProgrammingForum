@@ -36,7 +36,7 @@ jobs:
       - name: Heroku deploy
         uses: akhileshns/heroku-deploy@v3.12.12
         # Deploy to Heroku when pushing to the main branch
-        if: ${{ success() && github.ref == 'refs/heads/main' }}
+    #   if: ${{ success() && github.ref == 'refs/heads/main' }}
         env:
           NODE_ENV: production
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
