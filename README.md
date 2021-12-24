@@ -1,20 +1,21 @@
 [![Pipeline](https://github.com/lapptomi/tsoha-2021/actions/workflows/pipeline.yml/badge.svg)](https://github.com/lapptomi/tsoha-2021/actions/workflows/pipeline.yml)
 
 
-# tsoha-2021
+# Programming Forum
 
 ## [App on Heroku](https://tsoha-2021-tl.herokuapp.com/)
 
 
 # Running the app locally
 
-### Environment variables needed to use this app
-If you want to run this app locally, you need to have these two environment variables:
+### Start the app with Docker Compose
+###### Note that you must have Docker and Docker Compose installed in your machine   
 
-<b>MONGODB_URI</b>   
-<b>SECRET</b>=[secret key for jwt tokens (can be any string)]
+You can start the app in development mode simply by running the next command in the root directory:
+```
+docker-compose -f docker-compose.dev.yml up
+```
 
-You can set up these variables by making a .env file in the root of the project and by adding the two variables in it.
 
 # Installing dependencies
 

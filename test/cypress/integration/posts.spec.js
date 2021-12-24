@@ -7,7 +7,7 @@ describe('Creating a new post', () => {
     // creating user for testing
     cy.request('POST', `${baseUrl}/api/users`, testUser)
 
-    cy.visit('http://localhost:3000');
+    cy.visit(`${baseUrl}`);
 
     // logging in the user before running tests
     cy.wait(1000);
@@ -66,10 +66,9 @@ describe('Liking a post', () => {
     // creating second user for testing
     cy.request('POST', `${baseUrl}/api/users`, testUser2)
 
-    cy.visit('http://localhost:3000');
+    cy.visit(`${baseUrl}`);
 
     // logging in the user before running tests
-    cy.wait(1000);
     cy.get('#navbarSignInButton').click();
     cy.contains('SIGN IN TO YOUR ACCOUNT');
     cy.get('#username').type(testUser.username);
@@ -77,7 +76,6 @@ describe('Liking a post', () => {
     cy.get('#loginButton').should('be.enabled');
     cy.get('#loginButton').click();
     
-    cy.wait(1000);
     cy.contains('PROFILE');
 
     // Creating a post
@@ -87,7 +85,6 @@ describe('Liking a post', () => {
     cy.get('#createPostButton').should('be.enabled');
     cy.get('#createPostButton').click();
 
-    cy.wait(1000);
     cy.contains(testPost.title);
     cy.contains(testPost.description);
   });
@@ -98,19 +95,16 @@ describe('Liking a post', () => {
     cy.on('window:alert', (alertText) => {
       expect(alertText).to.equal('Like added!');
     });
-    cy.wait(1000);
     cy.get('#postLikes').contains(1);
   });
  
   it('does not work when user has already liked a post', () => {
     cy.get('#postLikes').eq(0);
     cy.get('#postLikeButton').click();
-    cy.wait(1000);
 
     cy.get('#postLikes').contains(1);
     cy.get('#postLikeButton').click();
   
-    cy.wait(1000);
     cy.get('#postLikes').contains(1);
   });
  
@@ -120,7 +114,6 @@ describe('Liking a post', () => {
     cy.get('#postLikes').contains(0);
     cy.get('#postLikeButton').click();
 
-    cy.wait(1000);
     cy.on('window:alert', (alertText) => {
       expect(alertText).to.equal('You must be logged in to add likes');
     });
@@ -132,13 +125,10 @@ describe('Liking a post', () => {
     // Liking post by the first user
     cy.get('#postLikes').contains(0);
     cy.get('#postLikeButton').click();
-    cy.wait(1000);
     cy.get('#postLikes').contains(1);
-    cy.wait(1000)
 
     // Sign out and sign in as another user
     cy.get('#navbarSignOutButton').click();
-    cy.wait(1000);
     cy.get('#navbarSignInButton').click();
     cy.contains('SIGN IN TO YOUR ACCOUNT');
     cy.get('#username').type(testUser2.username);
@@ -147,16 +137,13 @@ describe('Liking a post', () => {
     cy.get('#loginButton').click();
     
     // Like post again by another user
-    cy.wait(1000);
     cy.contains('PROFILE');
     cy.get('#postLikes').contains(1);
     cy.get('#postLikeButton').click();
 
-    cy.wait(1000);
     cy.get('#postLikes').contains(2);
 
     cy.get('#postLikeButton').click();
-    cy.wait(1000);
     cy.get('#postLikes').contains(2);
   });
 });

@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server-express';
-import { ApolloContext } from '../../types';
-import Comment, { ICommentSchema } from '../models/Comment';
-import Post, { IPostSchema } from '../models/Post';
+import { ApolloContext, IComment, IPost } from '../../types';
+import Comment from '../models/Comment';
+import Post from '../models/Post';
 import { toNewComment, toNewPost } from '../utils';
 
 interface Args {
@@ -16,19 +16,19 @@ export const typeDefs = gql`
   type Post {
     id: ID!
     original_poster: User!
+    created_at: String!
     title: String!
     description: String!
     likers: [User!]
-    likeCount: Int
     comments: [Comment!]!
   }
 
   type Comment {
     id: ID!
+    created_at: String!
     comment_writer: User!
     comment: String!
     likers: [User!]
-    likeCount: Int
   }
 
   extend type Query {
@@ -61,20 +61,18 @@ export const typeDefs = gql`
 
 export const resolvers = {
   Query: {
-    allPosts: async (): Promise<Array<IPostSchema>> => {
+    allPosts: async (): Promise<Array<IPost>> => {
+      /*
+        When using populate you can select multiple fields
+        by adding a space between the names
+
+        More info here: mongoosejs.com/docs/3.8.x/docs/populate.html
+      */
       const posts = await Post.find({})
-        .populate('original_poster')
+        .populate('original_poster likers')
         .populate({
           path: 'comments',
-          populate: {
-            path: 'comment_writer',
-          },
-        })
-        .populate({
-          path: 'comments',
-          populate: {
-            path: 'likers',
-          },
+          populate: { path: 'comment_writer likers' },
         });
 
       return posts;
@@ -82,21 +80,14 @@ export const resolvers = {
     findPost: async (
       _root: unknown,
       args: Args,
-    ): Promise<IPostSchema | null> => {
+    ): Promise<IPost | null> => {
       const post = Post.findById(args.postId)
-        .populate('original_poster')
+        .populate('original_poster likers')
         .populate({
           path: 'comments',
-          populate: {
-            path: 'likers',
-          },
-        })
-        .populate({
-          path: 'comments',
-          populate: {
-            path: 'comment_writer',
-          },
+          populate: { path: 'comment_writer likers' },
         });
+
       return post;
     },
   },
@@ -105,7 +96,7 @@ export const resolvers = {
       _root: unknown,
       args: Args,
       context: ApolloContext,
-    ): Promise<IPostSchema | null> => {
+    ): Promise<IPost | null> => {
       try {
         const { currentUser } = context;
         if (!currentUser) {
@@ -142,16 +133,15 @@ export const resolvers = {
           throw new Error('Error liking comment');
         }
 
-        const updatedPost = await Post.findByIdAndUpdate(args.postId, {
-          $inc: { likeCount: 1 }, // Increment likeCount by one
-          $addToSet: { likers: currentUser.id }, // Add only unique id to set
-        });
+        const updatedPost = await Post.findByIdAndUpdate(args.postId,
+          { $addToSet: { likers: currentUser.id } }, // Add only unique id to set
+          { returnOriginal: false });
 
         return {
-          likeCount: updatedPost?.likeCount,
+          updatedPost,
         };
       } catch (error) {
-        throw new Error(error);
+        throw new Error((error as Error).message);
       }
     },
 
@@ -159,7 +149,7 @@ export const resolvers = {
       _root: undefined,
       args: Args,
       context: ApolloContext,
-    ): Promise<ICommentSchema> => {
+    ): Promise<IComment> => {
       const { currentUser } = context;
 
       if (!currentUser || !currentUser.id) {
@@ -200,17 +190,16 @@ export const resolvers = {
           throw new Error('Error liking comment');
         }
 
-        const updatedComment = await Comment.findByIdAndUpdate(args.commentId, {
-          $inc: { likeCount: 1 }, // Increment likeCount by one
-          $addToSet: { likers: currentUser.id }, // Add only unique id to set
-        });
+        const updatedComment = await Comment.findByIdAndUpdate(args.commentId,
+          { $addToSet: { likers: currentUser.id } }, // Add only unique id to set
+          { returnOriginal: false });
 
         return {
-          likeCount: updatedComment?.likeCount,
+          updatedComment,
         };
       } catch (error) {
         console.log(error);
-        throw new Error(error);
+        throw new Error((error as Error).message);
       }
     },
   },

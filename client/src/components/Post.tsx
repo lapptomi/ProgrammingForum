@@ -30,7 +30,7 @@ const Post: React.FC<Props> = ({ post }) => {
   };
 
   return (
-    <>
+    <Grid celled style={{ marginTop: '50px' }}>
       <Grid.Row color="black">
         <Grid.Column width={14} style={{ padding: '8px' }}>
           <Link to={`/posts/${post.id}`}>
@@ -39,7 +39,7 @@ const Post: React.FC<Props> = ({ post }) => {
               as="h3"
               content={post.title}
               subheader={`
-                Posted on NULL
+                Posted on ${post.created_at}
                 by ${post.original_poster.username}
               `}
             />
@@ -53,7 +53,7 @@ const Post: React.FC<Props> = ({ post }) => {
               onClick={handlePostLike}
               name="thumbs up"
             />
-            <b>{post.likeCount}</b>
+            <b>{post.likers.length}</b>
           </Item>
         </Grid.Column>
       </Grid.Row>
@@ -79,7 +79,7 @@ const Post: React.FC<Props> = ({ post }) => {
           </Link>
         </Grid.Column>
       </Grid.Row>
-    </>
+    </Grid>
   );
 };
 

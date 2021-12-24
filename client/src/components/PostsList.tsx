@@ -3,7 +3,7 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
 import {
-  Grid, Header, Container,
+  Header, Container, Message,
 } from 'semantic-ui-react';
 import { GET_ALL_POSTS } from '../queries/post';
 import { IPost } from '../types';
@@ -11,11 +11,22 @@ import Loading from './Loading';
 import Post from './Post';
 
 const PostsList: React.FC = () => {
-  const { loading, data } = useQuery(GET_ALL_POSTS);
+  const { loading, error, data } = useQuery(GET_ALL_POSTS);
 
   console.log('data = ', data);
   if (loading) {
     return <Loading />;
+  }
+
+  if (error) {
+    return (
+      <Message>
+        <Container textAlign="center">
+          <b>Error</b>
+          <p>{`${error.message}`}</p>
+        </Container>
+      </Message>
+    );
   }
 
   const posts: Array<IPost> = data.allPosts;
@@ -33,11 +44,9 @@ const PostsList: React.FC = () => {
 
   return (
     <Container style={{ marginTop: '80px' }}>
-      <Grid celled>
-        {posts.map((post: IPost) => (
-          <Post post={post} key={post.id} />
-        ))}
-      </Grid>
+      {posts.map((post: IPost) => (
+        <Post post={post} key={post.id} />
+      ))}
     </Container>
   );
 };

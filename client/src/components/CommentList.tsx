@@ -38,7 +38,7 @@ const CommentList: React.FC<Props> = ({ comments }) => {
       <Header
         as="b"
         size="small"
-        content="0 replies"
+        content={`${comments.length} replies`}
         style={{ padding: '10px' }}
       />
       <Comment.Group style={{ minWidth: '100%', paddingLeft: '10px' }}>
@@ -48,14 +48,14 @@ const CommentList: React.FC<Props> = ({ comments }) => {
             <Comment.Content>
               <Comment.Author as="a">{comment.comment_writer.username}</Comment.Author>
               <Comment.Metadata>
-                <div>NULL</div>
+                <div>{comment.created_at}</div>
               </Comment.Metadata>
               <Comment.Text>{comment.comment}</Comment.Text>
               <Comment.Actions>
                 <Comment.Action onClick={() => handleCommentLike(comment.id)}>
                   <Icon name="like" id="commentLikeButton" />
                   <span id="commentLikes">
-                    {comment.likeCount}
+                    {comment.likers.length}
                     {' '}
                     Likes
                   </span>

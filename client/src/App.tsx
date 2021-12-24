@@ -36,7 +36,7 @@ const App: React.FC = () => {
             <PostPage />
           </Route>
 
-          <Route exact path="/login">
+          <Route path="/login">
             {state.isLoggedIn ? <Redirect to="/" /> : <LoginPage />}
           </Route>
 

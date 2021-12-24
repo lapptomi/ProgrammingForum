@@ -1,23 +1,18 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
-import { IUser, IComment } from '../../types';
-import { IUserSchema } from './User';
+import { IPost, SchemaName } from '../../types';
+import { getCurrentDate } from '../utils';
 
-export interface IPostSchema extends Document {
-  id: string;
-  original_poster: IUser;
-  title: string;
-  description: string;
-  likeCount: number;
-  likers: Array<IUserSchema>;
-  comments: Array<IComment>;
-}
-
-const userSchema: Schema = new mongoose.Schema({
+const postSchema: Schema = new mongoose.Schema({
   original_poster: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'User',
+    ref: SchemaName.User,
+  },
+  created_at: {
+    type: String,
+    required: true,
+    default: getCurrentDate(),
   },
   title: {
     type: String,
@@ -34,19 +29,16 @@ const userSchema: Schema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User',
+    default: [],
   }],
-  likeCount: {
-    type: Number,
-    default: 0,
-  },
-  comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Comment',
-    },
-  ],
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    required: false,
+    ref: SchemaName.Comment,
+    default: [],
+  }],
 });
 
-userSchema.plugin(uniqueValidator);
+postSchema.plugin(uniqueValidator);
 
-export default mongoose.model<IPostSchema>('Post', userSchema);
+export default mongoose.model<IPost & Document>(SchemaName.Post, postSchema);

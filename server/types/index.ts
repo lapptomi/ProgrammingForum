@@ -7,9 +7,12 @@ export interface IUser {
 
 export interface IPost {
   id: number;
+  likers: Array<IUser>;
   original_poster: string;
   title: string;
   description: string;
+  comments: Array<IComment>;
+  created_at: string;
 }
 
 export interface Token {
@@ -26,10 +29,17 @@ export interface IComment {
   id: string;
   comment_writer: string;
   comment: string;
+  likers: Array<IUser>;
 }
 
-export type NewComment = Omit<IComment, 'id'>;
+export type NewComment = Pick<IComment, 'comment_writer' | 'comment'>;
 
-export type NewPost = Omit<IPost, 'id'>;
+export type NewPost = Pick<IPost, 'original_poster' | 'title' | 'description'>;
 
 export type NewUser = Omit<IUser, 'id'>;
+
+export enum SchemaName {
+  User = 'User',
+  Comment = 'Comment',
+  Post = 'Post',
+}

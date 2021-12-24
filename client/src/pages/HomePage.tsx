@@ -45,6 +45,7 @@ const HomePage: React.FC = () => (
         </Grid.Column>
       </Grid.Row>
     </Grid>
+
     <PostsList />
   </div>
 );

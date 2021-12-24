@@ -36,7 +36,7 @@ const CreatePostPage: React.FC = () => {
   return (
     <Grid centered>
       <Grid.Row
-        color="violet"
+        color="black"
         textAlign="center"
         style={{
           padding: '100px',
@@ -48,7 +48,7 @@ const CreatePostPage: React.FC = () => {
         <Grid.Column width={16} textAlign="center">
           <Header inverted style={{ fontSize: '46px' }}>
             <p>
-              <span>CREATE NEW POST</span>
+              <span>Create New Post</span>
               <span className="blinking">_</span>
             </p>
           </Header>
