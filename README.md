@@ -1,9 +1,24 @@
-[![Pipeline](https://github.com/lapptomi/tsoha-2021/actions/workflows/pipeline.yml/badge.svg)](https://github.com/lapptomi/tsoha-2021/actions/workflows/pipeline.yml)
-
-
 # Programming Forum
 
-## [App on Heroku](https://tsoha-2021-tl.herokuapp.com/)
+[![Pipeline](https://github.com/lapptomi/tsoha-2021/actions/workflows/pipeline.yml/badge.svg)](https://github.com/lapptomi/tsoha-2021/actions/workflows/pipeline.yml)
+
+## Technologies used  
+
+![TS](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
+![cypress](https://img.shields.io/badge/-cypress-%23E5E5E5?style=for-the-badge&logo=cypress&logoColor=058a5e)
+![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
+![GraphQL](https://img.shields.io/badge/-GraphQL-E10098?style=for-the-badge&logo=graphql&logoColor=white)
+
+
+# App hosted on Heroku
+
+## [View hosted app](https://tsoha-2021-tl.herokuapp.com/)
 
 
 # Running the app locally
@@ -14,61 +29,4 @@
 You can start the app in development mode simply by running the next command in the root directory:
 ```
 docker-compose -f docker-compose.dev.yml up
-```
-
-
-# Installing dependencies
-
-You can install the project dependencies by running command:
-```
-npm install && cd client && npm install
-```
-
-# Starting the application
-
-## Running in development mode
-<b>When running the app in development mode, you need to start the server and React UI separately.</b>  
-
-
-You can start the server by command: 
-```
-npm run dev
-```
-
-And the React UI by command: 
-```
-cd client && npm start
-```
-
-
-
-## Running in production mode
-You can start the project in production mode by command:
-
-```
-npm run build:full && npm run start:prod
-```
-
-
-## Running in test mode
-You can start the project in test mode by command:
-
-```
-npm run start:test
-```
-
-
-# Running tests
-<b>When running tests, the server and the React UI must be both running.</b>  
-You can run the tests by command: 
-
-```
-npm run cypress:run
-```
-
-
-# Eslint
-You can lint the code by command:
-```
-npm run eslint
 ```
