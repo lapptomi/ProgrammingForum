@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "heroku-postbuild": "npm run build:full",
     "build": "tsc",
     "build:ui": "cd client && npm install && npm run build --prod && cp -r build ../dist",
     "build:full": "npm run build && npm run build:ui",
