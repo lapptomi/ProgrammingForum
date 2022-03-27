@@ -1,12 +1,17 @@
 version: '3.8'
 
 services:
-  client:
+  programming-forum-prod:
     image: pf-client-prod
+    environment:
+      - SECRET=helloworld
+      - MONGODB_URI=mongodb://the_username:the_password@pf-mongo-prod/the_database
     build:
-      context: ./client
+      context: ./
       dockerfile: Dockerfile
-    container_name: pf-client-prod
+    ports:
+      - 4000:4000
+    container_name: programming-forum-prod
 
   mongo:
     image: mongo
@@ -19,21 +24,6 @@ services:
     volumes: 
       - ./server/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
     container_name: pf-mongo-prod
-
-  server:
-    image: pf-server-prod
-    depends_on:
-      - "mongo"
-      - "client"
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-    environment:
-      - SECRET=helloworld
-      - MONGODB_URI=mongodb://the_username:the_password@pf-mongo-prod/the_database
-    ports:
-      - 4000:4000
-    container_name: pf-server-prod
 
 volumes:
   mongo_data:

@@ -9,9 +9,27 @@ on:
 
 jobs:
   test_and_deploy:
-    runs-on: ubuntu-18.04
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
     steps:
+      - name: checkout
       - uses: actions/checkout@v2
+
+      - name: npm install
+        run: cd server && npm install
+
+      - name: Cypress tests
+        uses: cypress-io/github-action@v2
+        env:
+          TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+          SECRET: 'supersecretkey'
+        with:
+          browser: chrome
+          headless: true
+          start: docker-compose -f "docker-compose.dev.yml" up -d
+          wait-on: http://localhost:8080
+
+
     #  - uses: actions/setup-node@v1
     #    with:
     #      node-version: '14'
@@ -36,7 +54,7 @@ jobs:
       - name: Heroku deploy
         uses: akhileshns/heroku-deploy@v3.12.12
         # Deploy to Heroku when pushing to the main branch
-    #   if: ${{ success() && github.ref == 'refs/heads/main' }}
+        if: ${{ success() && github.ref == 'refs/heads/main' }}
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "tsoha-2021-tl"

@@ -1,6 +1,6 @@
 import { testUser, baseUrl } from '../constants';
 
-describe('Creating new user', () => {
+describe.only('Creating new user', () => {
   beforeEach(() => {
     cy.request('POST', `${baseUrl}/api/testing/resetdb`);
 

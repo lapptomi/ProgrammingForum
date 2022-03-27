@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "build:ui": "cd client && npm install && npm run build --prod && cp -r build ../dist",
-    "build:full": "npm run build && npm run build:ui",
+    "build:full": "npm run build && cd .. && cd client && npm install && npm run build --prod && cp -r build ../server/dist",
     "start": "ts-node server/index.js",
     "start:prod": "NODE_ENV=production node dist/index.js",
     "dev": "NODE_ENV=development ts-node-dev index.ts",
