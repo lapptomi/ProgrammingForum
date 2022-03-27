@@ -11,8 +11,7 @@
     "dev": "NODE_ENV=development ts-node-dev index.ts",
     "eslint": "eslint --ext=.ts,.tsx . && cd client && npm run lint",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "start:test2": "concurrently \"NODE_ENV=test ts-node server/index.ts\" \"cd client && npm start\""
+    "cypress:run": "cypress run"
   },
   "repository": {
     "type": "git",
