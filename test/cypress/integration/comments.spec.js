@@ -141,10 +141,8 @@ describe('Liking a comment', () => {
     cy.contains(testUser.username);
   });
   
-  /*
-    FIX THESE TESTS
 
-    it('can be done if user logged in', () => {
+  it('can be done if user logged in', () => {
     cy.get('#commentLikes').contains(0);
     cy.get('#commentLikeButton').click();
     
@@ -173,7 +171,7 @@ describe('Liking a comment', () => {
     cy.get('#commentLikeButton').click();
 
     cy.get('#commentLikes').contains(0);
-  }); */
+  });
  
   it('can be done with many different users', () => {
     // Liking post by the first user
