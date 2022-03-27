@@ -34,16 +34,4 @@ describe('Sign in', () => {
       expect(alertText).to.contain('Invalid username or password');
     });
   });
-
-  it('fails when user with username given does not exist', () => {
-    cy.contains('SIGN IN TO YOUR ACCOUNT');
-    cy.get('#username').type(nonExistingUser.username);
-    cy.get('#password').type(nonExistingUser.password);
-    cy.get('#loginButton').should('be.enabled');
-    cy.get('#loginButton').click();
-    
-    cy.on('window:alert', (alertText) => {
-      expect(alertText).to.contain('User not found');
-    });
-  });
 });

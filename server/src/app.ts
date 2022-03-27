@@ -18,10 +18,6 @@ app.get('/', (_req, res) => {
 app.use('/api/users', userRouter);
 app.use('/api/testing', testingRouter);
 
-/*
-  React-router-dom didn't work with express.static
-  without sending index.html from the build folder
-*/
 if (process.env.NODE_ENV !== 'development') {
   app.get('*', (_req, res) => {
     res.sendFile('index.html', { root: './dist/build/' });

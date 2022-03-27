@@ -9,47 +9,29 @@ on:
 
 jobs:
   test_and_deploy:
-    timeout-minutes: 10
+    timeout-minutes: 20
     runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@v2
 
       - name: start containers
-        run: docker-compose -f "docker-compose.dev.yml" up -d --build
+        run: docker-compose -f "docker-compose.test.yml" up -d --build
 
       - name: install node
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.x
 
       - name: install dependencies
-        run: cd server && npm install
+        run: cd server && npm ci
 
-      - name: run tests
+      - name: run Cypress tests
         run: cd server && npm run cypress:run
 
-
-    #  - uses: actions/setup-node@v1
-    #    with:
-    #      node-version: '14'
-    #  
-    #  - name: npm install
-    #    run: npm install && cd client && npm install
-    #  
-    #  - name: Run eslint
-    #    run: npm run eslint
-    #  
-    #  - name: Cypress tests
-    #    uses: cypress-io/github-action@v2
-    #    env:
-    #      TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
-    #      SECRET: 'supersecretkey'
-    #    with:
-    #      browser: chrome
-    #      headless: true
-    #      start: npm run start:test
-    #      wait-on: http://localhost:8080
+      - name: stop containers
+        if: always()
+        run: docker-compose -f "docker-compose.test.yml" down
   
       - name: Heroku deploy
         uses: akhileshns/heroku-deploy@v3.12.12

@@ -10,4 +10,4 @@ RUN cd server && npm ci && npm run build:full
 
 WORKDIR /usr/src/app/server
 
-CMD ["npm", "run", "start:prod"]
+CMD ["npm", "run", "start:test"]

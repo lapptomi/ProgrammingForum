@@ -4,7 +4,9 @@ import User from '../models/User';
 
 export const resetDatabase = async (): Promise<void> => {
   // Delete all rows from the tables
-  await Comment.deleteMany({});
-  await User.deleteMany({});
-  await Post.deleteMany({});
+  if (process.env.NODE_ENV === 'test') {
+    await Comment.deleteMany({});
+    await User.deleteMany({});
+    await Post.deleteMany({});
+  }
 };
