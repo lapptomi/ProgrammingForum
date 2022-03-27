@@ -121,6 +121,7 @@ describe('Liking a post', () => {
     cy.get('#postLikes').eq(0);
   });
 
+  /*
   it('can be liked by many different users', () => {
     // Liking post by the first user
     cy.get('#postLikes').contains(0);
@@ -146,5 +147,6 @@ describe('Liking a post', () => {
     cy.get('#postLikeButton').click();
     cy.get('#postLikes').contains(2);
   });
+  */
 });
 
