@@ -7,7 +7,7 @@ services:
       context: ./client
       dockerfile: dev.Dockerfile
     volumes:
-      - ./client:/usr/src/app
+      - ./client/src:/usr/src/app/src
     ports:
       - 3000:3000
     container_name: pf-client
@@ -23,7 +23,7 @@ services:
     ports:
       - 4000:4000
     volumes:
-      - ./server:/usr/src/app
+      - ./server/src:/usr/src/app/src
     container_name: pf-server
 
   nginx:

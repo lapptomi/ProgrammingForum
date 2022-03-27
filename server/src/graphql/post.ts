@@ -62,12 +62,6 @@ export const typeDefs = gql`
 export const resolvers = {
   Query: {
     allPosts: async (): Promise<Array<IPost>> => {
-      /*
-        When using populate you can select multiple fields
-        by adding a space between the names
-
-        More info here: mongoosejs.com/docs/3.8.x/docs/populate.html
-      */
       const posts = await Post.find({})
         .populate('original_poster likers')
         .populate({

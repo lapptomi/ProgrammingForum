@@ -13,6 +13,7 @@ router.post('/resetdb', async (_req, res) => {
   }
 });
 
+// Health check for the deployment pipeline
 router.get('/health', (_req, res) => {
   res.status(200).send('ok');
 });

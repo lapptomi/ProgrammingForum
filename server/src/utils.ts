@@ -71,6 +71,7 @@ export const toNewPost = (
     original_poster: parseId(original_poster),
     title: parseTitle(title),
     description: parseDescription(description),
+    created_at: getCurrentDate(),
   };
 };
 

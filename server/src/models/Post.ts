@@ -1,7 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 import { IPost, SchemaName } from '../../types';
-import { getCurrentDate } from '../utils';
 
 const postSchema: Schema = new mongoose.Schema({
   original_poster: {
@@ -12,7 +11,6 @@ const postSchema: Schema = new mongoose.Schema({
   created_at: {
     type: String,
     required: true,
-    default: getCurrentDate(),
   },
   title: {
     type: String,

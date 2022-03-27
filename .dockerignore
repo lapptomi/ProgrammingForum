@@ -8,3 +8,4 @@ screenshots
 .gitignore
 Dockerfile
 *.Dockerfile
+dist
