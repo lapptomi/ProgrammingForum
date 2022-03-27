@@ -34,7 +34,7 @@ export interface IComment {
 
 export type NewComment = Pick<IComment, 'comment_writer' | 'comment'>;
 
-export type NewPost = Pick<IPost, 'original_poster' | 'title' | 'description'>;
+export type NewPost = Pick<IPost, 'original_poster' | 'title' | 'description' | 'created_at'>;
 
 export type NewUser = Omit<IUser, 'id'>;
 
