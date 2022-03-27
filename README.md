@@ -26,17 +26,17 @@
 ### Start the app with Docker Compose
 ###### Note that you must have Docker and Docker Compose installed in your machine   
 
-You can start the app in development mode by running the next command in the root directory:
+
+## Development
+The application can be started in development mode by command:  
 ```
 docker-compose -f docker-compose.dev.yml up
 ```
+And going to http://localhost:8080 in your browser.
 
-and going to localhost:8080 in your browser.
-
-
-You can start the app in production mode by running the next command in the root directory:
+## Production
+The application can be started in production mode by command:  
 ```
 docker-compose up
-```
-
-and going to localhost:4000 in your browser.
+```  
+And going to http://localhost:4000 in your browser.

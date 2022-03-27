@@ -141,7 +141,10 @@ describe('Liking a comment', () => {
     cy.contains(testUser.username);
   });
   
-  /*it('can be done if user logged in', () => {
+  /*
+    FIX THESE TESTS
+
+    it('can be done if user logged in', () => {
     cy.get('#commentLikes').contains(0);
     cy.get('#commentLikeButton').click();
     

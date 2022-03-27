@@ -12,31 +12,32 @@ jobs:
     timeout-minutes: 20
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: start containers
+      - name: Start containers
         run: docker-compose -f "docker-compose.test.yml" up -d --build
 
-      - name: install node
+      - name: Install node
         uses: actions/setup-node@v1
         with:
           node-version: 16.x
 
-      - name: install dependencies
+      - name: Install dependencies
         run: cd server && npm ci
 
-      - name: run Cypress tests
+      - name: Run Cypress tests
         run: cd server && npm run cypress:run
 
-      - name: stop containers
+      - name: Stop containers
         if: always()
         run: docker-compose -f "docker-compose.test.yml" down
   
       - name: Heroku deploy
         uses: akhileshns/heroku-deploy@v3.12.12
         # Deploy to Heroku when pushing to the main branch
-        if: ${{ success() && github.ref == 'refs/heads/main' }}
+        # if: ${{ success() && github.ref == 'refs/heads/main' }}
+        if: ${{ success() }}
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "tsoha-2021-tl"
