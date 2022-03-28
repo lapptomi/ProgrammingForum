@@ -22,7 +22,6 @@ describe('Adding comments to a post', () => {
     cy.visit(`${baseUrl}`);
     
     // Logging in the user before running tests
-    cy.wait(1000);
     cy.get('#navbarSignInButton').click();
     cy.contains('SIGN IN TO YOUR ACCOUNT');
     cy.get('#username').type(testUser.username);
@@ -31,7 +30,6 @@ describe('Adding comments to a post', () => {
     cy.get('#loginButton').click();
     
     // Creating a new post
-    cy.wait(1000);
     cy.contains('CREATE NEW POST').click();
     cy.get('#title').type(testPost.title);
     cy.get('#description').type(testPost.description);
@@ -39,7 +37,6 @@ describe('Adding comments to a post', () => {
     cy.get('#createPostButton').click();   
 
     // Opening the post created
-    cy.wait(1000);
     cy.contains('Posts');
     cy.contains(testPost.title);
     cy.contains('Comments').click();
@@ -51,7 +48,6 @@ describe('Adding comments to a post', () => {
     cy.get('#addCommentButton').should('be.enabled');
     cy.get('#addCommentButton').click();
     
-    cy.wait(1000);
     cy.contains(testComment.comment);
     cy.contains(testUser.username);
   });
@@ -83,14 +79,12 @@ describe('Adding comments to a post', () => {
     cy.get('#commentField').type(testComment.comment);
     cy.get('#addCommentButton').should('be.enabled');
     cy.get('#addCommentButton').click();
-    cy.wait(1000);
     
     // Add another comment
     cy.contains('Add a new comment.');
     cy.get('#commentField').type(testComment2.comment);
     cy.get('#addCommentButton').should('be.enabled');
     cy.get('#addCommentButton').click();
-    cy.wait(1000);
   
     cy.contains(testComment.comment);
     cy.contains(testComment2.comment);
@@ -141,7 +135,6 @@ describe('Liking a comment', () => {
     cy.contains(testUser.username);
   });
   
-  /*
   it('can be done if user logged in', () => {
     cy.get('#commentLikes').contains(0);
     cy.get('#commentLikeButton').click();
@@ -159,7 +152,6 @@ describe('Liking a comment', () => {
     
     cy.get('#commentLikes').contains(1);
   });
-  */
 
   it('cannot be done if user is not logged in', () => {
     cy.get('#navbarSignOutButton').click();
@@ -173,8 +165,6 @@ describe('Liking a comment', () => {
 
     cy.get('#commentLikes').contains(0);
   });
-
-  /*
 
   it('can be done with many different users', () => {
     // Liking post by the first user
@@ -204,6 +194,5 @@ describe('Liking a comment', () => {
     cy.get('#commentLikeButton').click();
     cy.get('#commentLikes').contains(2);
   });
-  */
 
 });

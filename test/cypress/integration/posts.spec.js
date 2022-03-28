@@ -7,10 +7,9 @@ describe('Creating a new post', () => {
     // creating user for testing
     cy.request('POST', `${baseUrl}/api/users`, testUser)
 
-    cy.visit(`${baseUrl}`);
+    cy.visit(`${baseUrl}`, { timeout: 10000 });
 
     // logging in the user before running tests
-    cy.wait(1000);
     cy.get('#navbarSignInButton').click();
     cy.contains('SIGN IN TO YOUR ACCOUNT');
     cy.get('#username').type(testUser.username);
@@ -18,7 +17,6 @@ describe('Creating a new post', () => {
     cy.get('#loginButton').should('be.enabled');
     cy.get('#loginButton').click();
     
-    cy.wait(1000);
     cy.contains('PROFILE');
     cy.contains('CREATE NEW POST');
 
@@ -31,15 +29,12 @@ describe('Creating a new post', () => {
     cy.get('#createPostButton').should('be.enabled');
     cy.get('#createPostButton').click();
 
-    cy.wait(1000)
     cy.on('window:alert', (alertText) => {
       expect(alertText).to.equal('Post created!');
     });
 
-    cy.wait(1000)
     cy.contains(testPost.title);
     cy.contains(testPost.description);
-
   });
 
   it('is not allowed when title is left empty', () => {
@@ -121,7 +116,6 @@ describe('Liking a post', () => {
     cy.get('#postLikes').eq(0);
   });
 
-  /*
   it('can be liked by many different users', () => {
     // Liking post by the first user
     cy.get('#postLikes').contains(0);
@@ -147,6 +141,5 @@ describe('Liking a post', () => {
     cy.get('#postLikeButton').click();
     cy.get('#postLikes').contains(2);
   });
-  */
 });
 

@@ -1,9 +1,9 @@
 import { testUser, nonExistingUser, baseUrl } from '../constants';
 
+/*
 describe('Sign in', () => {
   beforeEach(() => {
     cy.request('POST', `${baseUrl}/api/testing/resetdb`);
-
     // creating user for testing
     cy.request('POST', `${baseUrl}/api/users`, testUser)
     
@@ -35,3 +35,4 @@ describe('Sign in', () => {
     });
   });
 });
+*/

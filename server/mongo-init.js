@@ -16,21 +16,21 @@ db.createCollection('comments');
 db.users.insert({
   _id: ObjectId("5dd62b4070fb13eec3963bea"),
   email: 'testmail12@random.com',
-  username: 'testusername',
-  password: 'testpassword'
+  username: 'testusername123123',
+  password: 'testpassword123123'
 });
 
 db.posts.insert({
   _id: ObjectId("6dd62b4070fb13eec3963bea"),
   original_poster: ObjectId("5dd62b4070fb13eec3963bea"),
-  title: 'Random post 1',
+  title: 'Random post 11',
   description: 'Hello world!',
 });
 
 db.posts.insert({
   _id: ObjectId("8dd62b4070fb13eec3963bea"),
   original_poster: ObjectId("5dd62b4070fb13eec3963bea"),
-  title: 'Random post 2',
+  title: 'Random post 21',
   description: 'Hello world!',
 });
 
