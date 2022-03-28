@@ -10,7 +10,7 @@ import CommentList from '../components/CommentList';
 import Loading from '../components/Loading';
 import Post from '../components/Post';
 import { FIND_POST_BY_ID } from '../queries/post';
-import img from '../style/header.jpg';
+import '../style/PostPage.css';
 
 const PostPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,18 +24,9 @@ const PostPage: React.FC = () => {
   if (!data) {
     return (
       <Grid>
-        <Grid.Row
-          color="black"
-          textAlign="center"
-          style={{
-            padding: '100px',
-            backgroundImage: `url(${img})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: '100% 200%',
-          }}
-        >
+        <Grid.Row id="postpage-error-grid-row-1">
           <Grid.Column width={16} textAlign="center">
-            <Header inverted style={{ fontSize: '40px' }}>
+            <Header id="postpage-error-grid-row-1-header">
               <p>
                 <span>404 - Could not find post</span>
                 <span className="blinking">_</span>
@@ -48,23 +39,13 @@ const PostPage: React.FC = () => {
   }
 
   const post = data.findPost;
-  console.log('DATA =', post);
 
   return (
     <div>
       <Grid>
-        <Grid.Row
-          color="black"
-          textAlign="center"
-          style={{
-            padding: '100px',
-            backgroundImage: `url(${img})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: '100% 200%',
-          }}
-        >
+        <Grid.Row id="postpage-grid-row-1">
           <Grid.Column width={16} textAlign="center">
-            <Header inverted style={{ fontSize: '40px' }}>
+            <Header id="postpage-grid-row-1-header">
               <p>
                 <Icon name="at" color="yellow" />
                 {post.title}
@@ -74,7 +55,7 @@ const PostPage: React.FC = () => {
           </Grid.Column>
         </Grid.Row>
       </Grid>
-      <Container style={{ marginTop: '100px' }}>
+      <Container id="postpage-container">
         <Post post={post} />
         <Divider />
         <CommentList comments={post.comments} />

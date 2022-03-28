@@ -1,0 +1,28 @@
+#postpage-error-grid-row-1 {
+  padding: 100px;
+  background-image: url('./header.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 200%;
+}
+
+#postpage-error-grid-row-1-header {
+  font-size: 40px;
+  color: white;
+}
+
+#postpage-grid-row-1 {
+  padding: 100px;
+  background-image: url('./header.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 200%;
+  text-align: left;
+}
+
+#postpage-grid-row-1-header {
+  font-size: 40px;
+  color: white;
+}
+
+#postpage-container {
+  margin-top: 80px;
+}
