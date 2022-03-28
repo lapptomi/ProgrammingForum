@@ -4,8 +4,8 @@ import {
   Form, Grid, Header, Container, Segment,
 } from 'semantic-ui-react';
 import { useMutation } from '@apollo/client';
-import img from '../style/header.jpg';
 import { CREATE_NEW_POST } from '../queries/post';
+import '../style/CreatePostPage.css';
 
 const CreatePostPage: React.FC = () => {
   const [title, setTitle] = useState('');
@@ -34,19 +34,10 @@ const CreatePostPage: React.FC = () => {
   };
 
   return (
-    <Grid centered>
-      <Grid.Row
-        color="black"
-        textAlign="center"
-        style={{
-          padding: '100px',
-          backgroundImage: `url(${img})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '100% 200%',
-        }}
-      >
+    <Grid>
+      <Grid.Row id="create-post-grid-row-1">
         <Grid.Column width={16} textAlign="center">
-          <Header inverted style={{ fontSize: '46px' }}>
+          <Header id="create-post-grid-row-1-header">
             <p>
               <span>Create New Post</span>
               <span className="blinking">_</span>
@@ -54,12 +45,10 @@ const CreatePostPage: React.FC = () => {
           </Header>
         </Grid.Column>
       </Grid.Row>
-      <Grid.Row style={{ padding: '50px' }}>
+      <Grid.Row id="create-post-grid-row-2">
         <Grid.Column width={16}>
           <Container>
-            <Header as="h2" textAlign="left">
-              Create Post
-            </Header>
+            <Header as="h2" textAlign="left">Create Post</Header>
             <Segment>
               <Form>
                 <Form.Input
@@ -72,7 +61,6 @@ const CreatePostPage: React.FC = () => {
                 />
                 <Form.TextArea
                   id="description"
-                  style={{ minHeight: '150px' }}
                   label="Description"
                   placeholder="Description..."
                   value={description}

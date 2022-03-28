@@ -10,20 +10,14 @@ const LoggedOutTopNav: React.FC = () => (
   <Grid.Column width={16}>
     <Menu secondary>
       <Container>
-        <Menu.Item
-          id="navbarHomeButton"
-          position="left"
-        >
+        <Menu.Item id="navbarHomeButton" position="left">
           <Link to="/">
             <Button color="black">
               <Header inverted as="h3" content="<HOME />" />
             </Button>
           </Link>
         </Menu.Item>
-        <Menu.Item
-          id="navbarSignInButton"
-          position="right"
-        >
+        <Menu.Item id="navbarSignInButton" position="right">
           <Link to="/login">
             <Button color="black">
               <Header inverted as="h3" content="LOG IN" />
@@ -60,10 +54,7 @@ const LoggedInTopNav = () => (
             </Button>
           </Link>
         </Menu.Item>
-        <Menu.Item
-          id="navbarProfileButton"
-          position="right"
-        >
+        <Menu.Item id="navbarProfileButton" position="right">
           <Link to="/profile">
             <Button color="black">
               <Header inverted as="h3" content="PROFILE" />
@@ -71,11 +62,7 @@ const LoggedInTopNav = () => (
           </Link>
         </Menu.Item>
         <Menu.Item>
-          <Button
-            id="navbarSignOutButton"
-            color="black"
-            onClick={() => loginService.logout()}
-          >
+          <Button id="navbarSignOutButton" color="black" onClick={() => loginService.logout()}>
             <Header inverted as="h3" content="LOG OUT" />
           </Button>
         </Menu.Item>
@@ -90,9 +77,7 @@ const TopNav: React.FC = () => {
   return (
     <Grid>
       <Grid.Row color="black" style={{ padding: '15px' }}>
-        {state.isLoggedIn
-          ? <LoggedInTopNav />
-          : <LoggedOutTopNav />}
+        {state.isLoggedIn ? <LoggedInTopNav /> : <LoggedOutTopNav />}
       </Grid.Row>
     </Grid>
   );

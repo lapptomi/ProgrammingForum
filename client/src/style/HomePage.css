@@ -1,0 +1,17 @@
+#homepage-row-1 {
+  padding: 150px;
+  background-image: url('./header.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 1000px;
+  text-align: center;
+}
+
+#homepage-row-1-header1 {
+  font-size: 64px;
+  color: white;
+}
+
+#homepage-row-1-header2 {
+  font-size: 22px;
+  color: white;
+}

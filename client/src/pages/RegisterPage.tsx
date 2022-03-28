@@ -9,9 +9,9 @@ import {
   Icon,
 } from 'semantic-ui-react';
 import { useMutation } from '@apollo/client';
-import img from '../style/header.jpg';
 import { CREATE_NEW_USER } from '../queries/user';
 import { LOG_IN } from '../queries/login';
+import '../style/RegisterPage.css';
 
 const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -35,13 +35,11 @@ const RegisterPage: React.FC = () => {
       .then(() => {
         login({ variables: { username, password } })
           .then((result) => {
-            console.log('result = ', result);
             const token = JSON.stringify(result.data.login);
             window.localStorage.setItem('loggedUser', token);
             window.location.reload();
           })
           .catch((error) => {
-            console.log('error = ', error);
             window.alert(error.message);
           });
       })
@@ -49,22 +47,10 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <Grid
-      textAlign="center"
-      verticalAlign="middle"
-    >
-      <Grid.Row
-        color="black"
-        textAlign="center"
-        style={{
-          padding: '100px',
-          backgroundImage: `url(${img})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '100% 200%',
-        }}
-      >
+    <Grid textAlign="center" verticalAlign="middle">
+      <Grid.Row id="registerpage-row-1">
         <Grid.Column width={16} textAlign="center">
-          <Header inverted style={{ fontSize: '40px' }}>
+          <Header id="registerpage-row-1-header">
             <p>
               <Icon name="at" color="yellow" />
               <span>CREATE NEW ACCOUNT</span>
@@ -74,10 +60,8 @@ const RegisterPage: React.FC = () => {
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>
-        <Grid.Column style={{ maxWidth: '500px', marginTop: '200px' }} width={16}>
-          <Header as="h2" textAlign="left">
-            Sign up
-          </Header>
+        <Grid.Column id="registerpage-row-2-col-1" width={16}>
+          <Header as="h2" textAlign="left">Sign up</Header>
           <Form size="large" onSubmit={handleSubmit}>
             <Form.Input
               id="email"

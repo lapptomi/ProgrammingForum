@@ -1,0 +1,21 @@
+#create-post-grid-row-1 {
+  padding: 100px;
+  background-image: url('./header.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 200%;
+  text-align: center;
+}
+
+#create-post-grid-row-1-header {
+  font-size: 46px;
+  color: white;
+}
+
+#create-post-grid-row-2 {
+  padding: 50px;
+}
+
+
+#description {
+  min-height: 150px;
+}

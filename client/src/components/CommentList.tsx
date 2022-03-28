@@ -2,7 +2,7 @@
 /* eslint-disable no-alert */
 import { useMutation } from '@apollo/client';
 import {
-  Comment, Divider, Header, Icon,
+  Comment, Divider, Icon,
 } from 'semantic-ui-react';
 import React from 'react';
 import img from '../style/avatar.png';
@@ -16,7 +16,6 @@ interface Props {
 
 const CommentList: React.FC<Props> = ({ comments }) => {
   const [state] = useGlobalState();
-
   const [likeComment] = useMutation(LIKE_COMMENT);
 
   const handleCommentLike = (commentId: string) => {
@@ -30,35 +29,22 @@ const CommentList: React.FC<Props> = ({ comments }) => {
       .catch((error) => window.alert(error));
   };
 
-  console.log('comments =', comments);
-
   return (
     <div>
       <Icon name="reply" color="black" />
-      <Header
-        as="b"
-        size="small"
-        content={`${comments.length} replies`}
-        style={{ padding: '10px' }}
-      />
+      <b id="comment-list-b">{`${comments.length} replies`}</b>
       <Comment.Group style={{ minWidth: '100%', paddingLeft: '10px' }}>
         {comments.map((comment: IComment) => (
           <Comment key={comment.id}>
             <Comment.Avatar src={img} />
             <Comment.Content>
               <Comment.Author as="a">{comment.comment_writer.username}</Comment.Author>
-              <Comment.Metadata>
-                <div>{comment.created_at}</div>
-              </Comment.Metadata>
+              <Comment.Metadata><div>{comment.created_at}</div></Comment.Metadata>
               <Comment.Text>{comment.comment}</Comment.Text>
               <Comment.Actions>
                 <Comment.Action onClick={() => handleCommentLike(comment.id)}>
                   <Icon name="like" id="commentLikeButton" />
-                  <span id="commentLikes">
-                    {comment.likers.length}
-                    {' '}
-                    Likes
-                  </span>
+                  <span id="commentLikes">{`${comment.likers.length} Likes`}</span>
                 </Comment.Action>
               </Comment.Actions>
             </Comment.Content>

@@ -13,7 +13,6 @@ import Post from './Post';
 const PostsList: React.FC = () => {
   const { loading, error, data } = useQuery(GET_ALL_POSTS);
 
-  console.log('data = ', data);
   if (loading) {
     return <Loading />;
   }

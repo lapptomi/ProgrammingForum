@@ -9,6 +9,7 @@ import {
 import { LIKE_POST } from '../queries/post';
 import { useGlobalState } from '../state/state';
 import { IPost } from '../types';
+import '../style/Post.css';
 
 interface Props {
   post: IPost;
@@ -16,7 +17,6 @@ interface Props {
 
 const Post: React.FC<Props> = ({ post }) => {
   const [state] = useGlobalState();
-
   const [likePost] = useMutation(LIKE_POST);
 
   const handlePostLike = () => {
@@ -30,9 +30,9 @@ const Post: React.FC<Props> = ({ post }) => {
   };
 
   return (
-    <Grid celled style={{ marginTop: '50px' }}>
+    <Grid id="post-grid" celled>
       <Grid.Row color="black">
-        <Grid.Column width={14} style={{ padding: '8px' }}>
+        <Grid.Column id="post-grid-row-1-col-1" width={14}>
           <Link to={`/posts/${post.id}`}>
             <Header
               inverted
@@ -60,20 +60,17 @@ const Post: React.FC<Props> = ({ post }) => {
       <Grid.Row>
         <Grid.Column width={16} floated="left">
           <Header
+            id="post-grid-row-2-col-1-header"
             size="small"
             content={post.description}
-            style={{
-              padding: '20px 10px 20px 10px',
-              fontWeight: 'normal',
-            }}
           />
           <Divider />
           <Link to={`/posts/${post.id}`}>
             <Header
+              id="post-grid-row-2-col-1-header2"
               as="b"
               size="small"
               content="Comments"
-              style={{ padding: '10px' }}
             />
             <Icon name="comment" color="grey" />
           </Link>

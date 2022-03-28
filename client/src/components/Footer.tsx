@@ -6,37 +6,25 @@ import {
   Header,
   Divider,
 } from 'semantic-ui-react';
+import '../style/Footer.css';
 
 const Footer: React.FC = () => (
-  <Grid style={{ minWidth: '100%' }}>
-    <Grid.Row
-      color="black"
-      style={{
-        padding: '80px', marginTop: '200px',
-      }}
-    >
+  <Grid id="footer-grid">
+    <Grid.Row id="footer-grid-row-1">
       <Grid.Column width={16}>
         <Container textAlign="center">
           <Grid divided inverted>
             <Grid.Column width={16}>
               <Header inverted as="h2" content="Programming Forum" />
-              <p>© 2021 All Rights Reserved jne</p>
+              <p id="footer-text">© 2021 All Rights Reserved jne</p>
             </Grid.Column>
           </Grid>
           <Divider inverted section />
           <List horizontal inverted link size="small">
-            <List.Item as="a" href="#">
-              Site Map
-            </List.Item>
-            <List.Item as="a" href="#">
-              Contact Us
-            </List.Item>
-            <List.Item as="a" href="#">
-              Terms and Conditions
-            </List.Item>
-            <List.Item as="a" href="#">
-              Privacy Policy
-            </List.Item>
+            <List.Item as="a" href="#">Site Map</List.Item>
+            <List.Item as="a" href="#">Contact Us</List.Item>
+            <List.Item as="a" href="#">Terms and Conditions</List.Item>
+            <List.Item as="a" href="#">Privacy Policy</List.Item>
           </List>
         </Container>
       </Grid.Column>

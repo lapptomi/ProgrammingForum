@@ -15,6 +15,7 @@ import CreatePostPage from './pages/CreatePostPage';
 import ProfilePage from './pages/ProfilePage';
 import TopNav from './components/TopNav';
 import Loading from './components/Loading';
+import './style/App.css';
 
 const App: React.FC = () => {
   const [state] = useGlobalState();
@@ -24,30 +25,25 @@ const App: React.FC = () => {
   }
 
   return (
-    <div style={{ minWidth: '768px' }}>
+    <div className="App">
       <TopNav />
-      <div style={{ minHeight: '1000px' }}>
+      <div className="App-container">
         <Switch>
           <Route path="/posts/create">
             {state.isLoggedIn ? <CreatePostPage /> : <Redirect to="/login" />}
           </Route>
-
           <Route path="/posts/:id">
             <PostPage />
           </Route>
-
           <Route path="/login">
             {state.isLoggedIn ? <Redirect to="/" /> : <LoginPage />}
           </Route>
-
           <Route path="/register">
             {state.isLoggedIn ? <Redirect to="/" /> : <RegisterPage />}
           </Route>
-
           <Route path="/profile">
             {state.isLoggedIn ? <ProfilePage /> : <LoginPage />}
           </Route>
-
           <Route path={['/', '/posts']}>
             <HomePage />
           </Route>

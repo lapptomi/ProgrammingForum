@@ -9,8 +9,8 @@ import {
   Icon,
 } from 'semantic-ui-react';
 import { useMutation } from '@apollo/client';
-import img from '../style/header.jpg';
 import { LOG_IN } from '../queries/login';
+import '../style/LoginPage.css';
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -21,34 +21,20 @@ const LoginPage: React.FC = () => {
   const handleSubmit = () => {
     login({ variables: { username, password } })
       .then((result) => {
-        console.log('result = ', result);
         const token = JSON.stringify(result.data.login);
         window.localStorage.setItem('loggedUser', token);
         window.location.reload();
       })
       .catch((error) => {
-        console.log(error);
         window.alert(error.message);
       });
   };
 
   return (
-    <Grid
-      textAlign="center"
-      verticalAlign="middle"
-    >
-      <Grid.Row
-        color="black"
-        textAlign="center"
-        style={{
-          padding: '100px',
-          backgroundImage: `url(${img})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '100% 200%',
-        }}
-      >
+    <Grid textAlign="center" verticalAlign="middle">
+      <Grid.Row id="loginpage-row-1">
         <Grid.Column width={16} textAlign="center">
-          <Header inverted style={{ fontSize: '40px' }}>
+          <Header id="loginpage-row-1-header">
             <p>
               <Icon name="at" color="yellow" />
               <span>SIGN IN TO YOUR ACCOUNT</span>
@@ -58,13 +44,8 @@ const LoginPage: React.FC = () => {
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>
-        <Grid.Column
-          width={16}
-          style={{ maxWidth: '500px', marginTop: '200px' }}
-        >
-          <Header as="h2" textAlign="left">
-            Sign in
-          </Header>
+        <Grid.Column width={16} id="loginpage-row-2">
+          <Header as="h2" textAlign="left">Sign in</Header>
           <Form size="large" onSubmit={handleSubmit}>
             <Form.Input
               id="username"

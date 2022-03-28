@@ -6,6 +6,7 @@ import {
 } from 'semantic-ui-react';
 import { CREATE_NEW_COMMENT } from '../queries/comment';
 import { useGlobalState } from '../state/state';
+import '../style/CommentForm.css';
 
 interface Props {
   postId: number;
@@ -37,7 +38,6 @@ const CommentForm: React.FC<Props> = ({ postId }) => {
       <Form onSubmit={handleSubmit} reply>
         <Form.TextArea
           id="commentField"
-          style={{ minHeight: '50px' }}
           label="Add a new comment."
           placeholder="Comment..."
           onChange={((event) => setComment(event.target.value))}

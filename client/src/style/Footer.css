@@ -1,0 +1,13 @@
+#footer-grid {
+  min-width: 100%;
+}
+
+#footer-grid-row-1 {
+  padding: 80px;
+  margin-top: 200px;
+  background-color: #000000;
+}
+
+#footer-text {
+  color: white;
+}

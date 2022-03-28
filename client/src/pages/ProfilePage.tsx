@@ -4,34 +4,18 @@ import {
   Grid, Header, Icon, Message,
 } from 'semantic-ui-react';
 import { useGlobalState } from '../state/state';
-import img from '../style/header.jpg';
+import '../style/ProfilePage.css';
 
 const ProfilePage: React.FC = () => {
   const [state] = useGlobalState();
 
   return (
-    <Grid
-      textAlign="center"
-      verticalAlign="middle"
-    >
-      <Grid.Row
-        color="black"
-        textAlign="center"
-        style={{
-          padding: '100px',
-          backgroundImage: `url(${img})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '100% 200%',
-        }}
-      >
+    <Grid textAlign="center" verticalAlign="middle">
+      <Grid.Row id="profilepage-row-1">
         <Grid.Column width={16} textAlign="center">
-          <Header inverted style={{ fontSize: '36px' }}>
+          <Header id="profilepage-row-1-header">
             <p>
-              <span style={{
-                color: 'yellowgreen',
-                fontSize: '50px',
-              }}
-              >
+              <span id="profilepage-row-1-span">
                 {state.loggedUser.username}
               </span>
               <span>@ProgrammingForum/users</span>
@@ -41,7 +25,6 @@ const ProfilePage: React.FC = () => {
           </Header>
         </Grid.Column>
       </Grid.Row>
-
       <Grid.Row>
         <Container textAlign="center">
           <Message

@@ -1,17 +1,17 @@
-{
-  "extends": [
+module.exports = {
+  extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "airbnb-typescript/base"
   ],
-  "root": true,
-  "plugins": ["@typescript-eslint"],
-  "env": {
+  root: true,
+  plugins: ["@typescript-eslint"],
+  env: {
     "browser": true,
     "es6": true
   },
-  "rules": {
+  rules: {
     "arrow-body-style": 0,
     "@typescript-eslint/no-misused-promises": [
       "error",
@@ -29,8 +29,11 @@
      "@typescript-eslint/no-explicit-any": 1,
     "no-case-declarations": 0
   },
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json"
+  ignorePatterns: [".eslintrc.js", "test", "dist"],
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    project: "./tsconfig.json",
+    tsconfigRootDir: __dirname,
+    sourceType: "module"
   }
 }

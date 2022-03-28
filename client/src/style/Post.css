@@ -1,0 +1,17 @@
+#post-grid {
+  margin-top: 50px;
+}
+
+#post-grid-row-1-col-1 {
+  padding: 8px;
+}
+
+#post-grid-row-2-col-1-header {
+  padding: 20px 10px 20px 10px;
+  font-weight: normal;
+}
+
+#post-grid-row-2-col-1-header2 {
+  padding: 10px;
+}
+

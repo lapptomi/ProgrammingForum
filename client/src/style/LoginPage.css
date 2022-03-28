@@ -1,0 +1,18 @@
+#loginpage-row-1 {
+  padding: 100px;
+  background-image: url('./header.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 200%;
+  text-align: center;
+}
+
+#loginpage-row-2 {
+  max-width: 500px;
+  margin-top: 150px;
+}
+
+
+#loginpage-row-1-header {
+  font-size: 40px;
+  color: white;
+}
