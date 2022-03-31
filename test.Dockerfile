@@ -4,10 +4,12 @@ WORKDIR /usr/src/app
 
 COPY ./client ./client
 
+RUN cd client && npm ci && npm run lint
+
 COPY ./server ./server
 
-WORKDIR /usr/src/app/server
+RUN cd server && npm ci && npm run eslint && npm run build:full
 
-RUN npm ci && npm run eslint && npm run build:full
+WORKDIR /usr/src/app/server
 
 CMD ["npm", "run", "start:test"]
