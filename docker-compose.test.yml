@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  pf-mongo-test:
+  programmingforum-mongo-test:
     image: mongo
     ports:
      - 3456:27017
@@ -11,13 +11,12 @@ services:
       MONGO_INITDB_DATABASE: the_database
     volumes: 
       - ./server/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
-    container_name: pf-mongo-test
+    container_name: programmingforum-mongo-test
 
   programming-forum-test:
     environment:
       - NODE_ENV=test
-      - SECRET=helloworld
-      - TEST_MONGODB_URI=mongodb://the_username:the_password@pf-mongo-test/the_database
+      - TEST_MONGODB_URI=mongodb://the_username:the_password@programmingforum-mongo-test/the_database
     build:
       context: ./
       dockerfile: test.Dockerfile
@@ -25,7 +24,4 @@ services:
       - 4000:4000
     container_name: programming-forum-test
     depends_on:
-      - pf-mongo-test
-
-#volumes:
-#  mongo_data:
+      - programmingforum-mongo-test

@@ -5,9 +5,11 @@ import { Token } from './types';
 import app from './src/app';
 import User from './src/models/User';
 import { schema } from './src/graphql/schema';
-import { MONGODB_URI, PORT, TEST_MONGODB_URI } from './src/config/config';
+import {
+  MONGODB_URI, NODE_ENV, PORT, SECRET, TEST_MONGODB_URI,
+} from './src/config/config';
 
-const MONGODB = process.env.NODE_ENV === 'test'
+const MONGODB = NODE_ENV === 'test'
   ? TEST_MONGODB_URI
   : MONGODB_URI;
 
@@ -37,10 +39,7 @@ const startApolloServer = async () => {
         // auth[0] should equal 'bearer'
         // and auth[1] should be the token
         const token = auth[1];
-
-        const decodedToken = jwt.verify(
-          token, process.env.SECRET as string,
-        ) as Token;
+        const decodedToken = jwt.verify(token, SECRET) as Token;
 
         if (!token || !decodedToken.id) {
           throw new Error('Token missing or invalid');
