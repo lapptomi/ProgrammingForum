@@ -4,6 +4,7 @@ import testingRouter from './routes/testing';
 import userRouter from './routes/users';
 
 import { errorHandler } from './middleware';
+import { NODE_ENV } from './config/config';
 
 const app = express();
 
@@ -18,7 +19,7 @@ app.get('/', (_req, res) => {
 app.use('/api/users', userRouter);
 app.use('/api/testing', testingRouter);
 
-if (process.env.NODE_ENV !== 'development') {
+if (NODE_ENV !== 'development') {
   app.get('*', (_req, res) => {
     res.sendFile('index.html', { root: './dist/build/' });
   });
