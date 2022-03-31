@@ -7,7 +7,7 @@ describe('Creating a new post', () => {
     // creating user for testing
     cy.request('POST', `${baseUrl}/api/users`, testUser)
 
-    cy.visit(`${baseUrl}`, { timeout: 10000 });
+    cy.visit(`${baseUrl}`);
 
     // logging in the user before running tests
     cy.get('#navbarSignInButton').click();

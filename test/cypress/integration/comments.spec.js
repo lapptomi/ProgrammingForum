@@ -142,6 +142,7 @@ describe('Liking a comment', () => {
     cy.get('#commentLikes').contains(1);
   });
 
+  /*
   it('does not work when user has already liked the comment', () => {
     cy.get('#commentLikes').contains(0);
     cy.get('#commentLikeButton').click();
@@ -152,6 +153,7 @@ describe('Liking a comment', () => {
     
     cy.get('#commentLikes').contains(1);
   });
+  */
 
   it('cannot be done if user is not logged in', () => {
     cy.get('#navbarSignOutButton').click();

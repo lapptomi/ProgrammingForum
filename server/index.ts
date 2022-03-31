@@ -1,19 +1,17 @@
 import { ApolloServer } from 'apollo-server-express';
-import dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import { Token } from './types';
 import app from './src/app';
 import User from './src/models/User';
 import { schema } from './src/graphql/schema';
+import { MONGODB_URI, PORT, TEST_MONGODB_URI } from './src/config/config';
 
-dotenv.config();
+const MONGODB = process.env.NODE_ENV === 'test'
+  ? TEST_MONGODB_URI
+  : MONGODB_URI;
 
-const MONGODB_URI = process.env.NODE_ENV === 'test'
-  ? process.env.TEST_MONGODB_URI
-  : process.env.MONGODB_URI;
-
-mongoose.connect(MONGODB_URI as string, {
+mongoose.connect(MONGODB as string, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
@@ -22,6 +20,7 @@ mongoose.connect(MONGODB_URI as string, {
   console.log('connected to MongoDB');
 }).catch((error) => {
   console.log('error connecting to MongoDB:', (error as Error).message);
+  process.exit(-1);
 });
 
 const startApolloServer = async () => {
@@ -58,7 +57,6 @@ const startApolloServer = async () => {
 
   server.applyMiddleware({ app });
 
-  const PORT = process.env.PORT || 4000;
   app.listen(PORT, () => {
     console.log(`Server running on ${PORT}`);
   });

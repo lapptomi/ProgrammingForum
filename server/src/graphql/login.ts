@@ -2,6 +2,7 @@ import { gql } from 'apollo-server-express';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { IUser, Token } from '../../types';
+import { SECRET } from '../config/config';
 import User from '../models/User';
 
 interface LoginArgs {
@@ -48,7 +49,7 @@ export const resolvers = {
 
       const newToken = jwt.sign(
         userForToken,
-        process.env.SECRET as string,
+        SECRET,
         { expiresIn: 60 * 60 }, // expires in 1h
       );
 
