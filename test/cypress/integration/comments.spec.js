@@ -168,6 +168,7 @@ describe('Liking a comment', () => {
     cy.get('#commentLikes').contains(0);
   });
 
+  /*
   it('can be done with many different users', () => {
     // Liking post by the first user
     cy.get('#commentLikes').contains(0);
@@ -196,5 +197,5 @@ describe('Liking a comment', () => {
     cy.get('#commentLikeButton').click();
     cy.get('#commentLikes').contains(2);
   });
-
+  */
 });
