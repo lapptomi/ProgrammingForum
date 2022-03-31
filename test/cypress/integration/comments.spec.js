@@ -80,6 +80,7 @@ describe('Adding comments to a post', () => {
     cy.get('#addCommentButton').should('be.enabled');
     cy.get('#addCommentButton').click();
     
+    cy.wait(1000)
     // Add another comment
     cy.contains('Add a new comment.');
     cy.get('#commentField').type(testComment2.comment);
@@ -92,7 +93,6 @@ describe('Adding comments to a post', () => {
   });
 
 });
-
 
 
 describe('Liking a comment', () => {
@@ -139,21 +139,22 @@ describe('Liking a comment', () => {
     cy.get('#commentLikes').contains(0);
     cy.get('#commentLikeButton').click();
     
+    cy.wait(1000)
     cy.get('#commentLikes').contains(1);
   });
 
-  /*
   it('does not work when user has already liked the comment', () => {
     cy.get('#commentLikes').contains(0);
     cy.get('#commentLikeButton').click();
     
+    cy.wait(1000)
     cy.get('#commentLikes').contains(1);
 
     cy.get('#commentLikeButton').click();
     
+    cy.wait(1000)
     cy.get('#commentLikes').contains(1);
   });
-  */
 
   it('cannot be done if user is not logged in', () => {
     cy.get('#navbarSignOutButton').click();
@@ -168,11 +169,12 @@ describe('Liking a comment', () => {
     cy.get('#commentLikes').contains(0);
   });
 
-  /*
   it('can be done with many different users', () => {
     // Liking post by the first user
     cy.get('#commentLikes').contains(0);
     cy.get('#commentLikeButton').click();
+
+    cy.wait(1000)
     cy.get('#commentLikes').contains(1);
 
     // Sign out and sign in as another user
@@ -192,10 +194,12 @@ describe('Liking a comment', () => {
     cy.get('#commentLikes').contains(1);
     cy.get('#commentLikeButton').click();
 
+    cy.wait(1000)
     cy.get('#commentLikes').contains(2);
 
     cy.get('#commentLikeButton').click();
+
+    cy.wait(1000)
     cy.get('#commentLikes').contains(2);
   });
-  */
 });

@@ -1,14 +1,14 @@
-import { testUser, nonExistingUser, baseUrl } from '../constants';
-
+import { testUser, baseUrl } from '../constants';
 
 describe('Sign in', () => {
-  /*
   beforeEach(() => {
     cy.request('POST', `${baseUrl}/api/testing/resetdb`);
     // creating user for testing
     cy.request('POST', `${baseUrl}/api/users`, testUser)
     
     cy.visit(`${baseUrl}`);
+    cy.clearLocalStorage();
+    cy.reload();
 
     cy.get('#navbarSignInButton').click();
   });
@@ -35,5 +35,4 @@ describe('Sign in', () => {
       expect(alertText).to.contain('Invalid username or password');
     });
   });
-  */
 });

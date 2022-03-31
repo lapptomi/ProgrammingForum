@@ -5,7 +5,9 @@ describe('Creating new user', async () => {
     cy.request('POST', `${baseUrl}/api/testing/resetdb`);
 
     cy.visit(`${baseUrl}`);
-
+    cy.clearLocalStorage();
+    cy.reload();
+    
     cy.get('#navbarSignUpButton').click();
     cy.contains('CREATE NEW ACCOUNT');
   });
