@@ -5,17 +5,17 @@ describe('Creating a new post', () => {
     cy.request('POST', `${baseUrl}/api/testing/resetdb`);
 
     // creating user for testing
-    cy.request('POST', `${baseUrl}/api/users`, testUser)
-
     cy.visit(`${baseUrl}`);
 
-    // logging in the user before running tests
-    cy.get('#navbarSignInButton').click();
-    cy.contains('SIGN IN TO YOUR ACCOUNT');
+    cy.get('#navbarSignUpButton').click();
+    cy.contains('CREATE NEW ACCOUNT');
+    cy.get('#email').type(testUser.email);
     cy.get('#username').type(testUser.username);
     cy.get('#password').type(testUser.password);
-    cy.get('#loginButton').should('be.enabled');
-    cy.get('#loginButton').click();
+    cy.get('#confirmPassword').type(testUser.password);
+    cy.get('#registerButton').click();
+    
+    cy.contains('PROFILE')
     
     cy.contains('PROFILE');
     cy.contains('CREATE NEW POST');
