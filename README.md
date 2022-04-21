@@ -1,6 +1,5 @@
-# Programming Forum
+# Programming Forum [![Test And Deploy](https://github.com/lapptomi/ProgrammingForum/actions/workflows/pipeline.yml/badge.svg)](https://github.com/lapptomi/ProgrammingForum/actions/workflows/pipeline.yml)
 
-[![Pipeline](https://github.com/lapptomi/tsoha-2021/actions/workflows/pipeline.yml/badge.svg)](https://github.com/lapptomi/tsoha-2021/actions/workflows/pipeline.yml)
 
 ## Technologies used  
 
